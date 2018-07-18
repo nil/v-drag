@@ -7,11 +7,11 @@ let data = {
   direction: ""
 }
 
-function mouseDown(arg, e) {
+function mouseDown(arg, val, e) {
   var x = e.pageX || e.touches[0].pageX;
   var y = e.pageY || e.touches[0].pageY;
 
-  data.element = e.target;
+  data.element = document.getElementById(val) || e.target;
   data.direction = arg;
   data.positionX = data.element.offsetLeft - x;
   data.positionY = data.element.offsetTop - y;
@@ -46,10 +46,15 @@ function mouseUp() {
 export default Vue.directive("drag", {
   inserted: function (el, binding, vnode) {
     var arg = binding.arg;
+    var val = binding.value;
+
+    if (val && !document.getElementById(val)) {
+      console.error(`Element with id "${val}" doesn't exist`);
+    }
 
     /* Start dragging */
-    el.addEventListener("mousedown", e => mouseDown(arg, e));
-    el.addEventListener("touchstart", e => mouseDown(arg, e));
+    el.addEventListener("mousedown", e => mouseDown(arg, val, e));
+    el.addEventListener("touchstart", e => mouseDown(arg, val, e));
 
     /* End dragging */
     document.addEventListener("mouseup", mouseUp);
