@@ -7,7 +7,7 @@ let data = {
   direction: ""
 }
 
-function mouseDown(arg, val, e) {
+function dragDown(arg, val, e) {
   var x = e.pageX || e.touches[0].pageX;
   var y = e.pageY || e.touches[0].pageY;
 
@@ -36,7 +36,7 @@ function updateY(e) {
   data.element.style.top = data.positionY + y + "px";
 }
 
-function mouseUp() {
+function dragUp() {
   document.removeEventListener("mousemove", updateX);
   document.removeEventListener("touchmove", updateX);
   document.removeEventListener("mousemove", updateY);
@@ -53,11 +53,11 @@ export default Vue.directive("drag", {
     }
 
     /* Start dragging */
-    el.addEventListener("mousedown", e => mouseDown(arg, val, e));
-    el.addEventListener("touchstart", e => mouseDown(arg, val, e));
+    el.addEventListener("mousedown", e => dragDown(arg, val, e));
+    el.addEventListener("touchstart", e => dragDown(arg, val, e));
 
     /* End dragging */
-    document.addEventListener("mouseup", mouseUp);
-    document.addEventListener("touchend", mouseUp);
+    document.addEventListener("mouseup", dragUp);
+    document.addEventListener("touchend", dragUp);
   }
 })
