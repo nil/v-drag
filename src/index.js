@@ -8,6 +8,9 @@ let data = {
   offsetX: 0,
   offsetY: 0,
 
+  initialX: 0,
+  initialY: 0,
+
   absoluteX: 0,
   absoluteY: 0
 }
@@ -26,11 +29,15 @@ function dragDown(arg, val, e) {
   }
 
   data.axis = arg || "all";
+
   data.offsetX = data.element.offsetLeft - x;
   data.offsetY = data.element.offsetTop - y;
 
-  // exportData.element = data.element;
-  // exportData.axis = data.axis;
+  data.initialX = data.element.offsetLeft;
+  data.absoluteX = data.element.offsetLeft;
+
+  data.initialY = data.element.offsetTop;
+  data.absoluteY = data.element.offsetTop;
 
   if (data.axis != "x") {
     document.addEventListener("mousemove", updateY);
@@ -65,6 +72,9 @@ function dragUp() {
 }
 
 export function exportData() {
+  let relativeX = data.absoluteX - data.initialX;
+  let relativeY = data.absoluteY - data.initialY;
+
   return {
     element: data.element,
     handle: data.handle,
@@ -75,7 +85,14 @@ export function exportData() {
       y: data.absoluteY
     },
     absoluteX: data.absoluteX,
-    absoluteY: data.absoluteY
+    absoluteY: data.absoluteY,
+
+    relative: {
+      x: relativeX,
+      y: relativeY
+    },
+    relativeX: relativeX,
+    relativeY: relativeY
   }
 }
 
