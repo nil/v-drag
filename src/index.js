@@ -2,45 +2,81 @@ import Vue from "vue"
 
 let data = {
   element: null,
-  positionX: 0,
-  positionY: 0,
-  direction: ""
+  handle: false,
+  axis: "all",
+
+  offsetX: 0,
+  offsetY: 0,
+
+  absoluteX: 0,
+  absoluteY: 0
 }
 
+/* Start dragging */
 function dragDown(arg, val, e) {
   var x = e.pageX || e.touches[0].pageX;
   var y = e.pageY || e.touches[0].pageY;
 
-  data.element = document.getElementById(val) || e.target;
-  data.direction = arg;
-  data.positionX = data.element.offsetLeft - x;
-  data.positionY = data.element.offsetTop - y;
+  if (document.getElementById(val)) {
+    data.element = document.getElementById(val);
+    data.handle = e.target;
+  } else {
+    data.element = e.target;
+    data.handle = false;
+  }
 
-  if (data.direction != "x") {
+  data.axis = arg || "all";
+  data.offsetX = data.element.offsetLeft - x;
+  data.offsetY = data.element.offsetTop - y;
+
+  // exportData.element = data.element;
+  // exportData.axis = data.axis;
+
+  if (data.axis != "x") {
     document.addEventListener("mousemove", updateY);
     document.addEventListener("touchmove", updateY);
   }
-  if (data.direction != "y") {
+  if (data.axis != "y") {
     document.addEventListener("mousemove", updateX);
     document.addEventListener("touchmove", updateX);
   }
 }
 
+/* Dragging */
 function updateX(e) {
-  var x = e.pageX || e.touches[0].pageX;
-  data.element.style.left = data.positionX + x + "px";
-}
+  var position = data.offsetX + (e.pageX || e.touches[0].pageX);
 
+  data.element.style.left = position + "px";
+  data.absoluteX = position;
+}
 function updateY(e) {
-  var y = e.pageY || e.touches[0].pageY;
-  data.element.style.top = data.positionY + y + "px";
+  var position = data.offsetY + (e.pageY || e.touches[0].pageY);
+
+  data.element.style.top = position + "px";
+  data.absoluteY = position;
 }
 
+/* End dragging */
 function dragUp() {
   document.removeEventListener("mousemove", updateX);
   document.removeEventListener("touchmove", updateX);
   document.removeEventListener("mousemove", updateY);
   document.removeEventListener("touchmove", updateY);
+}
+
+export function exportData() {
+  return {
+    element: data.element,
+    handle: data.handle,
+    axis: data.axis,
+
+    absolute: {
+      x: data.absoluteX,
+      y: data.absoluteY
+    },
+    absoluteX: data.absoluteX,
+    absoluteY: data.absoluteY
+  }
 }
 
 export default Vue.directive("drag", {
