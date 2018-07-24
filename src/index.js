@@ -71,28 +71,27 @@ function dragUp() {
   document.removeEventListener("touchmove", updateY);
 }
 
-export function exportData() {
-  let relativeX = data.absoluteX - data.initialX;
-  let relativeY = data.absoluteY - data.initialY;
-
-  return {
-    element: data.element,
-    handle: data.handle,
-    axis: data.axis,
-
-    absolute: {
+export const exportData = {
+  get element() {
+    return data.element;
+  },
+  get handle() {
+    return data.handle;
+  },
+  get axis() {
+    return data.axis;
+  },
+  get absolute() {
+    return {
       x: data.absoluteX,
       y: data.absoluteY
-    },
-    absoluteX: data.absoluteX,
-    absoluteY: data.absoluteY,
-
-    relative: {
-      x: relativeX,
-      y: relativeY
-    },
-    relativeX: relativeX,
-    relativeY: relativeY
+    }
+  },
+  get relative() {
+    return {
+      x: data.absoluteX - data.initialX,
+      y: data.absoluteY - data.initialY
+    }
   }
 }
 
