@@ -16,15 +16,15 @@ let data = {
 }
 
 /* Start dragging */
-function dragDown(arg, val, e) {
+function dragDown(arg, val, el, e) {
   var x = e.pageX || e.touches[0].pageX;
   var y = e.pageY || e.touches[0].pageY;
 
   if (document.getElementById(val)) {
     data.element = document.getElementById(val);
-    data.handle = e.target;
+    data.handle = el;
   } else {
-    data.element = e.target;
+    data.element = el;
     data.handle = false;
   }
 
@@ -105,8 +105,8 @@ export default Vue.directive("drag", {
     }
 
     /* Start dragging */
-    el.addEventListener("mousedown", e => dragDown(arg, val, e));
-    el.addEventListener("touchstart", e => dragDown(arg, val, e));
+    el.addEventListener("mousedown", e => dragDown(arg, val, el, e));
+    el.addEventListener("touchstart", e => dragDown(arg, val, el, e));
 
     /* End dragging */
     document.addEventListener("mouseup", dragUp);
