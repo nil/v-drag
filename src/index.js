@@ -5,14 +5,11 @@ let data = {
   handle: false,
   axis: "all",
 
-  offsetX: 0,
-  offsetY: 0,
-
   initialX: 0,
   initialY: 0,
 
-  absoluteX: 0,
-  absoluteY: 0
+  cursorInitialX: 0,
+  cursorInitialY: 0
 }
 
 /* Start dragging */
@@ -23,59 +20,63 @@ function dragDown(arg, val, el, e) {
   if (document.getElementById(val)) {
     data.element = document.getElementById(val);
     data.handle = el;
+    data.handle.style.cursor = "grabbing";
+    data.element.style.position = "relative";
   } else {
     data.element = el;
     data.handle = false;
+    data.element.style.cursor = "grabbing";
   }
 
-  el.style.cursor = "grabbing";
   data.axis = arg || "all";
 
-  data.offsetX = data.element.offsetLeft - x;
-  data.offsetY = data.element.offsetTop - y;
+  data.cursorInitialX = x;
+  data.cursorInitialY = y;
 
-  data.initialX = data.element.offsetLeft;
-  data.absoluteX = data.element.offsetLeft;
+  data.initialX = Number(window.getComputedStyle(data.element).left.replace("px", ""));
+  data.initialY = Number(window.getComputedStyle(data.element).top.replace("px", ""));
 
-  data.initialY = data.element.offsetTop;
-  data.absoluteY = data.element.offsetTop;
+  data.element.style.transform = `translate(${data.initialX}px, ${data.initialY}px)`;
+  data.element.style.left = 0;
+  data.element.style.top = 0;
 
-  if (data.axis != "x") {
-    document.addEventListener("mousemove", updateY);
-    document.addEventListener("touchmove", updateY);
-  }
-  if (data.axis != "y") {
-    document.addEventListener("mousemove", updateX);
-    document.addEventListener("touchmove", updateX);
-  }
+  document.addEventListener("mousemove", updatePosition)
+  document.addEventListener("touchmove", updatePosition)
 }
 
 /* Dragging */
-function updateX(e) {
-  var position = data.offsetX + (e.pageX || e.touches[0].pageX);
+function updatePosition(e) {
+  var x = (e.pageX || e.touches[0].pageX) - data.cursorInitialX;
+  var y = (e.pageY || e.touches[0].pageY) - data.cursorInitialY;
 
-  data.element.style.left = position + "px";
-  data.absoluteX = position;
-}
-function updateY(e) {
-  var position = data.offsetY + (e.pageY || e.touches[0].pageY);
+  if (data.axis == "x") {
+    y = 0;
+    data.element.style.transform = `translateX(${data.initialX + x}px)`;
+  } else if (data.axis == "y") {
+    x = 0;
+    data.element.style.transform = `translateY(${data.initialY + y}px)`;
+  } else {
+    data.element.style.transform = `translate(${data.initialX + x}px, ${data.initialY + y}px)`;
+  }
 
-  data.element.style.top = position + "px";
-  data.absoluteY = position;
+  data.relativeX = x;
+  data.relativeY = y;
 }
 
 /* End dragging */
 function dragUp() {
+  data.element.style.transform = "none";
+  data.element.style.left = data.initialX + data.relativeX + "px";
+  data.element.style.top = data.initialY + data.relativeY + "px";
+
   if (data.handle) {
     data.handle.style.cursor = "grab";
   } else {
     data.element.style.cursor = "grab";
   }
 
-  document.removeEventListener("mousemove", updateX);
-  document.removeEventListener("touchmove", updateX);
-  document.removeEventListener("mousemove", updateY);
-  document.removeEventListener("touchmove", updateY);
+  document.removeEventListener("mousemove", updatePosition);
+  document.removeEventListener("touchmove", updatePosition);
 }
 
 export const exportData = {
@@ -88,16 +89,10 @@ export const exportData = {
   get axis() {
     return data.axis;
   },
-  get absolute() {
-    return {
-      x: data.absoluteX,
-      y: data.absoluteY
-    }
-  },
   get relative() {
     return {
-      x: data.absoluteX - data.initialX,
-      y: data.absoluteY - data.initialY
+      x: data.relativeX,
+      y: data.relativeY
     }
   }
 }
@@ -111,6 +106,7 @@ export default Vue.directive("drag", {
       console.error(`Element with id "${val}" doesn't exist`);
     }
 
+    el.style.position = "relative";
     el.style.cursor = "grab";
 
     /* Start dragging */
