@@ -28,7 +28,7 @@ function dragDown(arg, val, el, e) {
     data.handle = false;
   }
 
-  data.element.style.cursor = "grabbing";
+  el.style.cursor = "grabbing";
   data.axis = arg || "all";
 
   data.offsetX = data.element.offsetLeft - x;
@@ -66,7 +66,11 @@ function updateY(e) {
 
 /* End dragging */
 function dragUp() {
-  data.element.style.cursor = "grab";
+  if (data.handle) {
+    data.handle.style.cursor = "grab";
+  } else {
+    data.element.style.cursor = "grab";
+  }
 
   document.removeEventListener("mousemove", updateX);
   document.removeEventListener("touchmove", updateX);
@@ -106,6 +110,8 @@ export default Vue.directive("drag", {
     if (val && !document.getElementById(val)) {
       console.error(`Element with id "${val}" doesn't exist`);
     }
+
+    el.style.cursor = "grab";
 
     /* Start dragging */
     el.addEventListener("mousedown", e => dragDown(arg, val, el, e));
