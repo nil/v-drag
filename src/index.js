@@ -28,6 +28,7 @@ function dragDown(arg, val, el, e) {
     data.handle = false;
   }
 
+  data.element.style.cursor = "grabbing";
   data.axis = arg || "all";
 
   data.offsetX = data.element.offsetLeft - x;
@@ -65,6 +66,8 @@ function updateY(e) {
 
 /* End dragging */
 function dragUp() {
+  data.element.style.cursor = "grab";
+
   document.removeEventListener("mousemove", updateX);
   document.removeEventListener("touchmove", updateX);
   document.removeEventListener("mousemove", updateY);
