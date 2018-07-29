@@ -5,6 +5,8 @@ let data = {
   moveElement: null,
   axis: "all",
 
+  isStyleAdded: false,
+
   transform: {
     declared: false,
     string: ""
@@ -16,6 +18,8 @@ let data = {
   cursorInitialX: 0,
   cursorInitialY: 0
 }
+
+let stylesheet = ".drag-draggable { position: relative; } .drag-draggable:not(.drag-uses-handle), .drag-handle { cursor: move; cursor: grab; cursor: -moz-grab; cursor: -webkit-grab; } .drag-down { z-index: 999; cursor: grabbing; cursor: -moz-grabbing; cursor: -webkit-grabbing; }"
 
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string} ${a}, ${b})`
@@ -92,6 +96,14 @@ export default Vue.directive("drag", {
     let valueElement = document.getElementById(val);
     let grabElement = null;
     let moveElement = null;
+
+    if (!data.isStyleAdded) {
+      data.isStyleAdded = true;
+
+      let styleElement = document.createElement("style");
+      styleElement.innerHTML = stylesheet;
+      document.body.appendChild(styleElement);
+    }
 
     if (val && !valueElement) {
       console.error(`Elementement with id “${val}” doesn’t exist`);
