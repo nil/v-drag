@@ -79,24 +79,25 @@ function updatePosition(e) {
 
 /* --- End dragging ---------- */
 function dragUp() {
-  data.moveElement.style.transform = data.transform.declared ? returnPositionString(0, 0) : "none";
-  data.moveElement.style.left = data.initialX + data.relativeX + "px";
-  data.moveElement.style.top = data.initialY + data.relativeY + "px";
+  if (data.moveElement) {
+    data.moveElement.style.transform = data.transform.declared ? returnPositionString(0, 0) : "none";
+    data.moveElement.style.left = data.initialX + data.relativeX + "px";
+    data.moveElement.style.top = data.initialY + data.relativeY + "px";
 
-  data.moveElement.classList.remove("drag-down");
-  data.moveElement.classList.remove("drag-move");
+    data.moveElement.classList.remove("drag-down");
+    data.moveElement.classList.remove("drag-move");
 
-  document.removeEventListener("mousemove", updatePosition);
-  document.removeEventListener("touchmove", updatePosition);
+    document.removeEventListener("mousemove", updatePosition);
+    document.removeEventListener("touchmove", updatePosition);
+  }
 }
 
 export default Vue.directive("drag", {
   inserted: function (el, binding, vnode) {
     let val = binding.value;
-    let valueElement = document.getElementById(val);
-    let grabElement = null;
-    let moveElement = null;
+    let axis, handle, grabElement, moveElement;
 
+    /* Creates stylesheet with basic styling (position, z-index and cursors) */
     if (!data.isStyleAdded) {
       data.isStyleAdded = true;
 
@@ -105,8 +106,18 @@ export default Vue.directive("drag", {
       document.body.appendChild(styleElement);
     }
 
+    if (typeof val === "object") {
+      axis = val.axis;
+      handle = val.handle;
+    } else {
+      axis = binding.arg;
+      handle = val;
+    }
+
+    let valueElement = document.getElementById(handle)
+
     if (val && !valueElement) {
-      console.error(`Elementement with id “${val}” doesn’t exist`);
+      console.error(`Element with id “${val.handle || val}” doesn’t exist`);
     } else {
       if (valueElement) {
         grabElement = valueElement;
@@ -117,11 +128,12 @@ export default Vue.directive("drag", {
         grabElement = el;
         moveElement = el;
       }
+
       moveElement.classList.add("drag-draggable");
 
       /* Start dragging */
-      grabElement.addEventListener("mousedown", e => dragDown(binding.arg, grabElement, moveElement, e));
-      grabElement.addEventListener("touchstart", e => dragDown(binding.arg, grabElement, moveElement, e));
+      grabElement.addEventListener("mousedown", e => dragDown(axis, grabElement, moveElement, e));
+      grabElement.addEventListener("touchstart", e => dragDown(axis, grabElement, moveElement, e));
     }
 
     /* End dragging */
