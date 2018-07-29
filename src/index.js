@@ -1,9 +1,14 @@
 import Vue from "vue"
 
 let data = {
-  element: null,
-  handle: false,
+  grabElement: null,
+  moveElement: null,
   axis: "all",
+
+  transform: {
+    declared: false,
+    string: ""
+  },
 
   initialX: 0,
   initialY: 0,
@@ -12,106 +17,100 @@ let data = {
   cursorInitialY: 0
 }
 
-/* Start dragging */
-function dragDown(arg, val, el, e) {
-  var x = e.pageX || e.touches[0].pageX;
-  var y = e.pageY || e.touches[0].pageY;
+function returnPositionString(a, b) {
+  return `matrix(${data.transform.string} ${a}, ${b})`
+}
 
-  if (document.getElementById(val)) {
-    data.element = document.getElementById(val);
-    data.handle = el;
-    data.handle.style.cursor = "grabbing";
-    data.element.style.position = "relative";
+/* --- Start dragging ---------- */
+function dragDown(axis, grabElement, moveElement, e) {
+
+  data.grabElement = grabElement;
+  data.moveElement = moveElement;
+
+  data.axis = axis || "all";
+
+  data.cursorInitialX = e.pageX || e.touches[0].pageX;
+  data.cursorInitialY = e.pageY || e.touches[0].pageY;
+
+  data.initialX = Number(window.getComputedStyle(moveElement).left.replace("px", ""));
+  data.initialY = Number(window.getComputedStyle(moveElement).top.replace("px", ""));
+
+  let transformMatrix = window.getComputedStyle(moveElement).transform;
+  if (transformMatrix == "none") {
+    data.transform.declared = false;
+    data.transform.string = "1, 0, 0, 1,";
   } else {
-    data.element = el;
-    data.handle = false;
-    data.element.style.cursor = "grabbing";
+    data.transform.declared = true;
+    data.transform.string = transformMatrix.match(/\d([^,]*,){4}/g)[0];
   }
 
-  data.axis = arg || "all";
+  moveElement.style.transform = returnPositionString(data.initialX, data.initialY);
+  moveElement.style.left = 0;
+  moveElement.style.top = 0;
 
-  data.cursorInitialX = x;
-  data.cursorInitialY = y;
-
-  data.initialX = Number(window.getComputedStyle(data.element).left.replace("px", ""));
-  data.initialY = Number(window.getComputedStyle(data.element).top.replace("px", ""));
-
-  data.element.style.transform = `translate(${data.initialX}px, ${data.initialY}px)`;
-  data.element.style.left = 0;
-  data.element.style.top = 0;
+  moveElement.classList.add("drag-down");
 
   document.addEventListener("mousemove", updatePosition)
   document.addEventListener("touchmove", updatePosition)
 }
 
-/* Dragging */
+/* --- Dragging ---------- */
 function updatePosition(e) {
-  var x = (e.pageX || e.touches[0].pageX) - data.cursorInitialX;
-  var y = (e.pageY || e.touches[0].pageY) - data.cursorInitialY;
+  let x = (e.pageX || e.touches[0].pageX) - data.cursorInitialX;
+  let y = (e.pageY || e.touches[0].pageY) - data.cursorInitialY;
+
+  data.moveElement.classList.add("drag-move");
 
   if (data.axis == "x") {
     y = 0;
-    data.element.style.transform = `translateX(${data.initialX + x}px)`;
   } else if (data.axis == "y") {
     x = 0;
-    data.element.style.transform = `translateY(${data.initialY + y}px)`;
-  } else {
-    data.element.style.transform = `translate(${data.initialX + x}px, ${data.initialY + y}px)`;
   }
+
+  data.moveElement.style.transform = returnPositionString(data.initialX + x, data.initialY + y);
 
   data.relativeX = x;
   data.relativeY = y;
 }
 
-/* End dragging */
+/* --- End dragging ---------- */
 function dragUp() {
-  data.element.style.transform = "none";
-  data.element.style.left = data.initialX + data.relativeX + "px";
-  data.element.style.top = data.initialY + data.relativeY + "px";
+  data.moveElement.style.transform = data.transform.declared ? returnPositionString(0, 0) : "none";
+  data.moveElement.style.left = data.initialX + data.relativeX + "px";
+  data.moveElement.style.top = data.initialY + data.relativeY + "px";
 
-  if (data.handle) {
-    data.handle.style.cursor = "grab";
-  } else {
-    data.element.style.cursor = "grab";
-  }
+  data.moveElement.classList.remove("drag-down");
+  data.moveElement.classList.remove("drag-move");
 
   document.removeEventListener("mousemove", updatePosition);
   document.removeEventListener("touchmove", updatePosition);
 }
 
-export const exportData = {
-  get element() {
-    return data.element;
-  },
-  get handle() {
-    return data.handle;
-  },
-  get axis() {
-    return data.axis;
-  },
-  get relative() {
-    return {
-      x: data.relativeX,
-      y: data.relativeY
-    }
-  }
-}
-
 export default Vue.directive("drag", {
   inserted: function (el, binding, vnode) {
-    var arg = binding.arg;
-    var val = binding.value;
+    let val = binding.value;
+    let valueElement = document.getElementById(val);
+    let grabElement = null;
+    let moveElement = null;
 
-    if (val && !document.getElementById(val)) {
-      console.error(`Element with id "${val}" doesn't exist`);
+    if (val && !valueElement) {
+      console.error(`Elementement with id “${val}” doesn’t exist`);
+    } else {
+      if (valueElement) {
+        grabElement = valueElement;
+        moveElement = el;
+        moveElement.classList.add("drag-uses-handle");
+        grabElement.classList.add("drag-handle");
+      } else {
+        grabElement = el;
+        moveElement = el;
+      }
+      moveElement.classList.add("drag-draggable");
+
+      /* Start dragging */
+      grabElement.addEventListener("mousedown", e => dragDown(binding.arg, grabElement, moveElement, e));
+      grabElement.addEventListener("touchstart", e => dragDown(binding.arg, grabElement, moveElement, e));
     }
-
-    el.style.position = "relative";
-    el.style.cursor = "grab";
-
-    /* Start dragging */
-    el.addEventListener("mousedown", e => dragDown(arg, val, el, e));
-    el.addEventListener("touchstart", e => dragDown(arg, val, el, e));
 
     /* End dragging */
     document.addEventListener("mouseup", dragUp);
