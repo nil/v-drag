@@ -19,7 +19,7 @@ let data = {
   cursorInitialY: 0
 }
 
-let stylesheet = ".drag-draggable { position: relative; } .drag-draggable:not(.drag-uses-handle), .drag-handle { cursor: move; cursor: grab; cursor: -moz-grab; cursor: -webkit-grab; } .drag-down { z-index: 999; cursor: grabbing; cursor: -moz-grabbing; cursor: -webkit-grabbing; }"
+let stylesheet = ".drag-draggable { position: relative; } .drag-draggable:not(.drag-uses-handle), .drag-handle { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .drag-handle.drag-down, .drag-draggable:not(.drag-uses-handle).drag-down { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }"
 
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string} ${a}, ${b})`
@@ -39,6 +39,9 @@ function dragDown(axis, grabElement, moveElement, e) {
   data.initialX = Number(window.getComputedStyle(moveElement).left.replace("px", ""));
   data.initialY = Number(window.getComputedStyle(moveElement).top.replace("px", ""));
 
+  data.relativeX = 0;
+  data.relativeY = 0;
+
   let transformMatrix = window.getComputedStyle(moveElement).transform;
   if (transformMatrix == "none") {
     data.transform.declared = false;
@@ -52,7 +55,7 @@ function dragDown(axis, grabElement, moveElement, e) {
   moveElement.style.left = 0;
   moveElement.style.top = 0;
 
-  moveElement.classList.add("drag-down");
+  grabElement.classList.add("drag-down");
 
   document.addEventListener("mousemove", updatePosition)
   document.addEventListener("touchmove", updatePosition)
@@ -84,7 +87,7 @@ function dragUp() {
     data.moveElement.style.left = data.initialX + data.relativeX + "px";
     data.moveElement.style.top = data.initialY + data.relativeY + "px";
 
-    data.moveElement.classList.remove("drag-down");
+    data.grabElement.classList.remove("drag-down");
     data.moveElement.classList.remove("drag-move");
 
     document.removeEventListener("mousemove", updatePosition);
