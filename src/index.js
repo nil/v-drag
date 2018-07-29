@@ -116,7 +116,7 @@ export default Vue.directive("drag", {
 
     let valueElement = document.getElementById(handle)
 
-    if (val && !valueElement) {
+    if (val && !valueElement && val.handle) {
       console.error(`Element with id “${val.handle || val}” doesn’t exist`);
     } else {
       if (valueElement) {
