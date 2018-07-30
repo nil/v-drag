@@ -1,0 +1,35 @@
+{
+  "name": "demo",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "start": "npm run serve"
+  },
+  "dependencies": {
+    "reqwest": "^2.0.5",
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
+    "@vue/cli-service": "^3.0.0-rc.5",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-load-config": "^2.0.0",
+    "postcss-loader": "^2.1.6",
+    "postcss-simple-vars": "^4.1.0",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-easy-import": {},
+      "postcss-simple-vars": {},
+      "postcss-nested": {},
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
