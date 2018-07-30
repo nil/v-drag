@@ -1,5 +1,5 @@
 {
-  "name": "vue-drag",
+  "name": "v-drag",
   "version": "1.0.0",
   "description": "A simple way to integrate dragging on Vue.js",
   "main": "src/index.js",
@@ -8,10 +8,10 @@
     "vue",
     "drag"
   ],
-  "homepage": "https://github.com/nil/vue-drag",
+  "homepage": "https://github.com/nil/v-drag",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nil/vue-drag/"
+    "url": "https://github.com/nil/v-drag/"
   },
   "license": "MIT",
   "author": "Nil Vila (https://nilvila.com)"
