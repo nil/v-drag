@@ -11,8 +11,11 @@
   "homepage": "https://github.com/nil/v-drag",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nil/v-drag/"
+    "url": "git+https://github.com/nil/v-drag.git"
   },
   "license": "MIT",
-  "author": "Nil Vila (https://nilvila.com)"
+  "author": "Nil Vila (https://nilvila.com)",
+  "bugs": {
+    "url": "https://github.com/nil/v-drag/issues"
+  }
 }
