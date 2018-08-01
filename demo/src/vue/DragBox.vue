@@ -17,7 +17,10 @@
 </template>
 
 <script>
-  import "v-drag"
+  import Vue from "vue"
+  import vDrag from "../../../src/new-index.js"
+
+  Vue.use(vDrag);
 
   export default {
     name: "DragBox",
