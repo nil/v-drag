@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import "../../../src/index.js"
+  import "v-drag"
 
   export default {
     name: "DragBox",

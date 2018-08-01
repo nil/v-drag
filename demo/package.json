@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "reqwest": "^2.0.5",
+    "v-drag": "^1.0.0",
     "vue": "^2.5.16"
   },
   "devDependencies": {

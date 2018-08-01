@@ -1,5 +1,3 @@
-import Vue from "vue"
-
 let data = {
   grabElement: null,
   moveElement: null,
@@ -95,7 +93,7 @@ function dragUp() {
   }
 }
 
-export default Vue.directive("drag", {
+Vue.directive("drag", {
   inserted: function(el, binding, vnode) {
     let val = binding.value;
     let axis, handle, grabElement, moveElement;
