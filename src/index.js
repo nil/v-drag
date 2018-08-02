@@ -148,76 +148,87 @@ function dragUp() {
   }
 }
 
-const vueTouch = {
-  install(Vue, options) {
-    let classes = options.eventClass;
+function createDraggable(el, binding, vnode) {
+  let val = binding.value;
+  let axis, handle, grabElement, moveElement;
 
-    for (let key in eventClass) {
-      if (classes[key]) {
-        eventClass[key] = classes[key];
+  /* Creates stylesheet with basic styling (position, z-index and cursors) */
+  if (!data.isStyleAdded) {
+    data.isStyleAdded = true;
+
+    let styleElement = document.createElement("style");
+    styleElement.innerHTML = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
+    document.body.appendChild(styleElement);
+  }
+
+  if (val instanceof Object) {
+    axis = val.axis;
+    handle = val.handle;
+  } else {
+    axis = binding.arg;
+    handle = val;
+  }
+
+  if (axis != "x" && axis != "y") {
+    axis = "all";
+  }
+
+  let valueElement = document.getElementById(handle);
+
+  if (val && !valueElement && val.handle) {
+    console.error(`Element with id “${val.handle || val}” doesn’t exist`);
+  } else {
+    if (valueElement) {
+      grabElement = valueElement;
+      moveElement = el;
+      moveElement.classList.add(eventClass.hasHandle);
+      grabElement.classList.add(eventClass.handle);
+    } else {
+      grabElement = el;
+      moveElement = el;
+    }
+
+    moveElement.classList.add(eventClass.initial);
+
+    /* Start dragging */
+    grabElement.onmousedown = e => dragDown(axis, grabElement, moveElement, e)
+    grabElement.ontouchstart = e => dragDown(axis, grabElement, moveElement, e)
+  }
+
+  /* End dragging */
+  document.addEventListener("mouseup", dragUp);
+  document.addEventListener("touchend", dragUp);
+}
+
+const vDrag = {
+  install(Vue, options) {
+
+    if (options) {
+      let classes = options.eventClass;
+
+      for (let key in eventClass) {
+        if (classes[key]) {
+          eventClass[key] = classes[key];
+        }
       }
     }
 
     Vue.directive("drag", {
       inserted: function(el, binding, vnode) {
-        let val = binding.value;
-        let axis, handle, grabElement, moveElement;
+        createDraggable(el, binding, vnode);
+      },
+      update: function(el, binding, vnode) {
+        elements.grab.onmousedown = null;
+        elements.grab.ontouchstart = null;
 
-        /* Creates stylesheet with basic styling (position, z-index and cursors) */
-        if (!data.isStyleAdded) {
-          data.isStyleAdded = true;
-
-          let styleElement = document.createElement("style");
-          styleElement.innerHTML = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
-          document.body.appendChild(styleElement);
-        }
-
-        if (val instanceof Object) {
-          axis = val.axis;
-          handle = val.handle;
-        } else {
-          axis = binding.arg;
-          handle = val;
-        }
-
-        if (axis != "x" && axis != "y") {
-          axis = "all";
-        }
-
-        let valueElement = document.getElementById(handle);
-
-        if (val && !valueElement && val.handle) {
-          console.error(`Element with id “${val.handle || val}” doesn’t exist`);
-        } else {
-          if (valueElement) {
-            grabElement = valueElement;
-            moveElement = el;
-            moveElement.classList.add(eventClass.hasHandle);
-            grabElement.classList.add(eventClass.handle);
-          } else {
-            grabElement = el;
-            moveElement = el;
-          }
-
-          moveElement.classList.add(eventClass.initial);
-
-          /* Start dragging */
-          grabElement.addEventListener("mousedown", e => dragDown(axis, grabElement, moveElement, e));
-          grabElement.addEventListener("touchstart", e => dragDown(axis, grabElement, moveElement, e));
-        }
-
-        /* End dragging */
-        document.addEventListener("mouseup", dragUp);
-        document.addEventListener("touchend", dragUp);
-
-
+        createDraggable(el, binding, vnode);
       }
     })
   }
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(vueTouch)
+  window.Vue.use(vDrag);
 } else {
-  module.exports = vueTouch
+  module.exports = vDrag;
 }
