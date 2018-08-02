@@ -8,7 +8,7 @@ Draggable elements are a common UX pattern, specially on touch screens. But as a
 [![Version](https://img.shields.io/npm/v/v-drag.svg)](https://www.npmjs.com/package/v-drag)
 [![License](https://img.shields.io/npm/l/v-drag.svg)](https://github.com/nil/v-drag/blob/master/LICENSE)
 
-## Installation
+## Installation
 
 ```sh
 npm install v-drag --save
@@ -44,7 +44,7 @@ No extra setup is necessary at this point. Add the `v-drag` attribute to any ele
 
 The default behavior for any element with the `v-drag` attribute is to be draggable in any direction and without a handle. However, this can be changed using any or multiple of these options:
 
-### Axis
+### Axis
 
 Constrains the element to move only in one direction: horizontal or vertical.
 
@@ -52,14 +52,14 @@ Constrains the element to move only in one direction: horizontal or vertical.
 <div v-drag:x>Horizontal</div>
 ```
 
-This argument can’t be declared dynamically. So, if you want ot use the `data` object, computed values, props,… you have to use [an object]().
+This argument can’t be declared dynamically. So, if you want ot use the `data` object, computed values, props,… you have to use [an object](https://github.com/nil/v-drag#object).
 
 **Values**
 
-- `x` horizontal movement
-- `y` vertical movement
+- `x`: horizontal movement
+- `y`: vertical movement
 
-### Handle
+### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element.
 
@@ -70,6 +70,7 @@ Informs that the element can only be dragged using another element, known as han
 ```
 
 **Values**
+
 Handle’s name has to be a string. It can be declared inline, as in the example above (notice the two quotes), or using the `data` object, computed properties, methods, props,… Here’s an example using `data`:
 
 ```html
@@ -102,7 +103,7 @@ It’s a simple way to increase readability on the code, but I specially recomme
 | handle | string |
 |  axis  | string |
 
-## Event classes
+## Event classes
 
 v-drag uses CSS classes to add basic styling to the draggable elements. You can override one or multiple of the default classes when the plugin is called:
 
