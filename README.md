@@ -86,7 +86,7 @@ data: {
 
 ## Object
 
-Although declaring axis and handle using the methods above is valid, there’s a more conventional way to add options to a draggable element: using an object.
+If you want to dynamically declare the axis, or you don’t like the method to set both axis and handle, you can use an object:
 
 ```html
 <div v-drag="{ handle: 'element', axis: 'y' }">
@@ -94,7 +94,7 @@ Although declaring axis and handle using the methods above is valid, there’s a
 </div>
 ```
 
-It’s a simple way to increase readability on the code, but I specially recommend it when one or both of these options needs to be declared dynamically. None of these values are required.
+This can be declared inline, externally or a mixture of the two. There has to be at least one value and you don’t need to include all of them, only the ones you want.
 
 **Values**
 
