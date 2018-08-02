@@ -1,6 +1,4 @@
 let data = {
-  grabElement: null,
-  moveElement: null,
   axis: "all",
 
   isStyleAdded: false,
@@ -17,7 +15,20 @@ let data = {
   cursorInitialY: 0
 }
 
-let stylesheet = ".drag-draggable { position: relative; } .drag-draggable:not(.drag-uses-handle), .drag-handle { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .drag-handle.drag-down, .drag-draggable:not(.drag-uses-handle).drag-down { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }"
+let elements = {
+  grab: null,
+  move: null
+}
+
+let eventClass = {
+  initial: "drag-draggable",
+  hasHandle: "drag-uses-handle",
+  handle: "drag-handle",
+  down: "drag-down",
+  move: "drag-move"
+}
+
+let stylesheet = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
 
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`
@@ -27,7 +38,6 @@ function getPosition(str, el, dir) {
   let list = getMatrixSection(str)
   let pos = parseInt(window.getComputedStyle(el)[dir].slice(0, -2));
 
-
   if (dir === "left" && str !== "none") {
     pos += parseInt(str.slice(list[3] + 2, list[4]));
   } else if (dir === "top" && str !== "none") {
@@ -35,6 +45,13 @@ function getPosition(str, el, dir) {
   }
 
   return pos;
+}
+
+function getMousePosition(e) {
+  return {
+    x: (e.pageX || e.touches[0].pageX) - data.cursorInitialX,
+    y: (e.pageY || e.touches[0].pageY) - data.cursorInitialY
+  }
 }
 
 function getMatrixSection(str) {
@@ -49,14 +66,13 @@ function getMatrixSection(str) {
 
 /* --- Start dragging ---------- */
 function dragDown(axis, grabElement, moveElement, e) {
+  elements.grab = grabElement;
+  elements.move = moveElement;
 
-  data.grabElement = grabElement;
-  data.moveElement = moveElement;
+  data.axis = axis;
 
-  data.axis = axis || "all";
-
-  data.cursorInitialX = e.pageX || e.touches[0].pageX;
-  data.cursorInitialY = e.pageY || e.touches[0].pageY;
+  data.cursorInitialX = e.pageX || e.touches[0].pageX;
+  data.cursorInitialY = e.pageY || e.touches[0].pageY;
 
   data.relativeX = 0;
   data.relativeY = 0;
@@ -78,43 +94,59 @@ function dragDown(axis, grabElement, moveElement, e) {
   moveElement.style.left = 0;
   moveElement.style.top = 0;
 
-  grabElement.classList.add("drag-down");
+  grabElement.classList.add(eventClass.down);
 
-  document.addEventListener("mousemove", updatePosition)
-  document.addEventListener("touchmove", updatePosition)
+  document.addEventListener("mousemove", updatePosition[axis]);
+  document.addEventListener("touchmove", updatePosition[axis]);
 }
 
 /* --- Dragging ---------- */
-function updatePosition(e) {
-  let x = (e.pageX || e.touches[0].pageX) - data.cursorInitialX;
-  let y = (e.pageY || e.touches[0].pageY) - data.cursorInitialY;
+const updatePosition = {
+  addClass: function() {
+    elements.move.classList.add(eventClass.move);
+    updatePosition.addClass = function() {}
+  },
+  x: function(e) {
+    let pos = getMousePosition(e);
 
-  data.moveElement.classList.add("drag-move");
+    updatePosition.addClass();
+    data.relativeX = pos.x;
+    elements.move.style.transform = returnPositionString(data.initialX + pos.x, data.initialY);
+  },
+  y: function(e) {
+    let pos = getMousePosition(e);
 
-  if (data.axis == "x") {
-    y = 0;
-  } else if (data.axis == "y") {
-    x = 0;
+    updatePosition.addClass();
+    data.relativeY = pos.y;
+    elements.move.style.transform = returnPositionString(data.initialX, data.initialY + pos.y);
+  },
+  all: function(e) {
+    let pos = getMousePosition(e);
+
+    updatePosition.addClass();
+    data.relativeX = pos.x;
+    data.relativeY = pos.y;
+    elements.move.style.transform = returnPositionString(data.initialX + pos.x, data.initialY + pos.y);
   }
-
-  data.moveElement.style.transform = returnPositionString(data.initialX + x, data.initialY + y);
-
-  data.relativeX = x;
-  data.relativeY = y;
 }
 
 /* --- End dragging ---------- */
 function dragUp() {
-  if (data.moveElement) {
-    data.moveElement.style.transform = data.transform.declared ? returnPositionString(0, 0) : "none";
-    data.moveElement.style.left = data.initialX + data.relativeX + "px";
-    data.moveElement.style.top = data.initialY + data.relativeY + "px";
+  if (elements.move) {
+    elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : "none";
+    elements.move.style.left = data.initialX + data.relativeX + "px";
+    elements.move.style.top = data.initialY + data.relativeY + "px";
 
-    data.grabElement.classList.remove("drag-down");
-    data.moveElement.classList.remove("drag-move");
+    updatePosition.addClass = function() {
+      elements.move.classList.add(eventClass.move);
+      updatePosition.addClass = function() {}
+    };
 
-    document.removeEventListener("mousemove", updatePosition);
-    document.removeEventListener("touchmove", updatePosition);
+    elements.grab.classList.remove(eventClass.down);
+    elements.move.classList.remove(eventClass.move);
+
+    document.removeEventListener("mousemove", updatePosition[data.axis]);
+    document.removeEventListener("touchmove", updatePosition[data.axis]);
   }
 }
 
@@ -142,6 +174,10 @@ const vueTouch = {
           handle = val;
         }
 
+        if (axis != "x" && axis != "y") {
+          axis = "all";
+        }
+
         let valueElement = document.getElementById(handle);
 
         if (val && !valueElement && val.handle) {
@@ -150,14 +186,14 @@ const vueTouch = {
           if (valueElement) {
             grabElement = valueElement;
             moveElement = el;
-            moveElement.classList.add("drag-uses-handle");
-            grabElement.classList.add("drag-handle");
+            moveElement.classList.add(eventClass.hasHandle);
+            grabElement.classList.add(eventClass.handle);
           } else {
             grabElement = el;
             moveElement = el;
           }
 
-          moveElement.classList.add("drag-draggable");
+          moveElement.classList.add(eventClass.initial);
 
           /* Start dragging */
           grabElement.addEventListener("mousedown", e => dragDown(axis, grabElement, moveElement, e));
@@ -167,6 +203,8 @@ const vueTouch = {
         /* End dragging */
         document.addEventListener("mouseup", dragUp);
         document.addEventListener("touchend", dragUp);
+
+
       }
     })
   }

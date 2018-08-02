@@ -18,7 +18,7 @@
 
 <script>
   import Vue from "vue"
-  import vDrag from "../../../src/new-index.js"
+  import vDrag from "../../../src/index.js"
 
   Vue.use(vDrag);
 
