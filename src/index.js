@@ -47,6 +47,13 @@ function getPosition(str, el, dir) {
   return pos;
 }
 
+function getMousePosition(e) {
+  return {
+    x: (e.pageX || e.touches[0].pageX) - data.cursorInitialX,
+    y: (e.pageY || e.touches[0].pageY) - data.cursorInitialY
+  }
+}
+
 function getMatrixSection(str) {
   let list = [], i;
   for(i = 0; i < str.length; i++) {
@@ -62,10 +69,10 @@ function dragDown(axis, grabElement, moveElement, e) {
   elements.grab = grabElement;
   elements.move = moveElement;
 
-  data.axis = axis || "all";
+  data.axis = axis;
 
-  data.cursorInitialX = e.pageX || e.touches[0].pageX;
-  data.cursorInitialY = e.pageY || e.touches[0].pageY;
+  data.cursorInitialX = e.pageX || e.touches[0].pageX;
+  data.cursorInitialY = e.pageY || e.touches[0].pageY;
 
   data.relativeX = 0;
   data.relativeY = 0;
@@ -89,35 +96,38 @@ function dragDown(axis, grabElement, moveElement, e) {
 
   grabElement.classList.add(eventClass.down);
 
-  document.addEventListener("mousemove", Foo["bar"])
-  document.addEventListener("touchmove", Foo["bar"])
-  // document.addEventListener("mousemove", updatePosition)
-  // document.addEventListener("touchmove", updatePosition)
-}
-
-Foo = {
-    bar: function() {
-        console.log("baz");
-    }
+  document.addEventListener("mousemove", updatePosition[axis]);
+  document.addEventListener("touchmove", updatePosition[axis]);
 }
 
 /* --- Dragging ---------- */
-function updatePosition(e) {
-  let x = (e.pageX || e.touches[0].pageX) - data.cursorInitialX;
-  let y = (e.pageY || e.touches[0].pageY) - data.cursorInitialY;
+const updatePosition = {
+  addClass: function() {
+    elements.move.classList.add(eventClass.move);
+    updatePosition.addClass = function() {}
+  },
+  x: function(e) {
+    let pos = getMousePosition(e);
 
-  elements.move.classList.add(eventClass.move);
+    updatePosition.addClass();
+    data.relativeX = pos.x;
+    elements.move.style.transform = returnPositionString(data.initialX + pos.x, data.initialY);
+  },
+  y: function(e) {
+    let pos = getMousePosition(e);
 
-  if (data.axis == "x") {
-    y = 0;
-  } else if (data.axis == "y") {
-    x = 0;
+    updatePosition.addClass();
+    data.relativeY = pos.y;
+    elements.move.style.transform = returnPositionString(data.initialX, data.initialY + pos.y);
+  },
+  all: function(e) {
+    let pos = getMousePosition(e);
+
+    updatePosition.addClass();
+    data.relativeX = pos.x;
+    data.relativeY = pos.y;
+    elements.move.style.transform = returnPositionString(data.initialX + pos.x, data.initialY + pos.y);
   }
-
-  elements.move.style.transform = returnPositionString(data.initialX + x, data.initialY + y);
-
-  data.relativeX = x;
-  data.relativeY = y;
 }
 
 /* --- End dragging ---------- */
@@ -127,13 +137,16 @@ function dragUp() {
     elements.move.style.left = data.initialX + data.relativeX + "px";
     elements.move.style.top = data.initialY + data.relativeY + "px";
 
+    updatePosition.addClass = function() {
+      elements.move.classList.add(eventClass.move);
+      updatePosition.addClass = function() {}
+    };
+
     elements.grab.classList.remove(eventClass.down);
     elements.move.classList.remove(eventClass.move);
 
-    document.removeEventListener("mousemove", Foo.bar);
-    document.removeEventListener("touchmove", Foo.bar);
-    // document.removeEventListener("mousemove", updatePosition);
-    // document.removeEventListener("touchmove", updatePosition);
+    document.removeEventListener("mousemove", updatePosition[data.axis]);
+    document.removeEventListener("touchmove", updatePosition[data.axis]);
   }
 }
 
@@ -159,6 +172,10 @@ const vueTouch = {
         } else {
           axis = binding.arg;
           handle = val;
+        }
+
+        if (axis != "x" && axis != "y") {
+          axis = "all";
         }
 
         let valueElement = document.getElementById(handle);
