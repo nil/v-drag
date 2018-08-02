@@ -28,8 +28,6 @@ let eventClass = {
   move: "drag-move"
 }
 
-let stylesheet = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
-
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`
 }
@@ -152,6 +150,14 @@ function dragUp() {
 
 const vueTouch = {
   install(Vue, options) {
+    let classes = options.eventClass;
+
+    for (let key in eventClass) {
+      if (classes[key]) {
+        eventClass[key] = classes[key];
+      }
+    }
+
     Vue.directive("drag", {
       inserted: function(el, binding, vnode) {
         let val = binding.value;
@@ -162,7 +168,7 @@ const vueTouch = {
           data.isStyleAdded = true;
 
           let styleElement = document.createElement("style");
-          styleElement.innerHTML = stylesheet;
+          styleElement.innerHTML = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
           document.body.appendChild(styleElement);
         }
 
