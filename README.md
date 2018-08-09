@@ -8,7 +8,7 @@ Draggable elements are a common UX pattern, specially on touch screens. But as a
 [![Version](https://img.shields.io/npm/v/v-drag.svg)](https://www.npmjs.com/package/v-drag)
 [![License](https://img.shields.io/npm/l/v-drag.svg)](https://github.com/nil/v-drag/blob/master/LICENSE)
 
-## Installation
+## Installation
 
 ```sh
 npm install v-drag --save
@@ -58,8 +58,8 @@ Constrains the element to move only in one direction: horizontal or vertical.
 
 **Values**
 
-- `x` horizontal movement
-- `y` vertical movement
+- `x`: horizontal movement
+- `y`: vertical movement
 
 **Shortcut**
 
