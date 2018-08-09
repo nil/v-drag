@@ -42,65 +42,45 @@ No extra setup is necessary at this point. Add the `v-drag` attribute to any ele
 
 ## Options
 
-The default behavior for any element with the `v-drag` attribute is to be draggable in any direction and without a handle. However, this can be changed using any or multiple of these options:
+The default behavior for any element with the `v-drag` attribute is to be draggable in any direction and without a handle. However, this can be changed using an object or its equivalent shortcuts:
+
+```html
+<div v-drag="{ axis: 'x', handle: 'someElement' }">
+  <div id="someElement">Handle</div>
+</div>
+```
+
+Both the object and the values can be declared inline, as in the example above, or using the `data` object, computed properties, methods, props,…
 
 ### Axis
 
 Constrains the element to move only in one direction: horizontal or vertical.
-
-```html
-<div v-drag:x>Horizontal</div>
-```
-
-This argument can’t be declared dynamically. So, if you want ot use the `data` object, computed values, props,… you have to use [an object]().
 
 **Values**
 
 - `x` horizontal movement
 - `y` vertical movement
 
+**Shortcut**
+
+```html
+<div v-drag:x>Horizontal</div>
+```
+
 ### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element.
 
-```html
-<div v-drag="'element'">
-  <div id="element">Handle</div>
-</div>
-```
-
-**Values**
-Handle’s name has to be a string. It can be declared inline, as in the example above (notice the two quotes), or using the `data` object, computed properties, methods, props,… Here’s an example using `data`:
-
-```html
-<div v-drag="sharedHandleId">Don’t drag me</div>
-<div :id="sharedHandleId">Drag me</div>
-
-…
-
-data: {
-  sharedHandleId: "handle"
-}
-```
-
-## Object
-
-Although declaring axis and handle using the methods above is valid, there’s a more conventional way to add options to a draggable element: using an object.
-
-```html
-<div v-drag="{ handle: 'element', axis: 'y' }">
-  <div id="element">Handle</div>
-</div>
-```
-
-It’s a simple way to increase readability on the code, but I specially recommend it when one or both of these options needs to be declared dynamically. None of these values are required.
-
 **Values**
 
-|  Value |  Type  |
-|:------:|:------:|
-| handle | string |
-|  axis  | string |
+Handle’s name must be a valid ID.
+
+**Shortcut**
+
+```html
+<div v-drag="'someElement'">Don’t drag me</div>
+<div id="someElement">Drag me</div>
+```
 
 ## Event classes
 
