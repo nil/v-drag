@@ -52,7 +52,7 @@ The default behavior for any element with the `v-drag` attribute is to be dragga
 
 Both the object and the values can be declared inline, as in the example above, or using the `data` object, computed properties, methods, props,…
 
-### Axis
+### Axis
 
 Constrains the element to move only in one direction: horizontal or vertical.
 
@@ -67,7 +67,7 @@ Constrains the element to move only in one direction: horizontal or vertical.
 <div v-drag:x>Horizontal</div>
 ```
 
-### Handle
+### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element.
 
@@ -82,7 +82,7 @@ Handle’s name must be a valid ID.
 <div id="someElement">Drag me</div>
 ```
 
-## Event classes
+## Event classes
 
 v-drag uses CSS classes to add basic styling to the draggable elements. You can override one or multiple of the default classes when the plugin is called:
 
