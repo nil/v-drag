@@ -1,9 +1,11 @@
 {
   "name": "v-drag",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A simple way to integrate dragging on Vue.js",
   "main": "src/index.js",
-  "scripts": {},
+  "scripts": {
+    "minify": "terser src/index.js -c -m -o src/index.min.js"
+  },
   "keywords": [
     "vue",
     "vuejs",
@@ -21,5 +23,8 @@
   "author": "Nil Vila (https://nilvila.com)",
   "bugs": {
     "url": "https://github.com/nil/v-drag/issues"
+  },
+  "devDependencies": {
+    "terser": "^3.8.1"
   }
 }

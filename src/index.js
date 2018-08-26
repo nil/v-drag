@@ -173,7 +173,7 @@ function createDraggable(el, binding, vnode) {
     data.isStyleAdded = true;
 
     let styleElement = document.createElement("style");
-    styleElement.innerHTML = `.${eventClass.initial} { position: relative; } .${eventClass.initial}:not(.${eventClass.hasHandle}), .${eventClass.handle} { cursor: move; cursor: grab; cursor: -webkit-grab; cursor: -moz-grab; } .${eventClass.handle}.${eventClass.down}, .${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down} { z-index: 999; cursor: grabbing; cursor: -webkit-grabbing; cursor: -moz-grabbing; }`;
+    styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.hasHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
     document.body.appendChild(styleElement);
   }
 
