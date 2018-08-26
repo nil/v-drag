@@ -28,6 +28,14 @@ let eventClass = {
   move: "drag-move"
 }
 
+function isObject(val, ifTrue, ifFalse) {
+  if (val instanceof Object) {
+    return ifTrue
+  } else {
+    return ifFalse
+  }
+}
+
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`
 }
@@ -63,11 +71,11 @@ function getMatrixSection(str) {
 }
 
 /* --- Start dragging ---------- */
-function dragDown(axis, grabElement, moveElement, e) {
+function dragDown(binding, grabElement, moveElement, e) {
+  let val = binding.value;
+
   elements.grab = grabElement;
   elements.move = moveElement;
-
-  data.axis = axis;
 
   data.cursorInitialX = e.pageX || e.touches[0].pageX;
   data.cursorInitialY = e.pageY || e.touches[0].pageY;
@@ -84,6 +92,14 @@ function dragDown(axis, grabElement, moveElement, e) {
     data.transform.declared = true;
     data.transform.string = matrix.slice(7, getMatrixSection(matrix)[3]);
   }
+
+  let axis = isObject(val, val.axis, binding.arg);
+
+  if (axis != "x" && axis != "y") {
+    axis = "all";
+  }
+
+  data.axis = axis;
 
   data.initialX = getPosition(matrix, moveElement, "left");
   data.initialY = getPosition(matrix, moveElement, "top");
@@ -161,17 +177,7 @@ function createDraggable(el, binding, vnode) {
     document.body.appendChild(styleElement);
   }
 
-  if (val instanceof Object) {
-    axis = val.axis;
-    handle = val.handle;
-  } else {
-    axis = binding.arg;
-    handle = val;
-  }
-
-  if (axis != "x" && axis != "y") {
-    axis = "all";
-  }
+  handle = isObject(val, val.handle, val);
 
   let valueElement = document.getElementById(handle);
 
@@ -191,8 +197,8 @@ function createDraggable(el, binding, vnode) {
     moveElement.classList.add(eventClass.initial);
 
     /* Start dragging */
-    grabElement.onmousedown = e => dragDown(axis, grabElement, moveElement, e)
-    grabElement.ontouchstart = e => dragDown(axis, grabElement, moveElement, e)
+    grabElement.onmousedown = e => dragDown(binding, grabElement, moveElement, e)
+    grabElement.ontouchstart = e => dragDown(binding, grabElement, moveElement, e)
   }
 
   /* End dragging */
@@ -217,10 +223,7 @@ const vDrag = {
       inserted: function(el, binding, vnode) {
         createDraggable(el, binding, vnode);
       },
-      update: function(el, binding, vnode) {
-        elements.grab.onmousedown = null;
-        elements.grab.ontouchstart = null;
-
+      update: function(el, binding, vnode, newValue, oldValue) {
         createDraggable(el, binding, vnode);
       }
     })
