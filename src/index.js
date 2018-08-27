@@ -197,8 +197,8 @@ function createDraggable(el, binding, vnode) {
     moveElement.classList.add(eventClass.initial);
 
     /* Start dragging */
-    grabElement.onmousedown = e => dragDown(binding, grabElement, moveElement, e)
-    grabElement.ontouchstart = e => dragDown(binding, grabElement, moveElement, e)
+    grabElement.onmousedown = e => dragDown(binding, grabElement, moveElement, e);
+    grabElement.ontouchstart = e => dragDown(binding, grabElement, moveElement, e);
   }
 
   /* End dragging */
@@ -224,6 +224,14 @@ const vDrag = {
         createDraggable(el, binding, vnode);
       },
       update: function(el, binding, vnode, newValue, oldValue) {
+        let oldHandle = document.getElementById(binding.oldValue) || document.getElementById(binding.oldValue.handle);
+
+        if (oldHandle) {
+          console.log(oldHandle);
+          oldHandle.onmousedown = null;
+          oldHandle.ontouchstart = null;
+          oldHandle.classList.remove(eventClass.handle)
+        }
         createDraggable(el, binding, vnode);
       }
     })
