@@ -1,2 +1,8 @@
 docs/
 demo/
+demo2/
+pids/
+logs/
+text-docs/
+yarn-error.log
+yarn.lock
