@@ -1,3 +1,8 @@
+/*!
+ * v-drag v1.2.4
+ * by Nil Vila
+ */
+
 let data = {
   axis: "all",
 

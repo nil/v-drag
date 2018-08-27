@@ -4,7 +4,7 @@
   "description": "A simple way to integrate dragging on Vue.js",
   "main": "src/index.js",
   "scripts": {
-    "minify": "terser src/index.js -c -m -o src/index.min.js"
+    "minify": "terser src/index.js -c -m -o src/index.min.js --comments /^!/"
   },
   "keywords": [
     "vue",
