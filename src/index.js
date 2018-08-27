@@ -164,7 +164,7 @@ function dragUp() {
   }
 }
 
-function createDraggable(el, binding, vnode) {
+function createDraggable(el, binding) {
   let val = binding.value;
   let axis, handle, grabElement, moveElement;
 
@@ -220,10 +220,10 @@ const vDrag = {
     }
 
     Vue.directive("drag", {
-      inserted: function(el, binding, vnode) {
-        createDraggable(el, binding, vnode);
+      inserted: function(el, binding) {
+        createDraggable(el, binding);
       },
-      update: function(el, binding, vnode, newValue, oldValue) {
+      update: function(el, binding) {
         let oldHandle = document.getElementById(binding.oldValue) || document.getElementById(binding.oldValue.handle);
 
         if (oldHandle) {
@@ -232,7 +232,7 @@ const vDrag = {
           oldHandle.ontouchstart = null;
           oldHandle.classList.remove(eventClass.handle)
         }
-        createDraggable(el, binding, vnode);
+        createDraggable(el, binding);
       }
     })
   }
