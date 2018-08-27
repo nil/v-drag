@@ -76,11 +76,11 @@ function getMatrixSection(str) {
 }
 
 /* --- Start dragging ---------- */
-function dragDown(binding, grabElement, moveElement, e) {
-  let val = binding.value;
-
+function dragDown(axis, grabElement, moveElement, e) {
   elements.grab = grabElement;
   elements.move = moveElement;
+
+  data.axis = axis;
 
   data.cursorInitialX = e.pageX || e.touches[0].pageX;
   data.cursorInitialY = e.pageY || e.touches[0].pageY;
@@ -97,14 +97,6 @@ function dragDown(binding, grabElement, moveElement, e) {
     data.transform.declared = true;
     data.transform.string = matrix.slice(7, getMatrixSection(matrix)[3]);
   }
-
-  let axis = isObject(val, val.axis, binding.arg);
-
-  if (axis != "x" && axis != "y") {
-    axis = "all";
-  }
-
-  data.axis = axis;
 
   data.initialX = getPosition(matrix, moveElement, "left");
   data.initialY = getPosition(matrix, moveElement, "top");
@@ -182,7 +174,17 @@ function createDraggable(el, binding) {
     document.body.appendChild(styleElement);
   }
 
-  handle = isObject(val, val.handle, val);
+  if (val instanceof Object) {
+    axis = val.axis;
+    handle = val.handle;
+  } else {
+    axis = binding.arg;
+    handle = val;
+  }
+
+  if (axis != "x" && axis != "y") {
+    axis = "all";
+  }
 
   let valueElement = document.getElementById(handle);
 
@@ -202,8 +204,8 @@ function createDraggable(el, binding) {
     moveElement.classList.add(eventClass.initial);
 
     /* Start dragging */
-    grabElement.onmousedown = e => dragDown(binding, grabElement, moveElement, e);
-    grabElement.ontouchstart = e => dragDown(binding, grabElement, moveElement, e);
+    grabElement.onmousedown = e => dragDown(axis, grabElement, moveElement, e);
+    grabElement.ontouchstart = e => dragDown(axis, grabElement, moveElement, e);
   }
 
   /* End dragging */
@@ -213,10 +215,8 @@ function createDraggable(el, binding) {
 
 const vDrag = {
   install(Vue, options) {
-
     if (options) {
       let classes = options.eventClass;
-
       for (let key in eventClass) {
         if (classes[key]) {
           eventClass[key] = classes[key];
