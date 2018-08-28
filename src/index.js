@@ -39,11 +39,14 @@ const eventClass = {
 };
 
 let posAnimation;
+let isMoveStarted = false;
 
+// Return a matrix with transform and translate values
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`;
 }
 
+// Get the transformation the moving element has
 function getMatrixSection(str) {
   const list = []; let i;
   for (i = 0; i < str.length; i += 1) {
@@ -63,7 +66,6 @@ function getPosition(str, el, dir) {
   } else if (dir === 'top' && str !== 'none') {
     pos += parseInt(str.slice(list[4] + 2, -1), 10);
   }
-
   return pos;
 }
 
@@ -72,14 +74,6 @@ function updateMousePosition(e) {
     x: (e.pageX || e.touches[0].pageX) - data.cursorInitialX,
     y: (e.pageY || e.touches[0].pageY) - data.cursorInitialY
   };
-}
-
-// Run a function only once.
-function once(type, func) {
-  document.addEventListener(type, function fn() {
-    document.removeEventListener(type, fn);
-    func.apply(this);
-  });
 }
 
 // --- While dragging ----------
@@ -115,6 +109,17 @@ const updatePosition = {
 function posUpdate() {
   updatePosition[data.axis]();
   posAnimation = requestAnimationFrame(posUpdate);
+}
+
+function startMovement() {
+  if (!isMoveStarted) {
+    updatePosition.addClass();
+    isMoveStarted = true;
+    posAnimation = requestAnimationFrame(posUpdate);
+  } else {
+    document.removeEventListener('mousemove', startMovement);
+    document.removeEventListener('touchmove', startMovement);
+  }
 }
 
 // --- Start dragging ----------
@@ -153,31 +158,35 @@ function dragDown(axis, grabElement, moveElement, e) {
   grabEl.classList.add(eventClass.down);
 
   document.addEventListener('mousemove', updateMousePosition);
+  document.addEventListener('mousemove', startMovement);
+
   document.addEventListener('touchmove', updateMousePosition);
-
-  once('mousemove', () => {
-    e.preventDefault();
-
-    updatePosition.addClass();
-    posAnimation = requestAnimationFrame(posUpdate);
-  });
+  document.addEventListener('touchmove', startMovement);
 }
 
 // --- End dragging ----------
-function dragUp() {
-  if (elements.move) {
-    elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : 'none';
-    elements.move.style.left = `${data.initialX + data.relativeX}px`;
-    elements.move.style.top = `${data.initialY + data.relativeY}px`;
+function dragUp(e) {
+  e.preventDefault();
+  cancelAnimationFrame(posAnimation);
 
-    updatePosition.addClass = function () {
-      elements.move.classList.add(eventClass.move);
-      updatePosition.addClass = function () {};
-    };
+  isMoveStarted = false;
+  document.removeEventListener('mousemove', startMovement);
+  document.removeEventListener('touchmove', startMovement);
 
-    elements.grab.classList.remove(eventClass.down);
-    elements.move.classList.remove(eventClass.move);
-  }
+  elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : 'none';
+  elements.move.style.left = `${data.initialX + data.relativeX}px`;
+  elements.move.style.top = `${data.initialY + data.relativeY}px`;
+
+  updatePosition.addClass = function () {
+    elements.move.classList.add(eventClass.move);
+    updatePosition.addClass = function () {};
+  };
+
+  elements.grab.classList.remove(eventClass.down);
+  elements.move.classList.remove(eventClass.move);
+
+  document.removeEventListener('mousemove', updateMousePosition);
+  document.removeEventListener('touchmove', updateMousePosition);
 }
 
 function createDrag(el, binding) {
@@ -217,12 +226,8 @@ function createDrag(el, binding) {
   }
 
   // End dragging
-  document.addEventListener('mouseup', (e) => {
-    e.preventDefault();
-
-    dragUp();
-    cancelAnimationFrame(posAnimation);
-  });
+  document.addEventListener('mouseup', dragUp);
+  document.addEventListener('touchend', dragUp);
 }
 
 export default {
