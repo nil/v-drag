@@ -25,6 +25,9 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "terser": "^3.8.1"
   }
 }
