@@ -41,6 +41,19 @@ const eventClass = {
 let posAnimation;
 let isMoveStarted = false;
 
+// Shorthand for muliple events with the same function
+function event(types, func, state = 'add', target = document) {
+  if (state === 'add') {
+    types.forEach((type) => {
+      target.addEventListener(type, func);
+    });
+  } else if (state === 'remove') {
+    types.forEach((type) => {
+      target.removeEventListener(type, func);
+    });
+  }
+}
+
 // Return a matrix with transform and translate values
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`;
@@ -117,8 +130,7 @@ function startMovement() {
     isMoveStarted = true;
     posAnimation = requestAnimationFrame(posUpdate);
   } else {
-    document.removeEventListener('mousemove', startMovement);
-    document.removeEventListener('touchmove', startMovement);
+    event(['mousemove', 'touchmove'], startMovement, 'remove');
   }
 }
 
@@ -157,11 +169,8 @@ function dragDown(axis, grabElement, moveElement, e) {
 
   grabEl.classList.add(eventClass.down);
 
-  document.addEventListener('mousemove', updateMousePosition);
-  document.addEventListener('mousemove', startMovement);
-
-  document.addEventListener('touchmove', updateMousePosition);
-  document.addEventListener('touchmove', startMovement);
+  event(['mousemove', 'touchmove'], updateMousePosition);
+  event(['mousemove', 'touchmove'], startMovement);
 }
 
 // --- End dragging ----------
@@ -170,8 +179,7 @@ function dragUp(e) {
   cancelAnimationFrame(posAnimation);
 
   isMoveStarted = false;
-  document.removeEventListener('mousemove', startMovement);
-  document.removeEventListener('touchmove', startMovement);
+  event(['mousemove', 'touchmove'], startMovement, 'remove');
 
   elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : 'none';
   elements.move.style.left = `${data.initialX + data.relativeX}px`;
@@ -185,8 +193,7 @@ function dragUp(e) {
   elements.grab.classList.remove(eventClass.down);
   elements.move.classList.remove(eventClass.move);
 
-  document.removeEventListener('mousemove', updateMousePosition);
-  document.removeEventListener('touchmove', updateMousePosition);
+  event(['mousemove', 'touchmove'], updateMousePosition, 'remove');
 }
 
 function createDrag(el, binding) {
@@ -226,8 +233,7 @@ function createDrag(el, binding) {
   }
 
   // End dragging
-  document.addEventListener('mouseup', dragUp);
-  document.addEventListener('touchend', dragUp);
+  event(['mouseup', 'touchend'], dragUp);
 }
 
 export default {
