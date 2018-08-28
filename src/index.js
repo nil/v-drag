@@ -25,6 +25,11 @@ const elements = {
   move: null
 };
 
+let mousePosition = {
+  x: 0,
+  y: 0
+};
+
 const eventClass = {
   initial: 'drag-draggable',
   hasHandle: 'drag-uses-handle',
@@ -32,6 +37,8 @@ const eventClass = {
   down: 'drag-down',
   move: 'drag-move'
 };
+
+let posAnimation;
 
 function returnPositionString(a, b) {
   return `matrix(${data.transform.string}, ${a}, ${b})`;
@@ -60,48 +67,57 @@ function getPosition(str, el, dir) {
   return pos;
 }
 
-function getMousePosition(e) {
-  return {
+function updateMousePosition(e) {
+  mousePosition = {
     x: (e.pageX || e.touches[0].pageX) - data.cursorInitialX,
     y: (e.pageY || e.touches[0].pageY) - data.cursorInitialY
   };
 }
 
-/* --- While dragging ---------- */
+// Run a function only once.
+function once(type, func) {
+  document.addEventListener(type, function fn() {
+    document.removeEventListener(type, fn);
+    func.apply(this);
+  });
+}
+
+// --- While dragging ----------
 const updatePosition = {
   addClass() {
     elements.move.classList.add(eventClass.move);
     updatePosition.addClass = function () {};
   },
-  x(e) {
-    const pos = getMousePosition(e);
-
-    updatePosition.addClass();
-    data.relativeX = pos.x;
-    elements.move.style.transform = returnPositionString(data.initialX + pos.x, data.initialY);
-  },
-  y(e) {
-    const pos = getMousePosition(e);
-
-    updatePosition.addClass();
-    data.relativeY = pos.y;
-    elements.move.style.transform = returnPositionString(data.initialX, data.initialY + pos.y);
-  },
-  all(e) {
-    const pos = getMousePosition(e);
-
-    updatePosition.addClass();
-    data.relativeX = pos.x;
-    data.relativeY = pos.y;
-
+  x() {
+    data.relativeX = mousePosition.x;
     elements.move.style.transform = returnPositionString(
-      data.initialX + pos.x,
-      data.initialY + pos.y
+      data.initialX + mousePosition.x,
+      data.initialY
+    );
+  },
+  y() {
+    data.relativeY = mousePosition.y;
+    elements.move.style.transform = returnPositionString(
+      data.initialX,
+      data.initialY + mousePosition.y
+    );
+  },
+  all() {
+    data.relativeX = mousePosition.x;
+    data.relativeY = mousePosition.y;
+    elements.move.style.transform = returnPositionString(
+      data.initialX + mousePosition.x,
+      data.initialY + mousePosition.y
     );
   }
 };
 
-/* --- Start dragging ---------- */
+function posUpdate() {
+  updatePosition[data.axis]();
+  posAnimation = requestAnimationFrame(posUpdate);
+}
+
+// --- Start dragging ----------
 function dragDown(axis, grabElement, moveElement, e) {
   const grabEl = grabElement;
   const moveEl = moveElement;
@@ -136,11 +152,18 @@ function dragDown(axis, grabElement, moveElement, e) {
 
   grabEl.classList.add(eventClass.down);
 
-  document.addEventListener('mousemove', updatePosition[axis]);
-  document.addEventListener('touchmove', updatePosition[axis]);
+  document.addEventListener('mousemove', updateMousePosition);
+  document.addEventListener('touchmove', updateMousePosition);
+
+  once('mousemove', () => {
+    e.preventDefault();
+
+    updatePosition.addClass();
+    posAnimation = requestAnimationFrame(posUpdate);
+  });
 }
 
-/* --- End dragging ---------- */
+// --- End dragging ----------
 function dragUp() {
   if (elements.move) {
     elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : 'none';
@@ -154,24 +177,12 @@ function dragUp() {
 
     elements.grab.classList.remove(eventClass.down);
     elements.move.classList.remove(eventClass.move);
-
-    document.removeEventListener('mousemove', updatePosition[data.axis]);
-    document.removeEventListener('touchmove', updatePosition[data.axis]);
   }
 }
 
-function createDraggable(el, binding) {
+function createDrag(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
-
-  /* Creates stylesheet with basic styling (position, z-index and cursors) */
-  if (!data.isStyleAdded) {
-    data.isStyleAdded = true;
-
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.hasHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
-    document.body.appendChild(styleElement);
-  }
 
   if (val instanceof Object) {
     [axis, handle] = [val.axis, val.handle];
@@ -200,31 +211,46 @@ function createDraggable(el, binding) {
 
     moveElement.classList.add(eventClass.initial);
 
-    /* Start dragging */
+    // Start dragging
     grabElement.onmousedown = e => dragDown(axis, grabElement, moveElement, e);
     grabElement.ontouchstart = e => dragDown(axis, grabElement, moveElement, e);
   }
 
-  /* End dragging */
-  document.addEventListener('mouseup', dragUp);
-  document.addEventListener('touchend', dragUp);
+  // End dragging
+  document.addEventListener('mouseup', (e) => {
+    e.preventDefault();
+
+    dragUp();
+    cancelAnimationFrame(posAnimation);
+  });
 }
 
-const vDrag = {
+export default {
   install(Vue, options) {
+    // Replace default event classes with custom ones
     if (options) {
       const classes = options.eventClass;
-      eventClass.forEach((key) => {
+      Object.keys(classes).forEach((key) => {
         if (classes[key]) {
           eventClass[key] = classes[key];
         }
       });
     }
 
+    // Create stylesheet with basic styling (position, z-index and cursors)
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.hasHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
+    document.body.appendChild(styleElement);
+
+    // Register 'v-drag' directive
     Vue.directive('drag', {
+
+      // Add draggable configuration to element for the first time
       inserted(el, binding) {
-        createDraggable(el, binding);
+        createDrag(el, binding);
       },
+
+      // Update the drag configuration, remove events and styling to previous handle
       update(el, binding) {
         if (binding.oldValue) {
           const oldHandle = document.getElementById(binding.oldValue)
@@ -236,14 +262,8 @@ const vDrag = {
             oldHandle.classList.remove(eventClass.handle);
           }
         }
-        createDraggable(el, binding);
+        createDrag(el, binding);
       }
     });
   }
 };
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(vDrag);
-} else {
-  module.exports = vDrag;
-}
