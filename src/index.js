@@ -6,8 +6,6 @@
 const data = {
   axis: 'all',
 
-  isStyleAdded: false,
-
   transform: {
     declared: false,
     string: ''
@@ -42,7 +40,7 @@ let posAnimation;
 let isMoveStarted = false;
 
 // Shorthand for muliple events with the same function
-function event(types, func, state = 'add', target = document) {
+function eventListener(types, func, state = 'add', target = document) {
   if (state === 'add') {
     types.forEach((type) => {
       target.addEventListener(type, func);
@@ -54,31 +52,31 @@ function event(types, func, state = 'add', target = document) {
   }
 }
 
+// Add styling to the move element
+function moveElementTransform(transform, left, top) {
+  elements.move.style.transform = transform;
+  elements.move.style.left = left;
+  elements.move.style.top = top;
+}
+
 // Return a matrix with transform and translate values
 function returnPositionString(a, b) {
-  return `matrix(${data.transform.string}, ${a}, ${b})`;
+  return `matrix(${data.transform.string} ${a}, ${b})`;
 }
 
-// Get the transformation the moving element has
-function getMatrixSection(str) {
-  const list = []; let i;
-  for (i = 0; i < str.length; i += 1) {
-    if (str[i] === ',') {
-      list.push(i);
+// Return element's left or top position from matrix
+function getTransformValue(str, dir) {
+  let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
+
+  if (str !== 'none') {
+    const strValues = str.match(/[0-9., -]+/)[0].split(', ');
+    if (dir === 'left') {
+      pos += Number(strValues[4]);
+    } else if (dir === 'top') {
+      pos += Number(strValues[5]);
     }
   }
-  return list;
-}
 
-function getPosition(str, el, dir) {
-  const list = getMatrixSection(str);
-  let pos = parseInt(window.getComputedStyle(el)[dir].slice(0, -2), 10);
-
-  if (dir === 'left' && str !== 'none') {
-    pos += parseInt(str.slice(list[3] + 2, list[4]), 10);
-  } else if (dir === 'top' && str !== 'none') {
-    pos += parseInt(str.slice(list[4] + 2, -1), 10);
-  }
   return pos;
 }
 
@@ -130,7 +128,7 @@ function startMovement() {
     isMoveStarted = true;
     posAnimation = requestAnimationFrame(posUpdate);
   } else {
-    event(['mousemove', 'touchmove'], startMovement, 'remove');
+    eventListener(['mousemove', 'touchmove'], startMovement, 'remove');
   }
 }
 
@@ -154,36 +152,34 @@ function dragDown(axis, grabElement, moveElement, e) {
 
   if (matrix === 'none') {
     data.transform.declared = false;
-    data.transform.string = '1, 0, 0, 1';
+    data.transform.string = '1, 0, 0, 1,';
   } else {
     data.transform.declared = true;
-    data.transform.string = matrix.slice(7, getMatrixSection(matrix)[3]);
+    [data.transform.string] = matrix.match(/\d([^,]*,){4}/g);
   }
 
-  data.initialX = getPosition(matrix, moveEl, 'left');
-  data.initialY = getPosition(matrix, moveEl, 'top');
+  data.initialX = getTransformValue(matrix, 'left');
+  data.initialY = getTransformValue(matrix, 'top');
 
-  moveEl.style.transform = returnPositionString(data.initialX, data.initialY);
-  moveEl.style.left = 0;
-  moveEl.style.top = 0;
-
+  moveElementTransform(returnPositionString(data.initialX, data.initialY), 0, 0);
   grabEl.classList.add(eventClass.down);
 
-  event(['mousemove', 'touchmove'], updateMousePosition);
-  event(['mousemove', 'touchmove'], startMovement);
+  eventListener(['mousemove', 'touchmove'], updateMousePosition);
+  eventListener(['mousemove', 'touchmove'], startMovement);
 }
 
 // --- End dragging ----------
-function dragUp(e) {
-  e.preventDefault();
+function dragUp() {
   cancelAnimationFrame(posAnimation);
 
   isMoveStarted = false;
-  event(['mousemove', 'touchmove'], startMovement, 'remove');
+  eventListener(['mousemove', 'touchmove'], startMovement, 'remove');
 
-  elements.move.style.transform = data.transform.declared ? returnPositionString(0, 0) : 'none';
-  elements.move.style.left = `${data.initialX + data.relativeX}px`;
-  elements.move.style.top = `${data.initialY + data.relativeY}px`;
+  moveElementTransform(
+    data.transform.declared ? returnPositionString(0, 0) : 'none',
+    `${data.initialX + data.relativeX}px`,
+    `${data.initialY + data.relativeY}px`
+  );
 
   updatePosition.addClass = function () {
     elements.move.classList.add(eventClass.move);
@@ -193,7 +189,7 @@ function dragUp(e) {
   elements.grab.classList.remove(eventClass.down);
   elements.move.classList.remove(eventClass.move);
 
-  event(['mousemove', 'touchmove'], updateMousePosition, 'remove');
+  eventListener(['mousemove', 'touchmove'], updateMousePosition, 'remove');
 }
 
 function createDrag(el, binding) {
@@ -233,7 +229,7 @@ function createDrag(el, binding) {
   }
 
   // End dragging
-  event(['mouseup', 'touchend'], dragUp);
+  eventListener(['mouseup', 'touchend'], dragUp);
 }
 
 export default {
