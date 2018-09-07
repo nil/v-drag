@@ -9,13 +9,7 @@ const data = {
   transform: {
     declared: false,
     string: ''
-  },
-
-  initialX: 0,
-  initialY: 0,
-
-  cursorInitialX: 0,
-  cursorInitialY: 0
+  }
 };
 
 const elements = {
@@ -23,9 +17,23 @@ const elements = {
   move: null
 };
 
-let mousePosition = {
-  x: 0,
-  y: 0
+const coord = {
+  mouse: { // Current mouse/touch positon
+    x: 0,
+    y: 0
+  },
+  matrix: { // Element's position given by matrix
+    x: 0,
+    y: 0
+  },
+  initial: { // Position of mouse/touch when drag begins
+    x: 0,
+    y: 0
+  },
+  relative: { // Difference between element's initial and current position
+    x: 0,
+    y: 0
+  }
 };
 
 const eventClass = {
@@ -66,25 +74,23 @@ function returnPositionString(a, b) {
 
 // Return element's left or top position from matrix
 function getTransformValue(str, dir) {
-  let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
+  let value = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
 
   if (str !== 'none') {
-    const strValues = str.match(/[0-9., -]+/)[0].split(', ');
+    const itemsArray = str.match(/[0-9., -]+/)[0].split(', ');
     if (dir === 'left') {
-      pos += Number(strValues[4]);
+      value += Number(itemsArray[4]);
     } else if (dir === 'top') {
-      pos += Number(strValues[5]);
+      value += Number(itemsArray[5]);
     }
   }
-
-  return pos;
+  return value;
 }
 
+// Update mouse's x and y coordinates
 function updateMousePosition(e) {
-  mousePosition = {
-    x: (e.pageX || e.touches[0].pageX) - data.cursorInitialX,
-    y: (e.pageY || e.touches[0].pageY) - data.cursorInitialY
-  };
+  coord.mouse.x = (e.pageX || e.touches[0].pageX) - coord.initial.x;
+  coord.mouse.y = (e.pageY || e.touches[0].pageY) - coord.initial.y;
 }
 
 // --- While dragging ----------
@@ -94,25 +100,25 @@ const updatePosition = {
     updatePosition.addClass = function () {};
   },
   x() {
-    data.relativeX = mousePosition.x;
+    coord.relative.x = coord.mouse.x;
     elements.move.style.transform = returnPositionString(
-      data.initialX + mousePosition.x,
-      data.initialY
+      coord.matrix.x + coord.mouse.x,
+      coord.matrix.y
     );
   },
   y() {
-    data.relativeY = mousePosition.y;
+    coord.relative.y = coord.mouse.y;
     elements.move.style.transform = returnPositionString(
-      data.initialX,
-      data.initialY + mousePosition.y
+      coord.matrix.x,
+      coord.matrix.y + coord.mouse.y
     );
   },
   all() {
-    data.relativeX = mousePosition.x;
-    data.relativeY = mousePosition.y;
+    coord.relative.x = coord.mouse.x;
+    coord.relative.y = coord.mouse.y;
     elements.move.style.transform = returnPositionString(
-      data.initialX + mousePosition.x,
-      data.initialY + mousePosition.y
+      coord.matrix.x + coord.mouse.x,
+      coord.matrix.y + coord.mouse.y
     );
   }
 };
@@ -142,11 +148,14 @@ function dragDown(axis, grabElement, moveElement, e) {
 
   data.axis = axis;
 
-  data.cursorInitialX = e.pageX || e.touches[0].pageX;
-  data.cursorInitialY = e.pageY || e.touches[0].pageY;
+  coord.initial.x = e.pageX || e.touches[0].pageX;
+  coord.initial.y = e.pageY || e.touches[0].pageY;
 
-  data.relativeX = 0;
-  data.relativeY = 0;
+  coord.relative.x = 0;
+  coord.relative.y = 0;
+
+  // Find if device supports mouse, touch or both
+  //
 
   const matrix = window.getComputedStyle(moveElement).transform;
 
@@ -158,10 +167,10 @@ function dragDown(axis, grabElement, moveElement, e) {
     [data.transform.string] = matrix.match(/\d([^,]*,){4}/g);
   }
 
-  data.initialX = getTransformValue(matrix, 'left');
-  data.initialY = getTransformValue(matrix, 'top');
+  coord.matrix.x = getTransformValue(matrix, 'left');
+  coord.matrix.y = getTransformValue(matrix, 'top');
 
-  moveElementTransform(returnPositionString(data.initialX, data.initialY), 0, 0);
+  moveElementTransform(returnPositionString(coord.matrix.x, coord.matrix.y), 0, 0);
   grabEl.classList.add(eventClass.down);
 
   eventListener(['mousemove', 'touchmove'], updateMousePosition);
@@ -177,8 +186,8 @@ function dragUp() {
 
   moveElementTransform(
     data.transform.declared ? returnPositionString(0, 0) : 'none',
-    `${data.initialX + data.relativeX}px`,
-    `${data.initialY + data.relativeY}px`
+    `${coord.matrix.x + coord.relative.x}px`,
+    `${coord.matrix.y + coord.relative.y}px`
   );
 
   updatePosition.addClass = function () {
