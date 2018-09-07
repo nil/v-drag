@@ -154,9 +154,6 @@ function dragDown(axis, grabElement, moveElement, e) {
   coord.relative.x = 0;
   coord.relative.y = 0;
 
-  // Find if device supports mouse, touch or both
-  //
-
   const matrix = window.getComputedStyle(moveElement).transform;
 
   if (matrix === 'none') {
