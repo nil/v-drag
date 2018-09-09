@@ -1,5 +1,5 @@
 /*!
- * v-drag v1.2.4
+ * v-drag v1.2.10
  * by Nil Vila
  */
 
@@ -47,6 +47,11 @@ const eventClass = {
 let posAnimation;
 let isMoveStarted = false;
 
+
+/*
+ * Utils
+ */
+
 // Shorthand for muliple events with the same function
 function eventListener(types, func, state = 'add', target = document) {
   if (state === 'add') {
@@ -93,7 +98,40 @@ function updateMousePosition(e) {
   coord.mouse.y = (e.pageY || e.touches[0].pageY) - coord.initial.y;
 }
 
-// --- While dragging ----------
+
+/*
+ * External functions
+ */
+
+function setAndStoreTransformValue() {
+  // Get transform value of the move element
+  const matrix = window.getComputedStyle(elements.move).transform;
+
+  // Retrun move element's transform value
+  if (matrix === 'none') {
+    data.transform.declared = false;
+    data.transform.string = '1, 0, 0, 1,';
+  } else {
+    data.transform.declared = true;
+    data.transform.string = matrix.match(/\d([^,]*,){4}/g);
+  }
+
+  // Apply transform to the move element
+  const left = getTransformValue(matrix, 'left');
+  const top = getTransformValue(matrix, 'top');
+
+  moveElementTransform(returnPositionString(left, top), 0, 0);
+
+  // Set matrix's transform value on the dataset
+  coord.matrix.x = left;
+  coord.matrix.y = top;
+}
+
+
+/*
+ * While dragging
+ */
+
 const updatePosition = {
   addClass() {
     elements.move.classList.add(eventClass.move);
@@ -138,43 +176,43 @@ function startMovement() {
   }
 }
 
-// --- Start dragging ----------
-function dragDown(axis, grabElement, moveElement, e) {
-  const grabEl = grabElement;
-  const moveEl = moveElement;
 
-  elements.grab = grabEl;
-  elements.move = moveEl;
+/*
+ * Start dragging
+ */
 
+function dragDown(grabElement, moveElement, axis, e) {
+  // Store grab and move elements
+  elements.grab = grabElement;
+  elements.move = moveElement;
+
+  // Store axis value
   data.axis = axis;
 
+  // Store current mouse or touch position
   coord.initial.x = e.pageX || e.touches[0].pageX;
   coord.initial.y = e.pageY || e.touches[0].pageY;
 
+  // Reset relative coordinates
   coord.relative.x = 0;
   coord.relative.y = 0;
 
-  const matrix = window.getComputedStyle(moveElement).transform;
+  // Apply transform styling to the move element
+  setAndStoreTransformValue();
 
-  if (matrix === 'none') {
-    data.transform.declared = false;
-    data.transform.string = '1, 0, 0, 1,';
-  } else {
-    data.transform.declared = true;
-    [data.transform.string] = matrix.match(/\d([^,]*,){4}/g);
-  }
+  // Set CSS class to grab element
+  grabElement.classList.add(eventClass.down);
 
-  coord.matrix.x = getTransformValue(matrix, 'left');
-  coord.matrix.y = getTransformValue(matrix, 'top');
-
-  moveElementTransform(returnPositionString(coord.matrix.x, coord.matrix.y), 0, 0);
-  grabEl.classList.add(eventClass.down);
-
+  // Add events for mouse or touch movement
   eventListener(['mousemove', 'touchmove'], updateMousePosition);
   eventListener(['mousemove', 'touchmove'], startMovement);
 }
 
-// --- End dragging ----------
+
+/*
+ * End dragging
+ */
+
 function dragUp() {
   cancelAnimationFrame(posAnimation);
 
@@ -230,8 +268,8 @@ function createDrag(el, binding) {
     moveElement.classList.add(eventClass.initial);
 
     // Start dragging
-    grabElement.onmousedown = e => dragDown(axis, grabElement, moveElement, e);
-    grabElement.ontouchstart = e => dragDown(axis, grabElement, moveElement, e);
+    grabElement.onmousedown = e => dragDown(grabElement, moveElement, axis, e);
+    grabElement.ontouchstart = e => dragDown(grabElement, moveElement, axis, e);
   }
 
   // End dragging
