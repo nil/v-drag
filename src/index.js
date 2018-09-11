@@ -287,18 +287,21 @@ export default {
 
       // Update the drag configuration
       update(el, binding) {
-        if (binding.oldValue) {
-          const oldHandle = document.getElementById(binding.oldValue)
-            || document.getElementById(binding.oldValue.handle);
+        // Remove events from updated element
+        el.onmousedown = null;
+        el.ontouchstart = null;
 
-          if (oldHandle) {
-            // Remove events from the old handle
-            oldHandle.onmousedown = null;
-            oldHandle.ontouchstart = null;
+        const oldHandle = document.getElementById(binding.oldValue)
+          || document.getElementById(binding.oldValue.handle);
 
-            // Remove CSS classes related to old handle
-            oldHandle.classList.remove(eventClass.handle);
-          }
+        if (oldHandle) {
+          // Remove events from the old handle
+          oldHandle.onmousedown = null;
+          oldHandle.ontouchstart = null;
+
+          // Remove CSS classes related to old handle
+          oldHandle.classList.remove(eventClass.handle);
+          el.classList.remove(eventClass.hasHandle);
         }
 
         // Add draggable configuration to element another time
