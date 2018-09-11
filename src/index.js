@@ -34,7 +34,7 @@ const coord = {
 
 const eventClass = {
   initial: 'drag-draggable',
-  hasHandle: 'drag-uses-handle',
+  usesHandle: 'drag-uses-handle',
   handle: 'drag-handle',
   down: 'drag-down',
   move: 'drag-move'
@@ -240,7 +240,7 @@ export function dragSetup(el, binding) {
       moveElement = el;
 
       // Apply CSS classes related to the handle
-      moveElement.classList.add(eventClass.hasHandle);
+      moveElement.classList.add(eventClass.usesHandle);
       grabElement.classList.add(eventClass.handle);
     } else {
       // Define roles of the elements
@@ -277,7 +277,7 @@ export default {
 
     // Create stylesheet with basic styling (position, z-index and cursors)
     const styleElement = document.createElement('style');
-    styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.hasHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.hasHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
+    styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.usesHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.usesHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
     document.body.appendChild(styleElement);
 
     // Register 'v-drag' directive
@@ -304,7 +304,7 @@ export default {
 
           // Remove CSS classes related to old handle
           oldHandle.classList.remove(eventClass.handle);
-          el.classList.remove(eventClass.hasHandle);
+          el.classList.remove(eventClass.usesHandle);
         }
 
         // Add draggable configuration to element another time
