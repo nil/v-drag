@@ -47,6 +47,14 @@ let posAnimation;
  * Helpers
  */
 
+// Checks if the given value is a valid axis value ('x', 'y' or 'all')
+function isValidAxisValue(axis) {
+  if (axis === 'x' || axis === 'y' || axis === 'all') {
+    return true;
+  }
+  return false;
+}
+
 // Return a matrix with transform and translate values
 export function returnPositionString(a, b) {
   return `matrix(${data.matrix ? data.matrix : '1, 0, 0, 1,'} ${a}, ${b})`;
@@ -216,16 +224,20 @@ export function dragSetup(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
 
-  // Update axis and handle values
-  if (val instanceof Object) {
-    [axis, handle] = [val.axis, val.handle];
+  // Update axis value
+  if (val instanceof Object && val.axis && isValidAxisValue(val.axis)) {
+    axis = val.axis;
+  } else if (isValidAxisValue(binding.arg)) {
+    axis = binding.arg;
   } else {
-    [axis, handle] = [binding.arg, val];
+    axis = 'all';
   }
 
-  // Set axis to 'all' when its neither 'x' nor 'y'
-  if (axis !== 'x' && axis !== 'y') {
-    axis = 'all';
+  // Update handle value
+  if (val instanceof Object) {
+    handle = val.handle;
+  } else {
+    handle = val;
   }
 
   const valueElement = document.getElementById(handle);

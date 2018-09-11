@@ -22,86 +22,84 @@ describe('Set up dragging', () => {
   const argOther = { arg: 'other' };
   const valueUndefined = { value: 'und' };
   const valueArg = { value: 'id', arg: 'x' };
-  const valueAxis = { value: { axis: 'x' } };
   const valueAxisHandle = { value: { axis: 'x', handle: 'id' } };
-  const valueAxisArg = { value: { axis: 'x' }, arg: 'y' };
+  const valueAxisArgValid = { value: { axis: 'x' }, arg: 'y' };
+  const valueAxisArgInvalid = { value: { axis: 'other' }, arg: 'y' };
 
   describe('Axis', () => {
-    // 001
     test('Get axis from object', () => {
       const result = dragSetup(el, valueAxisHandle);
       expect(result.axis).toBe('x');
-    })
+    });
 
-    // 002
-    test('Get axis from argument', () => {
+    test('Get axis from arg', () => {
       const result = dragSetup(el, valueArg);
       expect(result.axis).toBe('x');
-    })
+    });
 
-    // 003
-    test('Get axis from object, not argument', () => {
-      const result = dragSetup(el, valueAxisArg);
+    test('Get object if object and arg are declared', () => {
+      const result = dragSetup(el, valueAxisArgValid);
       expect(result.axis).toBe('x');
-    })
+    });
 
-    // 004
-    test('Get axis from object, not argument', () => {
+    test('Get axis from arg if object is invalid', () => {
+      const result = dragSetup(el, valueAxisArgInvalid);
+      expect(result.axis).toBe('y');
+    });
+
+    test('Get axis when it is not declared', () => {
+      const result = dragSetup(el, empty);
+      expect(result.axis).toBe('all');
+    });
+
+    test("Validate axis if it is not 'x' or 'y'", () => {
       const result = dragSetup(el, argOther);
       expect(result.axis).toBe('all');
-    })
+    });
   });
 
   describe('Handle', () => {
-    // 005
     test('Get handle from object', () => {
       const result = dragSetup(el, valueAxisHandle);
       expect(result.handle).toBe(elId.id);
-    })
+    });
 
-    // 006
     test('Get handle from value', () => {
       const result = dragSetup(el, valueArg);
       expect(result.handle).toBe(elId.id);
-    })
+    });
 
-    // 007
     test('Same element when undefined handle', () => {
       const result = dragSetup(el, valueUndefined);
       expect(result.grabElement).toBe(result.moveElement);
-    })
+    });
 
-    // 008
     test('Different element when defined handle', () => {
       const result = dragSetup(el, valueArg);
       expect(result.grabElement).not.toBe(result.moveElement);
-    })
+    });
 
-    // 009
     test('.drag-handle on grab element', () => {
       const result = dragSetup(el, valueArg);
       expect(result.grabElement.classList).toContain('drag-handle');
-    })
+    });
 
-    // 010
     test('.drag-uses-handle on move element', () => {
       const result = dragSetup(el, valueArg);
       expect(result.moveElement.classList).toContain('drag-uses-handle');
-    })
-  })
+    });
+  });
 
   describe('Other', () => {
-    // 011
     test('.drag-draggable on move element', () => {
       const result = dragSetup(el, valueArg);
       expect(result.moveElement.classList).toContain('drag-draggable');
-    })
+    });
 
-    // 012
     test('Grab element has the initial events', () => {
       const result = dragSetup(el, valueArg);
       expect(result.grabElement.onmousedown).not.toBeNull();
       expect(result.grabElement.ontouchstart).not.toBeNull();
-    })
+    });
   });
 });
