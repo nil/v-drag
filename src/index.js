@@ -49,8 +49,28 @@ let isMoveStarted = false;
 
 
 /*
- * Utils
+ * Helpers
  */
+
+// Return a matrix with transform and translate values
+function returnPositionString(a, b) {
+  return `matrix(${data.transform.string} ${a}, ${b})`;
+}
+
+// Return element's left or top position
+function getTransformValue(str, dir) {
+  let value = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
+
+  if (str !== 'none') {
+    const itemsArray = str.match(/[0-9., -]+/)[0].split(', ');
+    if (dir === 'left') {
+      value += Number(itemsArray[4]);
+    } else if (dir === 'top') {
+      value += Number(itemsArray[5]);
+    }
+  }
+  return value;
+}
 
 // Shorthand for muliple events with the same function
 function eventListener(types, func, state = 'add', target = document) {
@@ -72,59 +92,10 @@ function moveElementTransform(transform, left, top) {
   elements.move.style.top = top;
 }
 
-// Return a matrix with transform and translate values
-function returnPositionString(a, b) {
-  return `matrix(${data.transform.string} ${a}, ${b})`;
-}
-
-// Return element's left or top position from matrix
-function getTransformValue(str, dir) {
-  let value = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
-
-  if (str !== 'none') {
-    const itemsArray = str.match(/[0-9., -]+/)[0].split(', ');
-    if (dir === 'left') {
-      value += Number(itemsArray[4]);
-    } else if (dir === 'top') {
-      value += Number(itemsArray[5]);
-    }
-  }
-  return value;
-}
-
 // Update mouse's x and y coordinates
 function updateMousePosition(e) {
   coord.mouse.x = (e.pageX || e.touches[0].pageX) - coord.initial.x;
   coord.mouse.y = (e.pageY || e.touches[0].pageY) - coord.initial.y;
-}
-
-
-/*
- * External functions
- */
-
-function setAndStoreTransformValue() {
-  // Get transform value of the move element
-  const matrix = window.getComputedStyle(elements.move).transform;
-
-  // Retrun move element's transform value
-  if (matrix === 'none') {
-    data.transform.declared = false;
-    data.transform.string = '1, 0, 0, 1,';
-  } else {
-    data.transform.declared = true;
-    data.transform.string = matrix.match(/\d([^,]*,){4}/g);
-  }
-
-  // Apply transform to the move element
-  const left = getTransformValue(matrix, 'left');
-  const top = getTransformValue(matrix, 'top');
-
-  moveElementTransform(returnPositionString(left, top), 0, 0);
-
-  // Set matrix's transform value on the dataset
-  coord.matrix.x = left;
-  coord.matrix.y = top;
 }
 
 
@@ -161,11 +132,13 @@ const updatePosition = {
   }
 };
 
+// Function to execute every frame
 function posUpdate() {
   updatePosition[data.axis]();
   posAnimation = requestAnimationFrame(posUpdate);
 }
 
+// Begin moving animation
 function startMovement() {
   if (!isMoveStarted) {
     updatePosition.addClass();
@@ -197,10 +170,30 @@ function dragDown(grabElement, moveElement, axis, e) {
   coord.relative.x = 0;
   coord.relative.y = 0;
 
-  // Apply transform styling to the move element
-  setAndStoreTransformValue();
+  // Get transform string of the move element
+  const matrix = window.getComputedStyle(elements.move).transform;
 
-  // Set CSS class to grab element
+  // Update dataset with matrix value
+  if (matrix === 'none') {
+    data.transform.declared = false;
+    data.transform.string = '1, 0, 0, 1,';
+  } else {
+    data.transform.declared = true;
+    data.transform.string = matrix.match(/\d([^,]*,){4}/g);
+  }
+
+  // Apply transform to the move element
+  const left = getTransformValue(matrix, 'left');
+  const top = getTransformValue(matrix, 'top');
+
+  // Replace left and top properties with transform
+  moveElementTransform(returnPositionString(left, top), 0, 0);
+
+  // Store move element's coordinates in the dataset
+  coord.matrix.x = left;
+  coord.matrix.y = top;
+
+  // Apply CSS class to grab element
   grabElement.classList.add(eventClass.down);
 
   // Add events for mouse or touch movement
@@ -214,11 +207,15 @@ function dragDown(grabElement, moveElement, axis, e) {
  */
 
 function dragUp() {
+  // Stop move animation
   cancelAnimationFrame(posAnimation);
 
   isMoveStarted = false;
+
+  // Remove function if mouse/touch hasn't moved
   eventListener(['mousemove', 'touchmove'], startMovement, 'remove');
 
+  // Replace transform properties with left and top
   moveElementTransform(
     data.transform.declared ? returnPositionString(0, 0) : 'none',
     `${coord.matrix.x + coord.relative.x}px`,
@@ -230,22 +227,31 @@ function dragUp() {
     updatePosition.addClass = function () {};
   };
 
+  // Remove CSS classes
   elements.grab.classList.remove(eventClass.down);
   elements.move.classList.remove(eventClass.move);
 
+  // Stop updating mouse position
   eventListener(['mousemove', 'touchmove'], updateMousePosition, 'remove');
 }
+
+
+/*
+ * Set up dragging
+ */
 
 function createDrag(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
 
+  // Update axis and handle values
   if (val instanceof Object) {
     [axis, handle] = [val.axis, val.handle];
   } else {
     [axis, handle] = [binding.arg, val];
   }
 
+  // Set axis to 'all' when its neither 'x' nor 'y'
   if (axis !== 'x' && axis !== 'y') {
     axis = 'all';
   }
@@ -253,26 +259,32 @@ function createDrag(el, binding) {
   const valueElement = document.getElementById(handle);
 
   if (val && !valueElement && val.handle) {
+    // Throw error when handle is defined but doesn't exist
     console.error(`Element with id “${val.handle || val}” doesn’t exist`);
   } else {
     if (valueElement) {
+      // Define roles of the elements
       grabElement = valueElement;
       moveElement = el;
+
+      // Apply CSS classes related to the handle
       moveElement.classList.add(eventClass.hasHandle);
       grabElement.classList.add(eventClass.handle);
     } else {
+      // Define roles of the elements
       grabElement = el;
       moveElement = el;
     }
 
+    // Apply CSS class to move element
     moveElement.classList.add(eventClass.initial);
 
-    // Start dragging
+    // Add event to start drag
     grabElement.onmousedown = e => dragDown(grabElement, moveElement, axis, e);
     grabElement.ontouchstart = e => dragDown(grabElement, moveElement, axis, e);
   }
 
-  // End dragging
+  // Add event listener to end drag
   eventListener(['mouseup', 'touchend'], dragUp);
 }
 
@@ -301,18 +313,23 @@ export default {
         createDrag(el, binding);
       },
 
-      // Update the drag configuration, remove events and styling to previous handle
+      // Update the drag configuration
       update(el, binding) {
         if (binding.oldValue) {
           const oldHandle = document.getElementById(binding.oldValue)
             || document.getElementById(binding.oldValue.handle);
 
           if (oldHandle) {
+            // Remove events from the old handle
             oldHandle.onmousedown = null;
             oldHandle.ontouchstart = null;
+
+            // Remove CSS classes related to old handle
             oldHandle.classList.remove(eventClass.handle);
           }
         }
+
+        // Add draggable configuration to element another time
         createDrag(el, binding);
       }
     });
