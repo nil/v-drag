@@ -1,5 +1,5 @@
 /*!
- * v-drag v1.3.0
+ * v-drag v1.3.1
  * by Nil Vila
  */
 
@@ -260,7 +260,9 @@ export function dragSetup(el, binding) {
   eventListener(['mouseup', 'touchend'], dragEnd);
 
   // Retrun for tests
-  return { grabElement, moveElement, axis };
+  return {
+    grabElement, moveElement, handle, axis
+  };
 }
 
 export default {
