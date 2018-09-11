@@ -5,11 +5,7 @@
 
 const data = {
   axis: 'all',
-
-  transform: {
-    declared: false,
-    string: ''
-  }
+  matrix: false
 };
 
 const elements = {
@@ -54,7 +50,7 @@ let isMoveStarted = false;
 
 // Return a matrix with transform and translate values
 function returnPositionString(a, b) {
-  return `matrix(${data.transform.string} ${a}, ${b})`;
+  return `matrix(${data.matrix ? data.matrix : '1, 0, 0, 1,'} ${a}, ${b})`;
 }
 
 // Return element's left or top position
@@ -171,15 +167,13 @@ function dragDown(grabElement, moveElement, axis, e) {
   coord.relative.y = 0;
 
   // Get transform string of the move element
-  const matrix = window.getComputedStyle(elements.move).transform;
+  const matrix = window.getComputedStyle(moveElement).transform;
 
   // Update dataset with matrix value
   if (matrix === 'none') {
-    data.transform.declared = false;
-    data.transform.string = '1, 0, 0, 1,';
+    data.matrix = false;
   } else {
-    data.transform.declared = true;
-    data.transform.string = matrix.match(/\d([^,]*,){4}/g);
+    data.matrix = matrix.match(/\d([^,]*,){4}/g);
   }
 
   // Apply transform to the move element
@@ -217,7 +211,7 @@ function dragUp() {
 
   // Replace transform properties with left and top
   moveElementTransform(
-    data.transform.declared ? returnPositionString(0, 0) : 'none',
+    data.matrix ? returnPositionString(0, 0) : 'none',
     `${coord.matrix.x + coord.relative.x}px`,
     `${coord.matrix.y + coord.relative.y}px`
   );
