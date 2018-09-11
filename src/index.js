@@ -54,30 +54,26 @@ function returnPositionString(a, b) {
 
 // Return element's left or top position
 function getTransformValue(str, dir) {
-  let value = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
+  // Get top or left position, without translate
+  let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
 
+  // Only consider translation when matrix is defined
   if (str !== 'none') {
-    const itemsArray = str.match(/[0-9., -]+/)[0].split(', ');
-    if (dir === 'left') {
-      value += Number(itemsArray[4]);
-    } else if (dir === 'top') {
-      value += Number(itemsArray[5]);
-    }
+    // Get all matrix's values
+    const itemsArray = str.match(/[0-9.-]+/g);
+
+    // Get matrix translate value, based on the x + y = 8 equation
+    pos += Number(itemsArray[8 - dir.length]);
   }
-  return value;
+
+  return pos;
 }
 
 // Shorthand for muliple events with the same function
-function eventListener(types, func, state = 'add', target = document) {
-  if (state === 'add') {
-    types.forEach((type) => {
-      target.addEventListener(type, func);
-    });
-  } else if (state === 'remove') {
-    types.forEach((type) => {
-      target.removeEventListener(type, func);
-    });
-  }
+function eventListener(types, func, state = 'add') {
+  types.forEach((type) => {
+    document[`${state}EventListener`](type, func);
+  });
 }
 
 // Add styling to the move element
