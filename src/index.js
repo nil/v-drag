@@ -48,12 +48,12 @@ let posAnimation;
  */
 
 // Return a matrix with transform and translate values
-function returnPositionString(a, b) {
+export function returnPositionString(a, b) {
   return `matrix(${data.matrix ? data.matrix : '1, 0, 0, 1,'} ${a}, ${b})`;
 }
 
 // Return element's left or top position
-function getTransformValue(str, dir) {
+export function getTransformValue(str, dir) {
   // Get top or left position, without translate
   let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
 
@@ -70,21 +70,21 @@ function getTransformValue(str, dir) {
 }
 
 // Shorthand for muliple events with the same function
-function eventListener(types, func, state = 'add') {
+export function eventListener(types, func, state = 'add') {
   types.forEach((type) => {
     document[`${state}EventListener`](type, func);
   });
 }
 
 // Add styling to the move element
-function moveElementTransform(transform, left, top) {
+export function moveElementTransform(transform, left, top) {
   elements.move.style.transform = transform;
   elements.move.style.left = left;
   elements.move.style.top = top;
 }
 
 // Update mouse's x and y coordinates
-function updateMousePosition(e) {
+export function updateMousePosition(e) {
   coord.mouse.x = (e.pageX || e.touches[0].pageX) - coord.initial.x;
   coord.mouse.y = (e.pageY || e.touches[0].pageY) - coord.initial.y;
 }
@@ -94,7 +94,7 @@ function updateMousePosition(e) {
  * While dragging
  */
 
-function updatePosition(x, y) {
+export function updatePosition(x, y) {
   // Store relative coordinates
   coord.relative.x = coord.mouse.x * x;
   coord.relative.y = coord.mouse.y * y;
@@ -114,12 +114,12 @@ const callPositionUpdate = {
 };
 
 // Function to execute every frame
-function repeatRaf() {
+export function repeatRaf() {
   callPositionUpdate[data.axis]();
   posAnimation = requestAnimationFrame(repeatRaf);
 }
 
-function setUpMovement() {
+export function setUpMovement() {
   // Apply CSS class to move element
   elements.move.classList.add(eventClass.move);
 
@@ -135,7 +135,7 @@ function setUpMovement() {
  * Start dragging
  */
 
-function dragStart(grabElement, moveElement, axis, e) {
+export function dragStart(grabElement, moveElement, axis, e) {
   // Store grab and move elements
   elements.grab = grabElement;
   elements.move = moveElement;
@@ -185,7 +185,7 @@ function dragStart(grabElement, moveElement, axis, e) {
  * End dragging
  */
 
-function dragEnd() {
+export function dragEnd() {
   // Stop move animation
   cancelAnimationFrame(posAnimation);
 
@@ -212,7 +212,7 @@ function dragEnd() {
  * Set up dragging
  */
 
-function dragSetup(el, binding) {
+export function dragSetup(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
 
@@ -258,6 +258,9 @@ function dragSetup(el, binding) {
 
   // Add event listener to end drag
   eventListener(['mouseup', 'touchend'], dragEnd);
+
+  // Retrun for tests
+  return { grabElement, moveElement, axis };
 }
 
 export default {
