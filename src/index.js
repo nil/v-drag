@@ -41,7 +41,6 @@ const eventClass = {
 };
 
 let posAnimation;
-let isMoveStarted = false;
 
 
 /*
@@ -99,50 +98,40 @@ function updateMousePosition(e) {
  * While dragging
  */
 
-const updatePosition = {
-  addClass() {
-    elements.move.classList.add(eventClass.move);
-    updatePosition.addClass = function () {};
-  },
-  x() {
-    coord.relative.x = coord.mouse.x;
-    elements.move.style.transform = returnPositionString(
-      coord.matrix.x + coord.mouse.x,
-      coord.matrix.y
-    );
-  },
-  y() {
-    coord.relative.y = coord.mouse.y;
-    elements.move.style.transform = returnPositionString(
-      coord.matrix.x,
-      coord.matrix.y + coord.mouse.y
-    );
-  },
-  all() {
-    coord.relative.x = coord.mouse.x;
-    coord.relative.y = coord.mouse.y;
-    elements.move.style.transform = returnPositionString(
-      coord.matrix.x + coord.mouse.x,
-      coord.matrix.y + coord.mouse.y
-    );
-  }
+function updatePosition(x, y) {
+  // Store relative coordinates
+  coord.relative.x = coord.mouse.x * x;
+  coord.relative.y = coord.mouse.y * y;
+
+  // Apply transformation to move element
+  elements.move.style.transform = returnPositionString(
+    coord.matrix.x + coord.mouse.x * x,
+    coord.matrix.y + coord.mouse.y * y
+  );
+}
+
+// Call updatePosition() based on the axis
+const callPositionUpdate = {
+  x() { updatePosition(true, false); },
+  y() { updatePosition(false, true); },
+  all() { updatePosition(true, true); }
 };
 
 // Function to execute every frame
-function posUpdate() {
-  updatePosition[data.axis]();
-  posAnimation = requestAnimationFrame(posUpdate);
+function repeatRaf() {
+  callPositionUpdate[data.axis]();
+  posAnimation = requestAnimationFrame(repeatRaf);
 }
 
-// Begin moving animation
-function startMovement() {
-  if (!isMoveStarted) {
-    updatePosition.addClass();
-    isMoveStarted = true;
-    posAnimation = requestAnimationFrame(posUpdate);
-  } else {
-    eventListener(['mousemove', 'touchmove'], startMovement, 'remove');
-  }
+function setUpMovement() {
+  // Apply CSS class to move element
+  elements.move.classList.add(eventClass.move);
+
+  // Begin moving animation
+  posAnimation = requestAnimationFrame(repeatRaf);
+
+  // Avoid this function to fire another time
+  eventListener(['mousemove', 'touchmove'], setUpMovement, 'remove');
 }
 
 
@@ -192,7 +181,7 @@ function dragDown(grabElement, moveElement, axis, e) {
 
   // Add events for mouse or touch movement
   eventListener(['mousemove', 'touchmove'], updateMousePosition);
-  eventListener(['mousemove', 'touchmove'], startMovement);
+  eventListener(['mousemove', 'touchmove'], setUpMovement);
 }
 
 
@@ -204,10 +193,8 @@ function dragUp() {
   // Stop move animation
   cancelAnimationFrame(posAnimation);
 
-  isMoveStarted = false;
-
-  // Remove function if mouse/touch hasn't moved
-  eventListener(['mousemove', 'touchmove'], startMovement, 'remove');
+  // Remove setUpMovement() if mouse/touch hasn't moved
+  eventListener(['mousemove', 'touchmove'], setUpMovement, 'remove');
 
   // Replace transform properties with left and top
   moveElementTransform(
@@ -215,11 +202,6 @@ function dragUp() {
     `${coord.matrix.x + coord.relative.x}px`,
     `${coord.matrix.y + coord.relative.y}px`
   );
-
-  updatePosition.addClass = function () {
-    elements.move.classList.add(eventClass.move);
-    updatePosition.addClass = function () {};
-  };
 
   // Remove CSS classes
   elements.grab.classList.remove(eventClass.down);
