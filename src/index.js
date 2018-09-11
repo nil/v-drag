@@ -139,7 +139,7 @@ function setUpMovement() {
  * Start dragging
  */
 
-function dragDown(grabElement, moveElement, axis, e) {
+function dragStart(grabElement, moveElement, axis, e) {
   // Store grab and move elements
   elements.grab = grabElement;
   elements.move = moveElement;
@@ -189,7 +189,7 @@ function dragDown(grabElement, moveElement, axis, e) {
  * End dragging
  */
 
-function dragUp() {
+function dragEnd() {
   // Stop move animation
   cancelAnimationFrame(posAnimation);
 
@@ -216,7 +216,7 @@ function dragUp() {
  * Set up dragging
  */
 
-function createDrag(el, binding) {
+function dragSetup(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
 
@@ -256,12 +256,12 @@ function createDrag(el, binding) {
     moveElement.classList.add(eventClass.initial);
 
     // Add event to start drag
-    grabElement.onmousedown = e => dragDown(grabElement, moveElement, axis, e);
-    grabElement.ontouchstart = e => dragDown(grabElement, moveElement, axis, e);
+    grabElement.onmousedown = e => dragStart(grabElement, moveElement, axis, e);
+    grabElement.ontouchstart = e => dragStart(grabElement, moveElement, axis, e);
   }
 
   // Add event listener to end drag
-  eventListener(['mouseup', 'touchend'], dragUp);
+  eventListener(['mouseup', 'touchend'], dragEnd);
 }
 
 export default {
@@ -286,7 +286,7 @@ export default {
 
       // Add draggable configuration to element for the first time
       inserted(el, binding) {
-        createDrag(el, binding);
+        dragSetup(el, binding);
       },
 
       // Update the drag configuration
@@ -306,7 +306,7 @@ export default {
         }
 
         // Add draggable configuration to element another time
-        createDrag(el, binding);
+        dragSetup(el, binding);
       }
     });
   }
