@@ -1,5 +1,5 @@
 /*!
- * v-drag v1.2.10
+ * v-drag v1.3.0
  * by Nil Vila
  */
 
