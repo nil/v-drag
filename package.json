@@ -26,13 +26,9 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^23.6.0",
-    "babel-preset-env": "^1.7.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
-    "jest": "^23.6.0",
     "terser": "^3.8.1"
   }
 }

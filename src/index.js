@@ -49,19 +49,21 @@ let posAnimation;
 
 // Checks if the given value is a valid axis value ('x', 'y' or 'all')
 function isValidAxisValue(axis) {
-  if (axis === 'x' || axis === 'y' || axis === 'all') {
+  const acceptedValues = ['x', 'y', 'all'];
+
+  if (acceptedValues.includes(axis)) {
     return true;
   }
   return false;
 }
 
 // Return a matrix with transform and translate values
-export function returnPositionString(a, b) {
+function returnPositionString(a, b) {
   return `matrix(${data.matrix ? data.matrix : '1, 0, 0, 1,'} ${a}, ${b})`;
 }
 
 // Return element's left or top position
-export function getTransformValue(str, dir) {
+function getTransformValue(str, dir) {
   // Get top or left position, without translate
   let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
 
@@ -78,21 +80,21 @@ export function getTransformValue(str, dir) {
 }
 
 // Shorthand for muliple events with the same function
-export function eventListener(types, func, state = 'add') {
+function eventListener(types, func, state = 'add') {
   types.forEach((type) => {
     document[`${state}EventListener`](type, func);
   });
 }
 
 // Add styling to the move element
-export function moveElementTransform(transform, left, top) {
+function moveElementTransform(transform, left, top) {
   elements.move.style.transform = transform;
   elements.move.style.left = left;
   elements.move.style.top = top;
 }
 
 // Update mouse's x and y coordinates
-export function updateMousePosition(e) {
+function updateMousePosition(e) {
   coord.mouse.x = (e.pageX || e.touches[0].pageX) - coord.initial.x;
   coord.mouse.y = (e.pageY || e.touches[0].pageY) - coord.initial.y;
 }
@@ -102,7 +104,7 @@ export function updateMousePosition(e) {
  * While dragging
  */
 
-export function updatePosition(x, y) {
+function updatePosition(x, y) {
   // Store relative coordinates
   coord.relative.x = coord.mouse.x * x;
   coord.relative.y = coord.mouse.y * y;
@@ -122,12 +124,12 @@ const callPositionUpdate = {
 };
 
 // Function to execute every frame
-export function repeatRaf() {
+function repeatRaf() {
   callPositionUpdate[data.axis]();
   posAnimation = requestAnimationFrame(repeatRaf);
 }
 
-export function setUpMovement() {
+function setUpMovement() {
   // Apply CSS class to move element
   elements.move.classList.add(eventClass.move);
 
@@ -143,7 +145,7 @@ export function setUpMovement() {
  * Start dragging
  */
 
-export function dragStart(grabElement, moveElement, axis, e) {
+function dragStart(grabElement, moveElement, axis, e) {
   // Store grab and move elements
   elements.grab = grabElement;
   elements.move = moveElement;
@@ -192,8 +194,7 @@ export function dragStart(grabElement, moveElement, axis, e) {
 /*
  * End dragging
  */
-
-export function dragEnd() {
+function dragEnd() {
   // Stop move animation
   cancelAnimationFrame(posAnimation);
 
@@ -220,7 +221,7 @@ export function dragEnd() {
  * Set up dragging
  */
 
-export function dragSetup(el, binding) {
+function dragSetup(el, binding) {
   const val = binding.value;
   let axis; let handle; let grabElement; let moveElement;
 
@@ -270,11 +271,6 @@ export function dragSetup(el, binding) {
 
   // Add event listener to end drag
   eventListener(['mouseup', 'touchend'], dragEnd);
-
-  // Retrun for tests
-  return {
-    grabElement, moveElement, handle, axis
-  };
 }
 
 export default {
