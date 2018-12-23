@@ -4,7 +4,8 @@ The simplest way to integrate drag on Vue.js.
 
 Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its aim is to quickly integrate and customize draggable elements on projects using Vue.js.
 
-[![Build Status](https://travis-ci.org/nil/v-drag.svg?branch=master)](https://travis-ci.org/nil/v-drag)
+[![Build status](https://travis-ci.org/nil/v-drag.svg?branch=master)](https://travis-ci.org/nil/v-drag)
+[![Dependencies status](https://img.shields.io/david/dev/nil/v-drag.svg)](https://david-dm.org/nil/v-drag)
 [![Version](https://img.shields.io/npm/v/v-drag.svg)](https://www.npmjs.com/package/v-drag)
 [![License](https://img.shields.io/npm/l/v-drag.svg)](https://github.com/nil/v-drag/blob/master/LICENSE)
 
