@@ -1,8 +1,3 @@
-/*!
- * v-drag v1.3.1
- * by Nil Vila
- */
-
 const data = {
   axis: 'all',
   matrix: false
