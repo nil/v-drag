@@ -1,3 +1,8 @@
+import eventListener from './utils/eventListener';
+import getTransformValue from './utils/getTransformValue';
+import isValidAxisValue from './utils/isValidAxisValue';
+import returnPositionString from './utils/returnPositionString';
+
 const data = {
   axis: 'all',
   matrix: false
@@ -42,45 +47,6 @@ let posAnimation;
  * Helpers
  */
 
-// Checks if the given value is a valid axis value ('x', 'y' or 'all')
-function isValidAxisValue(axis) {
-  const acceptedValues = ['x', 'y', 'all'];
-
-  if (acceptedValues.includes(axis)) {
-    return true;
-  }
-  return false;
-}
-
-// Return a matrix with transform and translate values
-function returnPositionString(a, b) {
-  return `matrix(${data.matrix ? data.matrix : '1, 0, 0, 1,'} ${a}, ${b})`;
-}
-
-// Return element's left or top position
-function getTransformValue(str, dir) {
-  // Get top or left position, without translate
-  let pos = Number(window.getComputedStyle(elements.move)[dir].replace('px', ''));
-
-  // Only consider translation when matrix is defined
-  if (str !== 'none') {
-    // Get all matrix's values
-    const itemsArray = str.match(/[0-9.-]+/g);
-
-    // Get matrix translate value, based on the x + y = 8 equation
-    pos += Number(itemsArray[8 - dir.length]);
-  }
-
-  return pos;
-}
-
-// Shorthand for muliple events with the same function
-function eventListener(types, func, state = 'add') {
-  types.forEach((type) => {
-    document[`${state}EventListener`](type, func);
-  });
-}
-
 // Add styling to the move element
 function moveElementTransform(transform, left, top) {
   elements.move.style.transform = transform;
@@ -106,6 +72,7 @@ function updatePosition(x, y) {
 
   // Apply transformation to move element
   elements.move.style.transform = returnPositionString(
+    data.matrix,
     coord.matrix.x + coord.mouse.x * x,
     coord.matrix.y + coord.mouse.y * y
   );
@@ -167,11 +134,11 @@ function dragStart(grabElement, moveElement, axis, e) {
   }
 
   // Apply transform to the move element
-  const left = getTransformValue(matrix, 'left');
-  const top = getTransformValue(matrix, 'top');
+  const left = getTransformValue(elements.move, matrix, 'left');
+  const top = getTransformValue(elements.move, matrix, 'top');
 
   // Replace left and top properties with transform
-  moveElementTransform(returnPositionString(left, top), 0, 0);
+  moveElementTransform(returnPositionString(data.matrix, left, top), 0, 0);
 
   // Store move element's coordinates in the dataset
   coord.matrix.x = left;
@@ -198,7 +165,7 @@ function dragEnd() {
 
   // Replace transform properties with left and top
   moveElementTransform(
-    data.matrix ? returnPositionString(0, 0) : 'none',
+    data.matrix ? returnPositionString(data.matrix, 0, 0) : 'none',
     `${coord.matrix.x + coord.relative.x}px`,
     `${coord.matrix.y + coord.relative.y}px`
   );
