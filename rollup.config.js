@@ -11,7 +11,7 @@ export default {
   output: {
     file: 'dist/main.js',
     name: 'optionsConfig',
-    format: 'cjs',
+    format: 'esm',
     banner: bannerText
   },
   plugins: [
