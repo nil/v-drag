@@ -295,12 +295,17 @@ export default {
 
       // Update the drag configuration
       update(el, binding) {
+        let oldHandle = null;
+
         // Remove events from updated element
         el.onmousedown = null;
         el.ontouchstart = null;
 
-        const oldHandle = document.getElementById(binding.oldValue)
-          || document.getElementById(binding.oldValue.handle);
+        // Get old handle if it exists
+        if (binding.oldValue) {
+          oldHandle = document.getElementById(binding.oldValue)
+            || document.getElementById(binding.oldValue.handle);
+        }
 
         if (oldHandle) {
           // Remove events from the old handle

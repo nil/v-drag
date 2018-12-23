@@ -1,6 +1,6 @@
 {
   "name": "v-drag",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A simple way to integrate dragging on Vue.js",
   "main": "dist/main.js",
   "scripts": {
