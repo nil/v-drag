@@ -25,12 +25,12 @@ export function repeatRaf() {
   window.vnode.posAnimation = requestAnimationFrame(repeatRaf);
 }
 
-export default function () {
+export default function setUpMovement() {
   // TODO: Apply CSS class to move element
 
   // Begin moving animation
   window.vnode.posAnimation = requestAnimationFrame(repeatRaf);
 
   // Avoid this function to fire another time
-  eventListener(['mousemove', 'touchmove'], this, 'remove');
+  eventListener(['mousemove', 'touchmove'], setUpMovement, 'remove');
 }
