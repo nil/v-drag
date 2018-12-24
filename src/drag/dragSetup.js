@@ -4,7 +4,7 @@ import dragEnd from './dragEnd';
 import isValidAxisValue from '../utils/isValidAxisValue';
 import eventListener from '../utils/eventListener';
 
-export default function (el, binding, vnode) {
+export default function (el, binding) {
   const value = binding.value;
   const handle = value instanceof Object ? value.handle : value;
   let axis; let grabElement; let moveElement;
@@ -45,9 +45,6 @@ export default function (el, binding, vnode) {
     grabElement.onmousedown = e => dragStart(grabElement, moveElement, axis, e);
     grabElement.ontouchstart = e => dragStart(grabElement, moveElement, axis, e);
   }
-
-  // Save vnode as a global variable
-  window.vnode = vnode;
 
   // Add event to end drag
   eventListener(['mouseup', 'touchend'], dragEnd);

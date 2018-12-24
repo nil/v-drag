@@ -7,17 +7,17 @@ import updateMousePosition from '../utils/updateMousePosition';
 
 export default function () {
   // Stop move animation
-  cancelAnimationFrame(window.vnode.posAnimation);
+  cancelAnimationFrame(window.data.posAnimation);
 
   // Remove setUpMovement() if mouse/touch hasn't moved
   eventListener(['mousemove', 'touchmove'], dragMove, 'remove');
 
   // Replace transform properties with left and top
   moveElementTransform(
-    window.vnode.move,
-    window.vnode.matrix ? returnPositionString(window.vnode.matrix, 0, 0) : 'none',
-    `${window.vnode.matrixX + window.vnode.relativeX}px`,
-    `${window.vnode.matrixY + window.vnode.relativeY}px`,
+    window.data.move,
+    window.data.matrix ? returnPositionString(window.data.matrix, 0, 0) : 'none',
+    `${window.data.matrixX + window.data.relativeX}px`,
+    `${window.data.matrixY + window.data.relativeY}px`,
   );
 
   // TODO: Remove CSS classes

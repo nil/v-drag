@@ -21,10 +21,14 @@ export default {
     styleElement.innerHTML = `.${eventClass.initial}{position:relative;}.${eventClass.initial}:not(.${eventClass.usesHandle}),.${eventClass.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;cursor:-moz-grab;}.${eventClass.handle}.${eventClass.down},.${eventClass.initial}:not(.${eventClass.usesHandle}).${eventClass.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}`;
     document.body.appendChild(styleElement);
 
+    // Initialize 'data' object
+    window.data = {};
+
+    // Register 'v-drag' directive
     Vue.directive('drag', {
       // Add draggable configuration to element for the first time
-      inserted(el, binding, vnode) {
-        dragSetup(el, binding, vnode);
+      inserted(el, binding) {
+        dragSetup(el, binding);
       }
     });
   }

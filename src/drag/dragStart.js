@@ -9,43 +9,43 @@ import updateMousePosition from '../utils/updateMousePosition';
 
 export default function (grabElement, moveElement, axis, e) {
   // Store elements
-  window.vnode.grab = grabElement;
-  window.vnode.move = moveElement;
+  window.data.grab = grabElement;
+  window.data.move = moveElement;
 
   // Store axis
-  window.vnode.axis = axis;
+  window.data.axis = axis;
 
   // Store current mouse or touch position
-  window.vnode.initialX = e.pageX || e.touches[0].pageX;
-  window.vnode.initialY = e.pageY || e.touches[0].pageY;
+  window.data.initialX = e.pageX || e.touches[0].pageX;
+  window.data.initialY = e.pageY || e.touches[0].pageY;
 
   // Reset relative coordinates
-  window.vnode.relativeX = 0;
-  window.vnode.relativeY = 0;
+  window.data.relativeX = 0;
+  window.data.relativeY = 0;
 
   // Get transform string of the move element
-  const matrix = window.getComputedStyle(window.vnode.move).transform;
+  const matrix = window.getComputedStyle(window.data.move).transform;
 
   // Store matrix value
   if (matrix === 'none') {
-    window.vnode.matrix = false;
+    window.data.matrix = false;
   } else {
-    window.vnode.matrix = matrix.match(/\d([^,]*,){4}/g);
+    window.data.matrix = matrix.match(/\d([^,]*,){4}/g);
   }
 
   // Apply transform to the move element
-  const left = getTransformValue(window.vnode.move, matrix, 'left');
-  const top = getTransformValue(window.vnode.move, matrix, 'top');
+  const left = getTransformValue(window.data.move, matrix, 'left');
+  const top = getTransformValue(window.data.move, matrix, 'top');
 
   // Replace left and top properties with transform
   moveElementTransform(
-    window.vnode.move,
-    returnPositionString(window.vnode.matrix, left, top),
+    window.data.move,
+    returnPositionString(window.data.matrix, left, top),
     0, 0
   );
 
-  window.vnode.matrixX = left;
-  window.vnode.matrixY = top;
+  window.data.matrixX = left;
+  window.data.matrixY = top;
 
   // TDOO: Apply CSS class to grab element
 
