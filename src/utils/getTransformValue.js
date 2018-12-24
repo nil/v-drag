@@ -1,7 +1,7 @@
 // Return element's left or top position
-export default function (element, str, dir) {
+export default function (str, dir) {
   // Get top or left position, without translate
-  let pos = Number(window.getComputedStyle(element)[dir].replace('px', ''));
+  let pos = Number(window.getComputedStyle(window.data.move)[dir].replace('px', ''));
 
   // Only consider translation when matrix is defined
   if (str !== 'none') {
