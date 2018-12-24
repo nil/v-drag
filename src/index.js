@@ -1,9 +1,3 @@
-/**
- * OTHER CHANGES
- *
- * - Improved method to detect if a handle is invalid
- */
-
 import dragSetup from './drag/dragSetup';
 
 export default {
