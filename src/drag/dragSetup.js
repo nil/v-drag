@@ -5,18 +5,17 @@ import isValidAxisValue from '../utils/isValidAxisValue';
 import eventListener from '../utils/eventListener';
 
 export default function (el, binding, vnode) {
-  console.log('setup');
-
   const value = binding.value;
   const handle = value instanceof Object ? value.handle : value;
+  let axis; let grabElement; let moveElement;
 
   // Update axis value
   if (value instanceof Object && value.axis && isValidAxisValue(value.axis)) {
-    vnode.axis = value.axis;
+    axis = value.axis;
   } else if (isValidAxisValue(binding.arg)) {
-    vnode.axis = binding.arg;
+    axis = binding.arg;
   } else {
-    vnode.axis = 'all';
+    axis = 'all';
   }
 
   // Update handle value
@@ -28,20 +27,23 @@ export default function (el, binding, vnode) {
   } else {
     if (handleElement) {
       // Define roles of the elements
-      vnode.grab = handleElement;
-      vnode.move = el;
+      grabElement = handleElement;
+      moveElement = el;
 
       // TODO: Apply CSS classes related to the handle
+      grabElement.classList.add('drag-handle');
+      moveElement.classList.add('drag-uses-handle');
     } else {
-      vnode.grab = el;
-      vnode.move = el;
+      grabElement = el;
+      moveElement = el;
     }
 
     // TODO: Apply CSS classes to the element
+    moveElement.classList.add('drag-draggable');
 
     // Add event to start drag
-    vnode.grab.onmousedown = e => dragStart(e);
-    vnode.grab.ontouchstart = e => dragStart(e);
+    grabElement.onmousedown = e => dragStart(grabElement, moveElement, axis, e);
+    grabElement.ontouchstart = e => dragStart(grabElement, moveElement, axis, e);
   }
 
   // Save vnode as a global variable

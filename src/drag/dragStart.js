@@ -7,8 +7,13 @@ import eventListener from '../utils/eventListener';
 import updateMousePosition from '../utils/updateMousePosition';
 
 
-export default function (e) {
-  console.log('start');
+export default function (grabElement, moveElement, axis, e) {
+  // Store elements
+  window.vnode.grab = grabElement;
+  window.vnode.move = moveElement;
+
+  // Store axis
+  window.vnode.axis = axis;
 
   // Store current mouse or touch position
   window.vnode.initialX = e.pageX || e.touches[0].pageX;
