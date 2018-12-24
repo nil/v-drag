@@ -19,7 +19,9 @@ export default function () {
     `${window.data.matrixY + window.data.relativeY}px`,
   );
 
-  // TODO: Remove CSS classes
+  // Remove CSS classes
+  window.data.grab.classList.remove(window.data.class.down);
+  window.data.move.classList.remove(window.data.class.move);
 
   // Stop updating mouse position
   eventListener(['mousemove', 'touchmove'], updateMousePosition, 'remove');

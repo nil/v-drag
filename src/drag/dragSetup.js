@@ -31,15 +31,15 @@ export default function (el, binding) {
       moveElement = el;
 
       // TODO: Apply CSS classes related to the handle
-      grabElement.classList.add('drag-handle');
-      moveElement.classList.add('drag-uses-handle');
+      grabElement.classList.add(window.data.class.handle);
+      moveElement.classList.add(window.data.class.usesHandle);
     } else {
       grabElement = el;
       moveElement = el;
     }
 
     // TODO: Apply CSS classes to the element
-    moveElement.classList.add('drag-draggable');
+    moveElement.classList.add(window.data.class.initial);
 
     // Add event to start drag
     grabElement.onmousedown = e => dragStart(grabElement, moveElement, axis, e);

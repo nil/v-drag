@@ -47,7 +47,8 @@ export default function (grabElement, moveElement, axis, e) {
   window.data.matrixX = left;
   window.data.matrixY = top;
 
-  // TDOO: Apply CSS class to grab element
+  // Apply CSS class to grab element
+  window.data.grab.classList.add(window.data.class.down);
 
   // Add events to move drag
   eventListener(['mousemove', 'touchmove'], updateMousePosition);

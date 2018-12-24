@@ -26,7 +26,8 @@ export function repeatRaf() {
 }
 
 export default function setUpMovement() {
-  // TODO: Apply CSS class to move element
+  // Apply CSS class to move element
+  window.data.move.classList.add(window.data.class.move);
 
   // Begin moving animation
   window.data.posAnimation = requestAnimationFrame(repeatRaf);
