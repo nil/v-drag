@@ -6,8 +6,6 @@ import returnPositionString from '../utils/returnPositionString';
 import updateMousePosition from '../utils/updateMousePosition';
 
 export default function () {
-  console.log('end');
-
   // Stop move animation
   cancelAnimationFrame(window.vnode.posAnimation);
 
