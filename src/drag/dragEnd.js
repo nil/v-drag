@@ -14,7 +14,6 @@ export default function () {
 
   // Replace transform properties with left and top
   moveElementTransform(
-    window.data.move,
     window.data.matrix ? returnPositionString(window.data.matrix, 0, 0) : 'none',
     `${window.data.matrixX + window.data.relativeX}px`,
     `${window.data.matrixY + window.data.relativeY}px`,

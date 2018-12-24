@@ -34,14 +34,14 @@ export default function (grabElement, moveElement, axis, e) {
   }
 
   // Apply transform to the move element
-  const left = getTransformValue(window.data.move, matrix, 'left');
-  const top = getTransformValue(window.data.move, matrix, 'top');
+  const left = getTransformValue(matrix, 'left');
+  const top = getTransformValue(matrix, 'top');
 
   // Replace left and top properties with transform
   moveElementTransform(
-    window.data.move,
     returnPositionString(window.data.matrix, left, top),
-    0, 0
+    0,
+    0
   );
 
   window.data.matrixX = left;

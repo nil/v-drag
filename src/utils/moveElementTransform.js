@@ -1,5 +1,5 @@
-export default function (el, transform, left, top) {
-  el.style.transform = transform;
-  el.style.left = left;
-  el.style.top = top;
+export default function (transform, left, top) {
+  window.data.move.style.transform = transform;
+  window.data.move.style.left = left;
+  window.data.move.style.top = top;
 }
