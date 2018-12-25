@@ -46,7 +46,7 @@ No extra setup is necessary at this point. Add the `v-drag` attribute to any ele
 The default behavior for any element with the `v-drag` attribute is to be draggable in any direction and without a handle. However, this can be changed using an object or its equivalent shortcuts:
 
 ```html
-<div v-drag="{ axis: 'x', handle: 'someElement' }">
+<div v-drag="{ axis: 'x', handle: '#someElement' }">
   <div id="someElement">Handle</div>
 </div>
 ```
@@ -70,17 +70,17 @@ Constrains the element to move only in one direction: horizontal or vertical.
 
 ### Handle
 
-Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element.
+Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element, and each element can have more than one handle.
 
 **Values**
 
-Handle’s name must be a valid ID.
+Handle’s name must be a selector, the same used to refer to the element in CSS.
 
 **Shortcut**
 
 ```html
-<div v-drag="'someElement'">Don’t drag me</div>
-<div id="someElement">Drag me</div>
+<div v-drag="'.someElement'">Don’t drag me</div>
+<div class="someElement">Drag me</div>
 ```
 
 ## Event classes
