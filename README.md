@@ -76,6 +76,8 @@ Informs that the element can only be dragged using another element, known as han
 
 Handle’s name must be a selector, the same used to refer to the element in CSS.
 
+***Note***: previously, handles were only declared with IDs, updating to v-drag `v2.1.0` or higher will mean you will also have to update the handle declarations, if you use them.
+
 **Shortcut**
 
 ```html
