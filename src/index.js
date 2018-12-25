@@ -38,19 +38,14 @@ export default {
 
       // Update the drag configuration
       update(el, binding) {
-        let oldHandle = null;
-
         // Remove events from updated element
         el.onmousedown = null;
         el.ontouchstart = null;
 
-        // Get old handle if it exists
-        if (binding.oldValue) {
-          oldHandle = document.getElementById(binding.oldValue)
-            || document.getElementById(binding.oldValue.handle);
-        }
+        const oldHandleArray = document.querySelectorAll(binding.oldValue)
+          || document.querySelectorAll(binding.oldValue.handle);
 
-        if (oldHandle) {
+        oldHandleArray.forEach((oldHandle) => {
           // Remove events from the old handle
           oldHandle.onmousedown = null;
           oldHandle.ontouchstart = null;
@@ -58,7 +53,7 @@ export default {
           // Remove CSS classes related to the old handle
           oldHandle.classList.remove(window.data.class.handle);
           el.classList.remove(window.data.class.usesHandle);
-        }
+        });
 
         // Add draggable configuration to element
         dragSetup(el, binding);
