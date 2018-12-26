@@ -2,7 +2,8 @@
   "extends": "airbnb-base",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "rules": {
     "func-names": 0,
