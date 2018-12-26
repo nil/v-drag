@@ -1,4 +1,4 @@
-import dragSetup from './drag/dragSetup';
+import dragSetup from './events/dragSetup';
 
 export default {
   install(Vue, options) {
