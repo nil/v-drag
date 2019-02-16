@@ -4,18 +4,6 @@ module.exports = {
   title: info.name,
   description: info.description,
 
-  themeConfig: {
-    nav: [
-      {
-        text: 'Docs',
-        link: 'https://google.com'
-      },
-      // ['https://google.com', `v${info.version}`],
-      // ['https://google.com', 'github']
-    ]
-  },
-
-
   postcss: {
     plugins: [
       require('postcss-import'),
