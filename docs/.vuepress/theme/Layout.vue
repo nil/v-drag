@@ -40,6 +40,7 @@ import Page from './components/Page.vue'
 import Sidebar from './components/Sidebar.vue'
 import SWUpdatePopup from './components/SWUpdatePopup.vue'
 import { resolveSidebarItems } from './util'
+import store from '../store';
 
 // import './styles/_main.pcss';
 import '../css/main.pcss';
