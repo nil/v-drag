@@ -1,5 +1,5 @@
 <template>
-  <div class="pill" :class="{ 'axis-x': axisX, 'axis-y': axisY }"
+  <div class="drag-pill" :class="{ 'axis-x': axisX, 'axis-y': axisY }"
     v-drag="{ axis: this.axis, handle: `#${handleId}` }">
       <DragHand v-if="handleFalse" :axis="axis" />
       <div :id="handleId" v-else>

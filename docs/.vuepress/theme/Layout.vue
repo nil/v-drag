@@ -32,16 +32,17 @@
 <script>
 import Vue from 'vue'
 import nprogress from 'nprogress'
-import drag from 'v-drag';
+import drag from '../../../dist/main.js';
 
 import Home from './Home.vue'
-import Navbar from './components/Navbar.vue'
+import Navbar from '../components/Navbar.vue'
 import Page from './components/Page.vue'
 import Sidebar from './components/Sidebar.vue'
 import SWUpdatePopup from './components/SWUpdatePopup.vue'
 import { resolveSidebarItems } from './util'
 
-import './styles/_main.pcss';
+// import './styles/_main.pcss';
+import '../css/main.pcss';
 
 Vue.use(drag);
 

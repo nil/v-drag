@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import CtaButton from './CtaButton.vue'
+import CtaButton from '../../components/CtaButton.vue'
 import DropdownTransition from './DropdownTransition.vue'
 
 export default {

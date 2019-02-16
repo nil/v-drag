@@ -60,9 +60,9 @@
 
 <script>
 
-import CtaButton from './components/CtaButton.vue';
-import DragPill from './components/DragPill.vue';
-import FeatureIcon from './components/FeatureIcon.vue';
+import CtaButton from '../components/CtaButton.vue';
+import DragPill from '../components/DragPill.vue';
+import FeatureIcon from '../components/FeatureIcon.vue';
 
 export default {
   components: {

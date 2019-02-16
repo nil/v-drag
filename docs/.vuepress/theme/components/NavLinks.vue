@@ -36,7 +36,7 @@
 <script>
 import DropdownLink from './DropdownLink.vue'
 import { resolveCtaButtonItem } from '../util'
-import CtaButton from './CtaButton.vue'
+import CtaButton from '../../components/CtaButton.vue'
 
 export default {
   components: { CtaButton, DropdownLink },
