@@ -1,0 +1,52 @@
+:root {
+  --button-size: var(--space_s);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+
+  width: 100%;
+  height: var(--navbar-height);
+
+  color: white;
+  background: var(--black);
+
+  z-index: 999;
+
+  &--wrapper {
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+  }
+
+  &--button {
+    width: var(--button-size);
+    height: var(--button-size);
+
+    margin-right: var(--space_xs);
+
+    & svg {
+      stroke: var(--white);
+      stroke-width: 2px;
+    }
+  }
+
+  a {
+    padding-top: 18px;
+    color: inherit;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  &--logo {
+    font-family: var(--mono);
+    font-size: ms(1)rem;
+    font-weight: 700;
+
+    &:hover {
+      padding-left: var(--space_xs);
+    }
+  }
+}

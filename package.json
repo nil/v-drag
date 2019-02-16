@@ -4,7 +4,9 @@
   "description": "The simplest way to integrate drag on Vue.js",
   "main": "dist/main.js",
   "scripts": {
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "serve": "cd docs && vue-cli-service serve",
+    "docs": "cd docs && vue-cli-service build"
   },
   "keywords": [
     "vue",
@@ -25,10 +27,21 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
+    "@vue/cli-service": "^3.4.0",
+    "autoprefixer": "^9.4.7",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^4.1.10",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "postcss-calc": "^7.0.1",
+    "postcss-css-variables": "^0.11.0",
+    "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.1.1",
     "rollup": "^0.68.1",
-    "rollup-plugin-terser": "^3.0.0"
+    "rollup-plugin-terser": "^3.0.0",
+    "vue": "^2.6.6",
+    "vue-template-compiler": "^2.6.6",
+    "vuex": "^3.1.0"
   }
 }
