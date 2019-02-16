@@ -5,8 +5,8 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "rollup --config",
-    "serve": "cd docs && vue-cli-service serve",
-    "docs": "cd docs && vue-cli-service build"
+    "serve": "vuepress dev docs",
+    "docs": "vuepress build docs"
   },
   "keywords": [
     "vue",
