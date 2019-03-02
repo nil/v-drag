@@ -1,7 +1,7 @@
 const info = require('../../package.json');
 
 module.exports = {
-  plugins: ['@vuepress/i18n-ui'],
+  plugins: ['@vuepress/search'],
 
   locales: {
     '/': {
@@ -15,13 +15,36 @@ module.exports = {
       name: 'Español',
       title: info.name,
       description: 'La forma más simple de integrar drag en Vue.js'
+    },
+    '/fr/': {
+      lang: 'fr-FR',
+      name: 'Français',
+      title: info.name,
+      description: 'La forma más simple de integrar drag en Vue.js'
+    },
+    '/it/': {
+      lang: 'it-IT',
+      name: 'Italiano',
+      title: info.name,
+      description: 'La forma más simple de integrar drag en Vue.js'
+    },
+    '/zh/': {
+      lang: 'zh-MA',
+      name: 'Chino',
+      title: info.name,
+      description: 'La forma más simple de integrar drag en Vue.js'
+    },
+    '/pt/': {
+      lang: 'pt-BR',
+      name: 'Portuguêsh',
+      title: info.name,
+      description: 'La forma más simple de integrar drag en Vue.js'
     }
   },
 
   themeConfig: {
     locales: {
       '/': {
-        label: 'English',
         editLinkText: 'Edit this page',
         nav: [
           { text: 'Docs', link: '/installation.html' },
@@ -36,7 +59,6 @@ module.exports = {
       },
 
       '/es/': {
-        label: 'Español',
         editLinkText: 'Editar esta página',
         nav: [
           { text: 'Docs', link: '/es/installation.html' },

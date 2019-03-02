@@ -199,7 +199,7 @@ function flatten (items, res) {
 </script>
 
 <style lang="stylus">
-@require '../css/wrapper.styl'
+@require '../styles/wrapper.styl'
 
 .page
   padding-bottom 2rem

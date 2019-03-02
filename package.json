@@ -27,7 +27,7 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
-    "@vuepress/plugin-i18n-ui": "^1.0.0-alpha.0",
+    "@vuepress/plugin-search": "^1.0.0-alpha.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -40,7 +40,6 @@
     "rollup": "^0.68.1",
     "rollup-plugin-terser": "^3.0.0",
     "vue": "^2.6.6",
-    "vuepress": "^1.0.0-alpha.40",
-    "vuex": "^3.1.0"
+    "vuepress": "^1.0.0-alpha.40"
   }
 }
