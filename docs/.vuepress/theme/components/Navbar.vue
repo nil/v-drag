@@ -7,12 +7,12 @@
 
       <NavLinks />
 
-      <SearchBox v-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
+      <SearchBox />
 
-      <div class="navbar-links">
-        <Link :item="releasesLink" />
+      <div class="navbar--links">
+        <Link :item="releasesLink" class="navbar--link" />
         <LocalePicker class="can-hide" />
-        <Link :item="repoLink"><IconGithub /></Link>
+        <Link :item="repoLink" class="navbar--link"><IconGithub /></Link>
       </div>
     </div>
   </header>
@@ -20,7 +20,7 @@
 
 <script>
 
-import SearchBox from '@SearchBox';
+import SearchBox from '@theme/components/SearchBox.vue';
 import SidebarButton from '@theme/components/SidebarButton.vue';
 import NavLinks from '@theme/components/NavLinks.vue';
 import Link from '@theme/components/Link.vue';

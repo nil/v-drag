@@ -27,7 +27,6 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
-    "@vuepress/plugin-search": "^1.0.0-alpha.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
