@@ -1,3 +1,10 @@
+:root {
+  --grid-gutter: var(--space_xl);
+  --grid-gutter_l: var(--space_l);
+
+  --grid-margin: var(--space_l);
+}
+
 /* --- General ---------- */
 .grid {
   display: grid;
@@ -11,7 +18,7 @@
   position: relative;
 
   max-width: 1296px;
-  padding-left: var(--space_l);
-  padding-right: var(--space_l);
+  padding-left: var(--grid-margin);
+  padding-right: var(--grid-margin);
   margin: auto;
 }
