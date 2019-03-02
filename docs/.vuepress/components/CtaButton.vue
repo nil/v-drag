@@ -2,8 +2,7 @@
   <router-link
     class="cta-button"
     :class="'cta-button--' + type"
-    :to="data.link"
-    :exact="exact">
+    :to="data.link">
     {{ data.text }}
   </router-link>
 </template>
@@ -14,15 +13,6 @@ export default {
   props: {
     type: String,
     data: Object
-  },
-
-  computed: {
-    exact () {
-      if (this.$site.locales) {
-        return Object.keys(this.$site.locales).some(rootLink => rootLink === this.link);
-      }
-      return this.link === '/'
-    }
   }
 }
 
