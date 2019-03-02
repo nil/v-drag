@@ -10,13 +10,29 @@
       <router-link :to="$localePath" class="navbar--logo">{{ $siteTitle }}</router-link>
 
       <div class="navbar--navigation">
-        <router-link v-for="item in mainLinks" :to="item.link">{{ item.text }}</router-link>
+        <router-link v-for="item in navLinks" :to="item.link">{{ item.text }}</router-link>
       </div>
 
-      <div class="links" :style="{ 'max-width': linksWrapMaxWidth + 'px' }">
-        <!-- <AlgoliaSearchBox v-if="isAlgoliaSearch" :options="algolia" />
-        <SearchBox v-else-if="$site.themeConfig.search !== false"/>
-        <NavLinks class="can-hide"/> -->
+      <SearchBox />
+
+      <div class="navbar--links">
+        <a :href="repoInfo.releases"
+          class="navbar--version navbar--link"
+          target="_blank"
+          rel="noopener noreferrer">
+          v{{ repoInfo.version }}
+        </a>
+
+        <LangDropdown />
+
+        <a :href="repoInfo.home"
+          class="navbar--github navbar--link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.248c-5.525 0-10 4.477-10 10a9.998 9.998 0 0 0 6.838 9.487c.5.094.683-.215.683-.48 0-.238-.009-.867-.013-1.7-2.781.602-3.368-1.343-3.368-1.343-.455-1.154-1.112-1.462-1.112-1.462-.906-.62.07-.608.07-.608 1.004.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.913.832.09-.646.347-1.087.633-1.337-2.22-.25-4.555-1.11-4.555-4.942 0-1.092.388-1.983 1.03-2.683-.113-.253-.45-1.27.087-2.647 0 0 .837-.268 2.75 1.025.8-.223 1.65-.332 2.5-.338.85.006 1.7.115 2.5.338 1.9-1.293 2.737-1.025 2.737-1.025.538 1.378.2 2.394.1 2.647.638.7 1.025 1.591 1.025 2.683 0 3.842-2.337 4.688-4.562 4.933.35.3.675.914.675 1.85 0 1.339-.013 2.414-.013 2.739 0 .262.175.575.688.475A9.966 9.966 0 0 0 22 12.247c0-5.522-4.477-10-10-10" />
+          </svg>
+        </a>
       </div>
     </div>
   </header>
@@ -24,32 +40,28 @@
 
 <script>
 // import SidebarButton from './SidebarButton.vue'
-// import AlgoliaSearchBox from '@AlgoliaSearchBox'
-// import SearchBox from './SearchBox.vue'
-// import NavLinks from './NavLinks.vue'
+import SearchBox from '../theme/components/SearchBox.vue'
+import LangDropdown from './LangDropdown.vue'
 
-import store from '../store.js';
+import info from '../../../package.json';
 
 export default {
-  // components: { SidebarButton, NavLinks, SearchBox, AlgoliaSearchBox },
-
-  data () {
-    return {
-      linksWrapMaxWidth: null
-    }
+  components: {
+    SearchBox,
+    LangDropdown
   },
 
   computed: {
-    mainLinks() {
-      return store.state.navbar.main;
+    navLinks() {
+      return this.$site.themeConfig.locales[this.$localePath].nav;
     },
 
-    algolia () {
-      return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
-    },
-
-    isAlgoliaSearch () {
-      return this.algolia && this.algolia.apiKey && this.algolia.indexName
+    repoInfo() {
+      return {
+        home: info.homepage,
+        version: info.version,
+        releases: `${info.homepage}/releases`
+      }
     }
   }
 }
