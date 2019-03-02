@@ -1,7 +1,6 @@
 <template>
   <main class="home" aria-labelledby="main-title">
     <header class="hero">
-      heloo
       <img
         v-if="data.heroImage"
         :src="$withBase(data.heroImage)"
