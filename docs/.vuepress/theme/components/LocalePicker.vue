@@ -1,5 +1,6 @@
 <template>
   <div class="nav-links">
+    <IconLocale />
     <div class="nav-item">
       <DropdownLink :item="localeList" />
     </div>
@@ -9,12 +10,14 @@
 <script>
 
 import DropdownLink from '@theme/components/DropdownLink.vue'
+import IconLocale from './icons/IconLocale.vue';
 
 export default {
   name: 'LocalePicker',
 
   components: {
-    DropdownLink
+    DropdownLink,
+    IconLocale
   },
 
   computed: {
@@ -45,6 +48,9 @@ export default {
             link }
         })
       }
+
+      console.log(languageDropdown);
+
       return languageDropdown;
       // return { text: 'Locale', type: 'links', items: [
       //   { text: 'Español', link: '/es/', type: 'link'},
@@ -56,3 +62,10 @@ export default {
 
 }
 </script>
+
+<style>
+svg.icon-locale {
+  width: 24px;
+  fill: red;
+}
+</style>
