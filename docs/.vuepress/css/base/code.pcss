@@ -1,0 +1,61 @@
+:root {
+  --code-padding--x: var(--space_s);
+  --code-padding--y: 19px;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  position: relative;
+  padding: var(--code-padding--y) var(--space_xl) var(--code-padding--y) var(--code-padding--x);
+  margin-bottom: var(--space_xs);
+
+  color: var(--code-40);
+  background: var(--gray-20);
+  border-radius: var(--space_q);
+
+  font-size: ms(-1)rem;
+  line-height: 1.6;
+
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+  & code {
+    font-family: var(--mono);
+  }
+
+  &:after {
+    position: absolute;
+    top: calc(var(--code-padding--y) + 1px);
+    right: var(--code-padding--x);
+
+    color: var(--gray-60);
+
+    font-family: var(--sans);
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+}
+
+.token.tag {
+ color: var(--code-20);
+}
+
+.token.punctuation,
+.token.operator {
+  color: var(--code-10);
+}
+
+pre.language-js,
+.token.attr-value,
+.token.class-name {
+  color: var(--code-30);
+}
+
+.token.keyword {
+  color: var(--code-40);
+}

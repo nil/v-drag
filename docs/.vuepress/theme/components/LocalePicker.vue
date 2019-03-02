@@ -12,7 +12,7 @@
       :class="{ active: isDropdownOpen }"
       @mouseleave="closeDropdown(300)"
       ref="localePickerDropdown">
-      <NavLink v-for="locale in localeList" :item="locale" />
+      <Link v-for="locale in localeList" :item="locale" />
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script>
 
 import DropdownLink from '@theme/components/DropdownLink.vue'
-import NavLink from '@theme/components/NavLink.vue'
+import Link from '@theme/components/Link.vue'
 import IconLocale from './icons/IconLocale.vue';
 
 export default {
@@ -28,7 +28,7 @@ export default {
 
   components: {
     DropdownLink,
-    NavLink,
+    Link,
     IconLocale
   },
 

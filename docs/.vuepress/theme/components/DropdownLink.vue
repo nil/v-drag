@@ -35,11 +35,11 @@
               :key="childSubItem.link"
               v-for="childSubItem in subItem.items"
             >
-              <NavLink :item="childSubItem"/>
+              <Link :item="childSubItem"/>
             </li>
           </ul>
 
-          <NavLink
+          <Link
             v-else
             :item="subItem"
           />
@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import NavLink from '@theme/components/NavLink.vue'
+import Link from '@theme/components/Link.vue'
 import DropdownTransition from '@theme/components/DropdownTransition.vue'
 
 export default {
-  components: { NavLink, DropdownTransition },
+  components: { Link, DropdownTransition },
 
   data () {
     return {

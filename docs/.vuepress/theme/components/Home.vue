@@ -17,7 +17,7 @@
         class="action"
         v-if="data.actionText && data.actionLink"
       >
-        <NavLink
+        <Link
           class="action-button"
           :item="actionLink"
         />
@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import NavLink from '@theme/components/NavLink.vue'
+import Link from '@theme/components/Link.vue'
 
 export default {
-  components: { NavLink },
+  components: { Link },
 
   computed: {
     data () {

@@ -1,50 +1,43 @@
 <template>
   <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')"/>
+    <div class="navbar--wrapper">
+      <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')"/>
 
-    <router-link
-      :to="$localePath"
-      class="home-link"
-    >
-      <img
-        class="logo"
-        v-if="$site.themeConfig.logo"
-        :src="$withBase($site.themeConfig.logo)"
-        :alt="$siteTitle"
-      >
-      <span
-        ref="siteName"
-        class="site-name"
-        v-if="$siteTitle"
-        :class="{ 'can-hide': $site.themeConfig.logo }"
-      >{{ $siteTitle }}</span>
-    </router-link>
-
-    <div class="navbar--navigation">
+      <router-link class="navbar--logo" :to="$localePath">{{ $siteTitle }}</router-link>
 
       <NavLinks />
-    </div>
 
-    <div
-      class="links"
-      :style="linksWrapMaxWidth ? {
-        'max-width': linksWrapMaxWidth + 'px'
-      } : {}"
-    >
       <SearchBox v-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
-      <LocalePicker />
+
+      <div class="navbar-links">
+        <Link :item="releasesLink" />
+        <LocalePicker class="can-hide" />
+        <Link :item="repoLink"><IconGithub /></Link>
+      </div>
     </div>
   </header>
 </template>
 
 <script>
-import SearchBox from '@SearchBox'
-import SidebarButton from '@theme/components/SidebarButton.vue'
-import NavLinks from '@theme/components/NavLinks.vue'
-import LocalePicker from '@theme/components/LocalePicker.vue'
+
+import SearchBox from '@SearchBox';
+import SidebarButton from '@theme/components/SidebarButton.vue';
+import NavLinks from '@theme/components/NavLinks.vue';
+import Link from '@theme/components/Link.vue';
+import LocalePicker from '@theme/components/LocalePicker.vue';
+
+import info from '../../../../package.json';
+import IconGithub from './icons/IconGithub.vue';
 
 export default {
-  components: { SidebarButton, NavLinks, SearchBox, LocalePicker },
+  components: {
+    SidebarButton,
+    NavLinks,
+    Link,
+    SearchBox,
+    LocalePicker,
+    IconGithub
+  },
 
   data () {
     return {
@@ -65,6 +58,21 @@ export default {
     }
     handleLinksWrapWidth()
     window.addEventListener('resize', handleLinksWrapWidth, false)
+  },
+
+  computed: {
+    releasesLink() {
+      return {
+        text: `v${info.version}`,
+        link: `${info.homepage}/releases`
+      }
+    },
+
+    repoLink() {
+      return {
+        link: info.homepage
+      }
+    }
   }
 }
 
@@ -75,47 +83,3 @@ function css (el, property) {
   return win.getComputedStyle(el, null)[property]
 }
 </script>
-
-<style lang="stylus">
-$navbar-vertical-padding = 0.7rem
-$navbar-horizontal-padding = 1.5rem
-
-.navbar
-  padding $navbar-vertical-padding $navbar-horizontal-padding
-  line-height $navbarHeight - 1.4rem
-  a, span, img
-    display inline-block
-  .logo
-    height $navbarHeight - 1.4rem
-    min-width $navbarHeight - 1.4rem
-    margin-right 0.8rem
-    vertical-align top
-  .site-name
-    font-size 1.3rem
-    font-weight 600
-    color $textColor
-    position relative
-    margin-right 1.5em
-  .links
-    padding-left 1.5rem
-    box-sizing border-box
-    white-space nowrap
-    font-size 0.9rem
-    position absolute
-    right $navbar-horizontal-padding
-    top $navbar-vertical-padding
-    display flex
-    .search-box
-      flex: 0 0 auto
-      vertical-align top
-.navbar--navigation
-  display inline-block
-
-@media (max-width: $MQMobile)
-  .navbar
-    padding-left 4rem
-    .navbar--navigation
-      display none
-    .links
-      padding-left 1.5rem
-</style>

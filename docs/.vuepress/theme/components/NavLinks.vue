@@ -1,23 +1,13 @@
 <template>
   <nav
-    class="nav-links"
+    class="navbar--navigation"
     v-if="userLinks.length || repoLink"
   >
     <!-- user links -->
-    <div
-      class="nav-item"
-      v-for="item in userLinks"
-      :key="item.link"
-    >
-      <DropdownLink
-        v-if="item.type === 'links'"
-        :item="item"
-      />
-      <NavLink
-        v-else
-        :item="item"
-      />
-    </div>
+    <template v-for="item in userLinks">
+      <DropdownLink v-if="item.type === 'links'" :item="item" />
+      <Link v-else :item="item" />
+    </template>
 
     <!-- repo link -->
     <a
@@ -36,10 +26,10 @@
 <script>
 import DropdownLink from '@theme/components/DropdownLink.vue'
 import { resolveNavLinkItem } from '../util'
-import NavLink from '@theme/components/NavLink.vue'
+import Link from '@theme/components/Link.vue'
 
 export default {
-  components: { NavLink, DropdownLink },
+  components: { Link, DropdownLink },
 
   computed: {
     userNav () {
@@ -118,34 +108,34 @@ export default {
 </script>
 
 <style lang="stylus">
-.nav-links
-  display inline-block
-  a
-    line-height 1.4rem
-    color inherit
-    &:hover, &.router-link-active
-      color $accentColor
-  .nav-item
-    position relative
-    display inline-block
-    margin-left 1.5rem
-    line-height 2rem
-    &:first-child
-      margin-left 0
-  .repo-link
-    margin-left 1.5rem
+// .nav-links
+//   display inline-block
+//   a
+//     line-height 1.4rem
+//     color inherit
+//     &:hover, &.router-link-active
+//       color $accentColor
+//   .nav-item
+//     position relative
+//     display inline-block
+//     margin-left 1.5rem
+//     line-height 2rem
+//     &:first-child
+//       margin-left 0
+//   .repo-link
+//     margin-left 1.5rem
 
-@media (max-width: $MQMobile)
-  .nav-links
-    .nav-item, .repo-link
-      margin-left 0
+// @media (max-width: $MQMobile)
+//   .nav-links
+//     .nav-item, .repo-link
+//       margin-left 0
 
-@media (min-width: $MQMobile)
-  .nav-links a
-    &:hover, &.router-link-active
-      color $textColor
-  .nav-item > a:not(.external)
-    &:hover, &.router-link-active
-      margin-bottom -2px
-      border-bottom 2px solid lighten($accentColor, 8%)
+// @media (min-width: $MQMobile)
+//   .nav-links a
+//     &:hover, &.router-link-active
+//       color $textColor
+//   .nav-item > a:not(.external)
+//     &:hover, &.router-link-active
+//       margin-bottom -2px
+//       border-bottom 2px solid lighten($accentColor, 8%)
 </style>
