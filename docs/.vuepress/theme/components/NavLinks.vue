@@ -41,6 +41,11 @@ import NavLink from '@theme/components/NavLink.vue'
 export default {
   components: { NavLink, DropdownLink },
 
+  mounted () {
+    console.log(this.userLinks);
+
+  },
+
   computed: {
     userNav () {
       return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
@@ -56,7 +61,7 @@ export default {
           text: this.$themeLocaleConfig.selectText || 'Languages',
           items: Object.keys(locales).map(path => {
             const locale = locales[path]
-            const text = themeLocales[path] && themeLocales[path].label || locale.lang
+            const localeName = this.$site.locales[path].name;
             let link
             // Stay on the current page
             if (locale.lang === this.$lang) {
@@ -69,7 +74,9 @@ export default {
                 link = path
               }
             }
-            return { text, link }
+            return {
+              text: localeName,
+              link }
           })
         }
         return [...this.userNav, languageDropdown]

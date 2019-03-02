@@ -20,6 +20,11 @@
       >{{ $siteTitle }}</span>
     </router-link>
 
+    <div class="navbar--navigation">
+
+      <NavLinks />
+    </div>
+
     <div
       class="links"
       :style="linksWrapMaxWidth ? {
@@ -27,7 +32,7 @@
       } : {}"
     >
       <SearchBox v-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
-      <NavLinks class="can-hide"/>
+      <LocalePicker />
     </div>
   </header>
 </template>
@@ -36,9 +41,10 @@
 import SearchBox from '@SearchBox'
 import SidebarButton from '@theme/components/SidebarButton.vue'
 import NavLinks from '@theme/components/NavLinks.vue'
+import LocalePicker from '@theme/components/LocalePicker.vue'
 
 export default {
-  components: { SidebarButton, NavLinks, SearchBox },
+  components: { SidebarButton, NavLinks, SearchBox, LocalePicker },
 
   data () {
     return {
@@ -89,6 +95,7 @@ $navbar-horizontal-padding = 1.5rem
     font-weight 600
     color $textColor
     position relative
+    margin-right 1.5em
   .links
     padding-left 1.5rem
     box-sizing border-box
@@ -102,11 +109,13 @@ $navbar-horizontal-padding = 1.5rem
     .search-box
       flex: 0 0 auto
       vertical-align top
+.navbar--navigation
+  display inline-block
 
 @media (max-width: $MQMobile)
   .navbar
     padding-left 4rem
-    .can-hide
+    .navbar--navigation
       display none
     .links
       padding-left 1.5rem
