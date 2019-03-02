@@ -41,11 +41,6 @@ import NavLink from '@theme/components/NavLink.vue'
 export default {
   components: { NavLink, DropdownLink },
 
-  mounted () {
-    console.log(this.userLinks);
-
-  },
-
   computed: {
     userNav () {
       return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
