@@ -54,6 +54,8 @@ import Page from '@theme/components/Page.vue'
 import Sidebar from '@theme/components/Sidebar.vue'
 import { resolveSidebarItems } from '../util'
 
+import '../../css/main.pcss';
+
 export default {
   components: { Home, Page, Sidebar, Navbar },
 

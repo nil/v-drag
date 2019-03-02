@@ -1,0 +1,41 @@
+.locale-picker {
+  position: relative;
+
+  &--dropdown {
+    position: absolute;
+    top: var(--space_xs);
+    right: 0;
+
+    width: 144px;
+    padding: 12px 0;
+
+    background: var(--gray-90);
+    border-radius: var(--space_q);
+
+    text-align: center;
+    box-shadow: 0 0 0 1px var(--black);
+
+    opacity: 0;
+    visibility: hidden;
+
+    &.active {
+      top: var(--space_q);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    & a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &--dropdown {
+    & a {
+      display: block;
+      padding: 6px 0;
+
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
