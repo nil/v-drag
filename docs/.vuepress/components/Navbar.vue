@@ -1,69 +1,128 @@
 <template>
   <header class="navbar">
-    <div class="navbar--wrapper">
-      <div class="navbar--button" @click="$emit('toggle-sidebar')">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 18h16M4 12h16M4 6h16" />
-        </svg>
-      </div>
+    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')"/>
 
-      <router-link :to="$localePath" class="navbar--logo">{{ $siteTitle }}</router-link>
+    <router-link
+      :to="$localePath"
+      class="home-link"
+    >
+      <img
+        class="logo"
+        v-if="$site.themeConfig.logo"
+        :src="$withBase($site.themeConfig.logo)"
+        :alt="$siteTitle"
+      >
+      <span
+        ref="siteName"
+        class="site-name"
+        v-if="$siteTitle"
+        :class="{ 'can-hide': $site.themeConfig.logo }"
+      >{{ $siteTitle }}</span>
+    </router-link>
 
-      <div class="navbar--navigation">
-        <router-link v-for="item in navLinks" :to="item.link">{{ item.text }}</router-link>
-      </div>
-
-      <SearchBox />
-
-      <div class="navbar--links">
-        <a :href="repoInfo.releases"
-          class="navbar--version navbar--link"
-          target="_blank"
-          rel="noopener noreferrer">
-          v{{ repoInfo.version }}
-        </a>
-
-        <LangDropdown />
-
-        <a :href="repoInfo.home"
-          class="navbar--github navbar--link"
-          target="_blank"
-          rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2.248c-5.525 0-10 4.477-10 10a9.998 9.998 0 0 0 6.838 9.487c.5.094.683-.215.683-.48 0-.238-.009-.867-.013-1.7-2.781.602-3.368-1.343-3.368-1.343-.455-1.154-1.112-1.462-1.112-1.462-.906-.62.07-.608.07-.608 1.004.07 1.531 1.03 1.531 1.03.892 1.53 2.341 1.088 2.913.832.09-.646.347-1.087.633-1.337-2.22-.25-4.555-1.11-4.555-4.942 0-1.092.388-1.983 1.03-2.683-.113-.253-.45-1.27.087-2.647 0 0 .837-.268 2.75 1.025.8-.223 1.65-.332 2.5-.338.85.006 1.7.115 2.5.338 1.9-1.293 2.737-1.025 2.737-1.025.538 1.378.2 2.394.1 2.647.638.7 1.025 1.591 1.025 2.683 0 3.842-2.337 4.688-4.562 4.933.35.3.675.914.675 1.85 0 1.339-.013 2.414-.013 2.739 0 .262.175.575.688.475A9.966 9.966 0 0 0 22 12.247c0-5.522-4.477-10-10-10" />
-          </svg>
-        </a>
-      </div>
+    <div
+      class="links"
+      :style="linksWrapMaxWidth ? {
+        'max-width': linksWrapMaxWidth + 'px'
+      } : {}"
+    >
+      <AlgoliaSearchBox
+        v-if="isAlgoliaSearch"
+        :options="algolia"
+      />
+      <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
+      <NavLinks class="can-hide"/>
     </div>
   </header>
 </template>
 
 <script>
-// import SidebarButton from './SidebarButton.vue'
-import SearchBox from '../theme/components/SearchBox.vue'
-import LangDropdown from './LangDropdown.vue'
-
-import info from '../../../package.json';
+import AlgoliaSearchBox from '@AlgoliaSearchBox'
+import SearchBox from '@SearchBox'
+import SidebarButton from '@theme/components/SidebarButton.vue'
+import NavLinks from '@theme/components/NavLinks.vue'
 
 export default {
-  components: {
-    SearchBox,
-    LangDropdown
+  components: { SidebarButton, NavLinks, SearchBox, AlgoliaSearchBox },
+
+  data () {
+    return {
+      linksWrapMaxWidth: null
+    }
+  },
+
+  mounted () {
+    const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
+    const NAVBAR_VERTICAL_PADDING = parseInt(css(this.$el, 'paddingLeft')) + parseInt(css(this.$el, 'paddingRight'))
+    const handleLinksWrapWidth = () => {
+      if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
+        this.linksWrapMaxWidth = null
+      } else {
+        this.linksWrapMaxWidth = this.$el.offsetWidth - NAVBAR_VERTICAL_PADDING
+          - (this.$refs.siteName && this.$refs.siteName.offsetWidth || 0)
+      }
+    }
+    handleLinksWrapWidth()
+    window.addEventListener('resize', handleLinksWrapWidth, false)
   },
 
   computed: {
-    navLinks() {
-      return this.$site.themeConfig.locales[this.$localePath].nav;
+    algolia () {
+      return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
     },
 
-    repoInfo() {
-      return {
-        home: info.homepage,
-        version: info.version,
-        releases: `${info.homepage}/releases`
-      }
+    isAlgoliaSearch () {
+      return this.algolia && this.algolia.apiKey && this.algolia.indexName
     }
   }
 }
 
+function css (el, property) {
+  // NOTE: Known bug, will return 'auto' if style value is 'auto'
+  const win = el.ownerDocument.defaultView
+  // null means not to return pseudo styles
+  return win.getComputedStyle(el, null)[property]
+}
 </script>
+
+<style lang="stylus">
+$navbar-vertical-padding = 0.7rem
+$navbar-horizontal-padding = 1.5rem
+
+.navbar
+  padding $navbar-vertical-padding $navbar-horizontal-padding
+  line-height $navbarHeight - 1.4rem
+  a, span, img
+    display inline-block
+  .logo
+    height $navbarHeight - 1.4rem
+    min-width $navbarHeight - 1.4rem
+    margin-right 0.8rem
+    vertical-align top
+  .site-name
+    font-size 1.3rem
+    font-weight 600
+    color $textColor
+    position relative
+  .links
+    padding-left 1.5rem
+    box-sizing border-box
+    background-color white
+    white-space nowrap
+    font-size 0.9rem
+    position absolute
+    right $navbar-horizontal-padding
+    top $navbar-vertical-padding
+    display flex
+    .search-box
+      flex: 0 0 auto
+      vertical-align top
+
+@media (max-width: $MQMobile)
+  .navbar
+    padding-left 4rem
+    .can-hide
+      display none
+    .links
+      padding-left 1.5rem
+</style>

@@ -1,6 +1,8 @@
 const info = require('../../package.json');
 
 module.exports = {
+  plugins: ['@vuepress/i18n-ui'],
+
   locales: {
     '/': {
       lang: 'en-US',
@@ -19,29 +21,34 @@ module.exports = {
   themeConfig: {
     locales: {
       '/': {
+        label: 'English',
+        editLinkText: 'Edit this page',
         nav: [
           { text: 'Docs', link: '/installation.html' },
           { text: 'Playground', link: '/playground.html' }
-        ]
+        ],
+        sidebar: [
+          '/',
+          '/installation',
+          '/options',
+          ['/playground', 'Explicit link text']
+        ],
       },
 
       '/es/': {
+        label: 'Español',
+        editLinkText: 'Editar esta página',
         nav: [
           { text: 'Docs', link: '/es/installation.html' },
           { text: 'Patio', link: '/es/playground.html' }
-        ]
+        ],
+        sidebar: [
+          '/es/',
+          '/es/installation',
+          '/es/options',
+          ['/es/playground', 'Explicit link text']
+        ],
       }
     }
   },
-
-  postcss: {
-    plugins: [
-      require('postcss-import'),
-      require('postcss-custom-media'),
-      require('postcss-nested'),
-      require('postcss-modular-scale'),
-      require('postcss-css-variables'),
-      require('postcss-calc')
-    ]
-  }
 }

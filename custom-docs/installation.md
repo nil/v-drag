@@ -35,11 +35,3 @@ Finally, on the same JS file as the code above, call the directive:
 ```js
 Vue.use(drag);
 ```
-
-## Usage
-
-From this moment on, you can use v-drag. Add the `v-drag` attribute to the elements you want to be draggable:
-
-```vue
-<div v-drag>Drag me!</div>
-```

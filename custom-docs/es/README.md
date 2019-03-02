@@ -18,7 +18,7 @@ start:
 features:
 - title: Axis
   icon: axis
-  details: asd
+  details: aad
   link: /
 
 - title: Handles
