@@ -16,6 +16,24 @@ module.exports = {
     }
   },
 
+  themeConfig: {
+    locales: {
+      '/': {
+        nav: [
+          { text: 'Docs', link: '/installation.html' },
+          { text: 'Playground', link: '/playground.html' }
+        ]
+      },
+
+      '/es/': {
+        nav: [
+          { text: 'Docs', link: '/es/installation.html' },
+          { text: 'Patio', link: '/es/playground.html' }
+        ]
+      }
+    }
+  },
+
   postcss: {
     plugins: [
       require('postcss-import'),
