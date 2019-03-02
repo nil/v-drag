@@ -1,8 +1,20 @@
 const info = require('../../package.json');
 
 module.exports = {
-  title: info.name,
-  description: info.description,
+  locales: {
+    '/': {
+      lang: 'en-US',
+      name: 'English',
+      title: info.name,
+      description: info.description
+    },
+    '/es/': {
+      lang: 'es-ES',
+      name: 'Español',
+      title: info.name,
+      description: 'La forma más simple de integrar drag en Vue.js'
+    }
+  },
 
   postcss: {
     plugins: [
