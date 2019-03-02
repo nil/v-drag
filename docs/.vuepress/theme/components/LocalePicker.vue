@@ -1,12 +1,12 @@
 <template>
   <div class="locale-picker">
-    <button class="locale-picker--button"
+    <div class="locale-picker--button"
       @click="openDropdown(false)"
       @mouseenter="openDropdown(500)"
       :disabled="isDropdownOpen"
       ref="localePickerButton">
       <IconLocale />
-    </button>
+    </div>
 
     <div class="locale-picker--dropdown"
       :class="{ active: isDropdownOpen }"
