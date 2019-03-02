@@ -89,13 +89,17 @@
     width: 200px;
   }
 
-  &--link {
+  &--link,
+  .locale-picker--button {
     padding: var(--navbar-icon-padding);
-
-    border-radius: var(--space_q);
+    margin-left: var(--space_b);
 
     color: inherit;
+    border-radius: var(--space_q);
+
+    font-size: ms(-1)rem;
     text-decoration: none;
+    line-height: 1.6;
 
     &:not(:disabled) {
       cursor: pointer;
@@ -104,23 +108,11 @@
         background: var(--navbar-hover);
       }
     }
-
-    &:last-child {
-      margin-left: var(--space_b);
-    }
   }
 
   svg {
     width: var(--navbar-icon-size);
-
     fill: var(--white);
-
     vertical-align: top;
-  }
-
-  &--links {
-    a {
-      font-size: ms(-1)rem;
-    }
   }
 }
