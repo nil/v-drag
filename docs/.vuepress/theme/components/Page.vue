@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { resolvePage, normalize, outboundRE, endingSlashRE } from '../util'
+import { resolvePage, normalize, outboundRE, endingSlashRE } from '../js/utils'
 
 export default {
   props: ['sidebarItems'],

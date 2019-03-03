@@ -24,7 +24,7 @@
 <script>
 import SidebarGroup from '@theme/components/SidebarGroup.vue'
 import SidebarLink from '@theme/components/SidebarLink.vue'
-import { isActive } from '../util'
+import { isActive } from '../js/utils'
 
 export default {
   name: 'SidebarLinks',

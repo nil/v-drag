@@ -1,6 +1,6 @@
 <template>
   <aside class="sidebar">
-    <NavLinks/>
+    <NavbarMenu/>
     <slot name="top"/>
     <SidebarLinks :depth="0" :items="items"/>
     <slot name="bottom"/>
@@ -9,12 +9,12 @@
 
 <script>
 import SidebarLinks from '@theme/components/SidebarLinks.vue'
-import NavLinks from '@theme/components/NavLinks.vue'
+import NavbarMenu from '@theme/components/NavbarMenu.vue'
 
 export default {
   name: 'Sidebar',
 
-  components: { SidebarLinks, NavLinks },
+  components: { SidebarLinks, NavbarMenu },
 
   props: ['items']
 }

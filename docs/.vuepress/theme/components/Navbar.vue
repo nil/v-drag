@@ -5,38 +5,28 @@
 
       <router-link class="navbar--logo" :to="$localePath">{{ $siteTitle }}</router-link>
 
-      <NavLinks />
+      <NavbarMenu :locale="false" />
 
       <SearchBox />
 
-      <div class="navbar--links">
-        <Link :item="releasesLink" class="navbar--link" />
-        <LocalePicker class="can-hide" />
-        <Link :item="repoLink" class="navbar--link"><IconGithub /></Link>
-      </div>
+      <NavbarLinks />
     </div>
   </header>
 </template>
 
 <script>
 
+import NavbarLinks from '@theme/components/NavbarLinks.vue';
+import NavbarMenu from '@theme/components/NavbarMenu.vue';
 import SearchBox from '@theme/components/SearchBox.vue';
 import SidebarButton from '@theme/components/SidebarButton.vue';
-import NavLinks from '@theme/components/NavLinks.vue';
-import Link from '@theme/components/Link.vue';
-import LocalePicker from '@theme/components/LocalePicker.vue';
-
-import info from '../../../../package.json';
-import IconGithub from './icons/IconGithub.vue';
 
 export default {
   components: {
-    SidebarButton,
-    NavLinks,
-    Link,
+    NavbarLinks,
+    NavbarMenu,
     SearchBox,
-    LocalePicker,
-    IconGithub
+    SidebarButton
   },
 
   data () {
@@ -58,21 +48,6 @@ export default {
     }
     handleLinksWrapWidth()
     window.addEventListener('resize', handleLinksWrapWidth, false)
-  },
-
-  computed: {
-    releasesLink() {
-      return {
-        text: `v${info.version}`,
-        link: `${info.homepage}/releases`
-      }
-    },
-
-    repoLink() {
-      return {
-        link: info.homepage
-      }
-    }
   }
 }
 
