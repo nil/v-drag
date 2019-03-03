@@ -46,6 +46,7 @@ module.exports = {
     locales: {
       '/': {
         editLinkText: 'Edit this page',
+        localePickerLabel: 'Language',
         nav: [
           { text: 'Docs', link: '/installation.html' },
           { text: 'Playground', link: '/playground.html' }
@@ -60,6 +61,7 @@ module.exports = {
 
       '/es/': {
         editLinkText: 'Editar esta página',
+        localePickerLabel: 'Idioma',
         nav: [
           { text: 'Docs', link: '/es/installation.html' },
           { text: 'Patio', link: '/es/playground.html' }

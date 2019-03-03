@@ -1,17 +1,26 @@
 <template>
   <div class="search-box">
-    <input class="search-box--field"
-      :class="{ 'focused': isFieldFocused }"
-      :value="query"
-      aria-label="Search"
-      autocomplete="off"
-      spellcheck="false"
-      @input="updateSearchQuery($event)"
-      @focus="updateSearchFocus(true)"
-      @blur="updateSearchFocus(false)"
-      @keyup.up="updateFocusIndex($event)"
-      @keyup.down="updateFocusIndex($event)"
-      @keyup.enter="goToResult(focusIndex)">
+    <div class="search-box--input">
+      <label for="input-search"
+        class="search-box--label"
+        :class="{ 'focused': isFieldFocused }">
+        <IconSearch />
+      </label>
+
+      <input class="search-box--field"
+        :class="{ 'focused': isFieldFocused }"
+        :value="query"
+        aria-label="Search"
+        autocomplete="off"
+        spellcheck="false"
+        id="input-search"
+        @input="updateSearchQuery($event)"
+        @focus="updateSearchFocus(true)"
+        @blur="updateSearchFocus(false)"
+        @keyup.up="updateFocusIndex($event)"
+        @keyup.down="updateFocusIndex($event)"
+        @keyup.enter="goToResult(focusIndex)">
+    </div>
 
     <ul class="search-box--suggestions"
       v-if="showSuggestions"
@@ -21,9 +30,11 @@
         :class="{ 'focused': index === focusIndex }"
         @mousedown="goToResult(index)"
         @mouseenter="focusSuggestion(index)">
-        <a :href="item.path" @click.prevent>
+        <a class="search-box--link"
+          :href="item.path"
+          @click.prevent>
           <span class="search-box--title">{{ item.title || item.path }}</span>
-          <span v-if="item.header" class="search-box--header">&gt; {{ item.header.title }}</span>
+          <span v-if="item.header" class="search-box--header">&#x203A; {{ item.header.title }}</span>
         </a>
       </li>
     </ul>
@@ -32,7 +43,13 @@
 
 <script>
 
+import IconSearch from '@theme/components/icons/IconSearch';
+
 export default {
+  components: {
+    IconSearch
+  },
+
   data () {
     return {
       query: '',
@@ -145,87 +162,87 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+// <style lang="stylus">
 
-.search-box
-  display inline-block
-  position relative
-  margin-right 1rem
-  input
-    cursor text
-    width 10rem
-    color lighten($textColor, 25%)
-    display inline-block
-    border 1px solid darken($borderColor, 10%)
-    border-radius 2rem
-    font-size 0.9rem
-    line-height 2rem
-    padding 0 0.5rem 0 2rem
-    outline none
-    transition all .2s ease
-    background #fff
-    background-size 1rem
-    &:focus
-      cursor auto
-      border-color $accentColor
-  .search-box--suggestions
-    background #fff
-    width 20rem
-    position absolute
-    top 1.5rem
-    border 1px solid darken($borderColor, 10%)
-    border-radius 6px
-    padding 0.4rem
-    list-style-type none
-    &.align-right
-      right 0
-  .search-box--item
-    line-height 1.4
-    padding 0.4rem 0.6rem
-    border-radius 4px
-    cursor pointer
-    a
-      white-space normal
-      color lighten($textColor, 35%)
-      .page-title
-        font-weight 600
-      .header
-        font-size 0.9em
-        margin-left 0.25em
-    &.focused
-      background-color #f3f4f5
-      a
-        color $accentColor
+// .search-box
+//   display inline-block
+//   position relative
+//   margin-right 1rem
+//   input
+//     cursor text
+//     width 10rem
+//     color lighten($textColor, 25%)
+//     display inline-block
+//     border 1px solid darken($borderColor, 10%)
+//     border-radius 2rem
+//     font-size 0.9rem
+//     line-height 2rem
+//     padding 0 0.5rem 0 2rem
+//     outline none
+//     transition all .2s ease
+//     background #fff
+//     background-size 1rem
+//     &:focus
+//       cursor auto
+//       border-color $accentColor
+//   .search-box--suggestions
+//     background #fff
+//     width 20rem
+//     position absolute
+//     top 1.5rem
+//     border 1px solid darken($borderColor, 10%)
+//     border-radius 6px
+//     padding 0.4rem
+//     list-style-type none
+//     &.align-right
+//       right 0
+//   .search-box--item
+//     line-height 1.4
+//     padding 0.4rem 0.6rem
+//     border-radius 4px
+//     cursor pointer
+//     a
+//       white-space normal
+//       color lighten($textColor, 35%)
+//       .page-title
+//         font-weight 600
+//       .header
+//         font-size 0.9em
+//         margin-left 0.25em
+//     &.focused
+//       background-color #f3f4f5
+//       a
+//         color $accentColor
 
-@media (max-width: $MQNarrow)
-  .search-box
-    input
-      cursor pointer
-      width 0
-      border-color transparent
-      position relative
-      &:focus
-        cursor text
-        left 0
-        width 10rem
+// @media (max-width: $MQNarrow)
+//   .search-box
+//     input
+//       cursor pointer
+//       width 0
+//       border-color transparent
+//       position relative
+//       &:focus
+//         cursor text
+//         left 0
+//         width 10rem
 
-@media (max-width: $MQNarrow) and (min-width: $MQMobile)
-  .search-box
-    .suggestions
-      left 0
+// @media (max-width: $MQNarrow) and (min-width: $MQMobile)
+//   .search-box
+//     .suggestions
+//       left 0
 
-@media (max-width: $MQMobile)
-  .search-box
-    margin-right 0
-    input
-      left 1rem
-    .suggestions
-      right 0
+// @media (max-width: $MQMobile)
+//   .search-box
+//     margin-right 0
+//     input
+//       left 1rem
+//     .suggestions
+//       right 0
 
-@media (max-width: $MQMobileNarrow)
-  .search-box
-    .suggestions
-      width calc(100vw - 4rem)
-    input:focus
-      width 8rem
-</style>
+// @media (max-width: $MQMobileNarrow)
+//   .search-box
+//     .suggestions
+//       width calc(100vw - 4rem)
+//     input:focus
+//       width 8rem
+// </style>

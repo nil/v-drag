@@ -5,7 +5,7 @@
 
       <router-link class="navbar--logo" :to="$localePath">{{ $siteTitle }}</router-link>
 
-      <NavbarMenu :locale="false" />
+      <NavbarMenu :locales="false" />
 
       <SearchBox />
 
