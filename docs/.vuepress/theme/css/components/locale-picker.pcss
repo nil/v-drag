@@ -1,0 +1,55 @@
+.locale-picker {
+  position: relative;
+
+  &--dropdown {
+    position: absolute;
+    top: var(--space_xs);
+    right: 0;
+
+    width: 144px;
+    padding: 12px 0;
+
+    background: var(--gray-90);
+    border-radius: var(--space_q);
+
+    box-shadow: 0 0 0 var(--space_u) var(--black);
+
+    opacity: 0;
+    visibility: hidden;
+
+    & a {
+      display: block;
+      padding: 6px var(--space_xs) 6px var(--space_s);
+
+      color: inherit;
+
+      font-size: ms(-1)rem;
+      text-decoration: none;
+
+      &:before {
+        position: absolute;
+        left: 12px;
+        opacity: 0;
+        content: "\203A";
+      }
+
+      &.router-link-active {
+        font-weight: 600;
+
+        &:before {
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        background: var(--gray-100);
+      }
+    }
+
+    &.active {
+      top: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
