@@ -8,7 +8,7 @@
   </a>
 
   <router-link v-else
-    :to="item.link"
+    :to="link"
     :exact="exact">
     <template v-if="item.text">{{ item.text }}</template>
     <template v-else><slot /></template>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+
+import { ensureExt } from '@theme/js/utils';
 
 export default {
   props: {
@@ -25,20 +27,16 @@ export default {
     }
   },
 
-  mounted( ){
-    if (!this.item.link) {
-      console.log(this.item);
-
-    }
-
-  },
-
   computed: {
-    exact () {
+    exact() {
       if (this.$site.locales) {
         return Object.keys(this.$site.locales).some(rootLink => rootLink === this.link);
       }
-      return this.link === '/'
+      return this.link === '/';
+    },
+
+    link() {
+      return ensureExt(this.item.link);
     },
 
     isExternalLink() {
