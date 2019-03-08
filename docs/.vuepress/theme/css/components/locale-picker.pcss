@@ -1,3 +1,7 @@
+:root {
+  --locale-picker--padding: var(--space_m);
+}
+
 .locale-picker {
   position: relative;
 
@@ -19,7 +23,7 @@
 
     & a {
       display: block;
-      padding: 6px var(--space_xs) 6px var(--space_s);
+      padding: 6px var(--space_xs) 6px var(--locale-picker--padding);
 
       color: inherit;
 
@@ -28,20 +32,29 @@
 
       &:before {
         position: absolute;
-        left: 12px;
+        left: 0;
+
+        width: var(--locale-picker--padding);
+        padding-left: var(--space_u);
+
+        font-size: ms(0)rem;
+        font-weight: 600;
+        text-align: center;
+        line-height: 0.8;
+
         opacity: 0;
         content: "\203A";
       }
 
       &.router-link-active {
-        font-weight: 600;
+        cursor: default;
 
         &:before {
           opacity: 1;
         }
       }
 
-      &:hover {
+      &:not(.router-link-active):hover {
         background: var(--gray-100);
       }
     }

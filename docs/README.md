@@ -9,27 +9,32 @@ cta:
     text: Playground
     link: /playground.html
 
-about: Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its purpose is to quickly integrate and customize draggable objects on projects using Vue.js.
-
-start:
-  text: Go to installation
-  link: /installation.html
+about: Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its purpose is to quickly integrate and customize draggable elements on projects using Vue.js.
 
 features:
 - title: Axis
   icon: axis
-  details: Limit the movement of the element so it can only follow the direction of one of the two axis.
-  link: /
+  details: Restrict the movement of the element so that it can only follow the direction of either vertical or horizontal axis.
+  docs: /
+  playground: /
 
-- title: Handles
+- title: Handle
   icon: handle
-  details: Prevent the element from being moved until it is dragged from at least one particular element.
-  link: /
+  details: Make the element move only when one or more specific objects are dragged, whether they are inside or outside.
+  docs: /
+  playground: /
 
-- title: Classes
-  icon: style
-  details: Automatically add modifiable classes to indicate the class of element and the dragging state.
-  link: /
+- title: Axis
+  icon: axis
+  details: Restrict the movement of the element so that it can only follow the direction of either vertical or horizontal axis.
+  docs: /
+  playground: /
+
+- title: Handle
+  icon: handle
+  details: Make the element move only when one or more specific objects are dragged, whether they are inside or outside.
+  docs: /
+  playground: /
 ---
 
 ```bash

@@ -3,7 +3,7 @@
   --search-height: 40px;
   --search-padding: var(--space_b);
   --search-bg: var(--gray-100);
-  --search-border: var(--gray-80);
+  --search--bg_hover: var(--gray-90);
   --search-radius: var(--space_q);
 }
 
@@ -16,7 +16,7 @@
 
   &--input {
     display: flex;
-    margin: calc((var(--navbar-height) - var(--search-height)) / 2) 0;
+    margin-top: calc((var(--navbar--height) - var(--search-height)) / 2);
   }
 
   &--label {
@@ -25,8 +25,6 @@
     height: var(--search-height);
 
     background: var(--search-bg);
-    border: var(--space_u) solid transparent;
-    border-right: 0;
     border-radius: var(--search-radius) 0 0 var(--search-radius);
 
     & .icon-search {
@@ -36,11 +34,15 @@
     }
 
     &.focused {
-      border-color: var(--search-border);
+      background: var(--search--bg_hover);
 
       & .icon-search {
         fill: var(--white);
       }
+    }
+
+    &.active {
+      border-bottom-left-radius: 0;
     }
   }
 
@@ -50,31 +52,33 @@
 
     color: var(--white);
     background: var(--search-bg);
-    border: var(--space_u) solid transparent;
-    border-left: 0;
     border-radius: 0 var(--search-radius) var(--search-radius) 0;
 
     font-size: inherit;
 
     &.focused {
-      border-color: var(--search-border);
+      background: var(--search--bg_hover);
+    }
+
+    &.active {
+      border-bottom-right-radius: 0;
     }
   }
 
   &--suggestions {
     display: block;
-    width: calc(100% + (var(--search-padding) * 2));
-    padding: 0 var(--search-padding) var(--search-padding);
+    width: 100%;
+    padding: var(--search-padding) 0;
 
-    background: var(--black);
+    background: var(--gray-90);
     border-radius: 0 0 var(--space_q) var(--space_q);
+    box-shadow: 0 0 0 var(--space_u) var(--black);
 
-    transform: translateX(-var(--search-padding));
     list-style-type: none;
   }
 
   &--item {
-    padding: var(--space_q) var(--space_b);
+    padding: 6px var(--space_xs);
 
     border-radius: var(--space_d);
     cursor: pointer;

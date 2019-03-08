@@ -1,13 +1,12 @@
 :root {
-  --navbar-height: var(--space_l);
-  --button-size: var(--space_s);
+  --navbar--height: var(--space_l);
+  --button--size: var(--space_s);
 
-  --logo-left: var(--space_xs);
-  --logo-right: 98px;
+  --navbar-logo--left: var(--space_xs);
+  --navbar-logo--right: 98px;
 
-  --navbar-hover: var(--gray-100);
-  --navbar-icon-size: var(--space_s);
-  --navbar-icon-padding: var(--space_b);
+  --navbar-icon--hover: var(--gray-100);
+  --navbar-icon--padding: var(--space_b);
 }
 
 .navbar {
@@ -15,7 +14,7 @@
   top: 0;
 
   width: 100%;
-  height: var(--navbar-height);
+  height: var(--navbar--height);
 
   color: white;
   background: var(--black);
@@ -24,7 +23,7 @@
 
   &--wrapper {
     display: flex;
-    padding-right: calc(var(--grid-margin) - var(--navbar-icon-padding));
+    padding-right: calc(var(--grid-margin) - var(--navbar-icon--padding));
 
     height: 100%;
   }
@@ -56,15 +55,15 @@
 
   &--logo {
     padding-bottom: 6px;
-    margin-right: var(--logo-right);
+    margin-right: var(--navbar-logo--right);
 
     font-family: var(--mono);
     font-size: ms(1)rem;
     font-weight: 700;
 
     &:hover {
-      padding-left: var(--logo-left);
-      margin-right: calc(var(--logo-right) - var(--logo-left));
+      padding-left: var(--navbar-logo--left);
+      margin-right: calc(var(--navbar-logo--right) - var(--navbar-logo--left));
     }
   }
 
@@ -77,7 +76,7 @@
       padding: 0 var(--space_s);
 
       &:hover {
-        background: var(--navbar-hover);
+        background: var(--navbar-icon--hover);
       }
     }
   }
@@ -86,12 +85,12 @@
     display: flex;
     align-items: center;
     justify-content: end;
-    width: calc(200px + var(--navbar-icon-padding));
+    width: calc(200px + var(--navbar-icon--padding));
   }
 
   &--link,
   .locale-picker--button {
-    padding: var(--navbar-icon-padding);
+    padding: var(--navbar-icon--padding);
     margin-left: var(--space_b);
 
     color: inherit;
@@ -105,13 +104,13 @@
       cursor: pointer;
 
       &:hover {
-        background: var(--navbar-hover);
+        background: var(--navbar-icon--hover);
       }
     }
   }
 
   svg {
-    width: var(--navbar-icon-size);
+    width: var(--space_s);
     fill: var(--white);
     vertical-align: top;
   }

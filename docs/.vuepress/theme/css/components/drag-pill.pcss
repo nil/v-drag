@@ -1,0 +1,41 @@
+.drag-pill {
+  width: 100%;
+
+  &.drag-draggable,
+  & .drag-handle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--gray-10);
+    border: 1px solid var(--gray-30);
+    border-radius: var(--space_q);
+  }
+
+  &.drag-uses-handle {
+    display: flex;
+    justify-content: flex-end;
+
+    background: var(--gray-30);
+    border: 0;
+  }
+
+  & .drag-handle {
+    width: var(--space_xxl);
+    height: 100%;
+
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  & .icon-hand-drag {
+    width: var(--space_xl);
+    height: var(--space_xl);
+
+    fill: var(--black);
+
+    & g {
+      fill: var(--gray-80);
+    }
+  }
+}

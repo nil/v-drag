@@ -3,12 +3,12 @@
     <div class="search-box--input">
       <label for="input-search"
         class="search-box--label"
-        :class="{ 'focused': isFieldFocused }">
+        :class="{ 'focused': isFieldFocused, 'active': showSuggestions }">
         <IconSearch />
       </label>
 
       <input class="search-box--field"
-        :class="{ 'focused': isFieldFocused }"
+        :class="{ 'focused': isFieldFocused, 'active': showSuggestions }"
         :value="query"
         aria-label="Search"
         autocomplete="off"
@@ -116,7 +116,7 @@ export default {
 
   methods: {
     updateSearchQuery(e) {
-      this.query = e.target.value
+      this.query = e.target.value;
     },
 
     updateSearchFocus(state) {
@@ -152,97 +152,12 @@ export default {
     },
 
     focusSuggestion(i) {
-      this.focusIndex = i
+      this.focusIndex = i;
     },
 
     unfocusAllSuggestions() {
-      this.focusIndex = -1
+      this.focusIndex = -1;
     }
   }
 }
 </script>
-
-// <style lang="stylus">
-
-// .search-box
-//   display inline-block
-//   position relative
-//   margin-right 1rem
-//   input
-//     cursor text
-//     width 10rem
-//     color lighten($textColor, 25%)
-//     display inline-block
-//     border 1px solid darken($borderColor, 10%)
-//     border-radius 2rem
-//     font-size 0.9rem
-//     line-height 2rem
-//     padding 0 0.5rem 0 2rem
-//     outline none
-//     transition all .2s ease
-//     background #fff
-//     background-size 1rem
-//     &:focus
-//       cursor auto
-//       border-color $accentColor
-//   .search-box--suggestions
-//     background #fff
-//     width 20rem
-//     position absolute
-//     top 1.5rem
-//     border 1px solid darken($borderColor, 10%)
-//     border-radius 6px
-//     padding 0.4rem
-//     list-style-type none
-//     &.align-right
-//       right 0
-//   .search-box--item
-//     line-height 1.4
-//     padding 0.4rem 0.6rem
-//     border-radius 4px
-//     cursor pointer
-//     a
-//       white-space normal
-//       color lighten($textColor, 35%)
-//       .page-title
-//         font-weight 600
-//       .header
-//         font-size 0.9em
-//         margin-left 0.25em
-//     &.focused
-//       background-color #f3f4f5
-//       a
-//         color $accentColor
-
-// @media (max-width: $MQNarrow)
-//   .search-box
-//     input
-//       cursor pointer
-//       width 0
-//       border-color transparent
-//       position relative
-//       &:focus
-//         cursor text
-//         left 0
-//         width 10rem
-
-// @media (max-width: $MQNarrow) and (min-width: $MQMobile)
-//   .search-box
-//     .suggestions
-//       left 0
-
-// @media (max-width: $MQMobile)
-//   .search-box
-//     margin-right 0
-//     input
-//       left 1rem
-//     .suggestions
-//       right 0
-
-// @media (max-width: $MQMobileNarrow)
-//   .search-box
-//     .suggestions
-//       width calc(100vw - 4rem)
-//     input:focus
-//       width 8rem
-// </style>

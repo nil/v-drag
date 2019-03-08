@@ -9,27 +9,32 @@ cta:
     text: Probar
     link: /es/playground.html
 
-about: Algún texto en español
-
-start:
-  text: Go to installation
-  link: /es/installation.html
+about: Los elementos arrastrables son un patrón UX común, especialmente en pantallas táctiles. Pero como desarrollador, puede que sepas lo difícil que es aplicarlo con JavaScript. Además, Vue.js no ayuda en este caso. Así que para simplificarlo, v-drag fue escrito. Su propósito es que se pueda rápidamente integrar y personalizar elementos arrastrables en proyectos que usen Vue.js.
 
 features:
 - title: Axis
   icon: axis
-  details: asd
-  link: /
+  details: Restringe el movimiento del elemento para que únicamente pueda seguir la dirección del eje vertical o del horizontal.
+  docs: /
+  playground: /
 
-- title: Handles
+- title: Tirador
   icon: handle
-  details: Prevent the element from being moved until it is dragged from at least one particular element.
-  link: /
+  details: Haz que el elemento solo pueda moverse al arrastrar a uno o más elementos concretos, estén situados dentro o fuera.
+  docs: /
+  playground: /
 
-- title: Classes
-  icon: style
-  details: Automatically add modifiable classes to indicate the class of element and the dragging state.
-  link: /
+- title: Axis
+  icon: axis
+  details: Restringe el movimiento del elemento para que únicamente pueda seguir la dirección del eje vertical o del horizontal.
+  docs: /
+  playground: /
+
+- title: Tirador
+  icon: handle
+  details: Haz que el elemento solo pueda moverse al arrastrar a uno o más elementos concretos, estén situados dentro o fuera.
+  docs: /
+  playground: /
 ---
 
 ```bash
@@ -43,5 +48,5 @@ Vue.use(drag);
 ```
 
 ```vue
-<div v-drag>Drag me!</div>
+<div v-drag>¡Arrástrame!</div>
 ```

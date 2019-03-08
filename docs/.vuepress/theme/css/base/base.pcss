@@ -12,7 +12,12 @@
   font-smoothing: antialiased;
 
   box-sizing: border-box;
-  transition: all 200ms cubic-bezier(0.1, 0.7, 0.2, 1);
+
+  &,
+  &:before,
+  &:after {
+    transition: all 200ms cubic-bezier(0.1, 0.7, 0.2, 1);
+  }
 }
 
 

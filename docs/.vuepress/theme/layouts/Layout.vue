@@ -48,13 +48,19 @@
 </template>
 
 <script>
-import Home from '@theme/components/Home.vue'
-import Navbar from '@theme/components/Navbar.vue'
-import Page from '@theme/components/Page.vue'
-import Sidebar from '@theme/components/Sidebar.vue'
-import { resolveSidebarItems } from '../util'
+import Vue from 'vue';
+import drag from '../../../../dist/main.js';
+import { resolveSidebarItems } from '../js/utils';
+
+import Page from './Page.vue';
+import Home from './Home.vue';
+
+import Navbar from '@theme/components/Navbar.vue';
+import Sidebar from '@theme/components/Sidebar.vue';
 
 import '@theme/css/main.pcss';
+
+Vue.use(drag);
 
 export default {
   components: { Home, Page, Sidebar, Navbar },
@@ -148,5 +154,4 @@ export default {
 }
 </script>
 
-<style src="prismjs/themes/prism-tomorrow.css"></style>
 <style src="../styles/theme.styl" lang="stylus"></style>

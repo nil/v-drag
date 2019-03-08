@@ -1,7 +1,7 @@
 const info = require('../../package.json');
 
 module.exports = {
-  plugins: ['@vuepress/search'],
+  title: info.name,
 
   locales: {
     '/': {
@@ -13,31 +13,6 @@ module.exports = {
     '/es/': {
       lang: 'es-ES',
       name: 'Español',
-      title: info.name,
-      description: 'La forma más simple de integrar drag en Vue.js'
-    },
-    '/fr/': {
-      lang: 'fr-FR',
-      name: 'Français',
-      title: info.name,
-      description: 'La forma más simple de integrar drag en Vue.js'
-    },
-    '/it/': {
-      lang: 'it-IT',
-      name: 'Italiano',
-      title: info.name,
-      description: 'La forma más simple de integrar drag en Vue.js'
-    },
-    '/zh/': {
-      lang: 'zh-MA',
-      name: 'Chino',
-      title: info.name,
-      description: 'La forma más simple de integrar drag en Vue.js'
-    },
-    '/pt/': {
-      lang: 'pt-BR',
-      name: 'Portuguêsh',
-      title: info.name,
       description: 'La forma más simple de integrar drag en Vue.js'
     }
   },
@@ -45,12 +20,18 @@ module.exports = {
   themeConfig: {
     locales: {
       '/': {
-        editLinkText: 'Edit this page',
         localePickerLabel: 'Language',
+        quickStartHeading: 'Quick start',
+        quickStartLink: 'Go to installation',
+        featuresLabel: 'Features',
+        learnMoreLabel: 'Learn more',
+        testPlaygroundLabel: 'Test on playground',
+
         nav: [
           { text: 'Docs', link: '/installation.html' },
           { text: 'Playground', link: '/playground.html' }
         ],
+
         sidebar: [
           '/',
           '/installation',
@@ -60,12 +41,18 @@ module.exports = {
       },
 
       '/es/': {
-        editLinkText: 'Editar esta página',
         localePickerLabel: 'Idioma',
+        quickStartHeading: 'Inicio rápido',
+        quickStartLink: 'Ir a instalación',
+        featuresLabel: 'Características',
+        learnMoreLabel: 'Aprender más',
+        testPlaygroundLabel: 'Provar en el patio',
+
         nav: [
           { text: 'Docs', link: '/es/installation.html' },
           { text: 'Patio', link: '/es/playground.html' }
         ],
+
         sidebar: [
           '/es/',
           '/es/installation',
