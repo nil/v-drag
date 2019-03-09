@@ -139,8 +139,6 @@
       left: calc(var(--grid-margin_m));
 
       width: calc(100% - (var(--grid-margin_m) * 2));
-      padding-left: calc(var(--sidebar-button--size) + var(--space_xs));
-
       z-index: 999;
 
       &.focused {
@@ -217,6 +215,12 @@
       padding: 0;
     }
   }
+
+  .search-box {
+    &--container {
+      padding-left: calc(var(--sidebar-button--size) + var(--space_xs));
+    }
+  }
 }
 
 
@@ -268,7 +272,7 @@
 
   .hero {
     padding-top: calc(72px + var(--navbar-height));
-    padding-bottom: 104px;
+    padding-bottom: 96px;
 
     text-align: center;
 
@@ -279,6 +283,12 @@
 
     &--tagline {
       max-width: 100%;
+    }
+
+    &--cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     &--hand {
@@ -292,8 +302,24 @@
   }
 
   .cta-button {
-    &:last-child {
-      display: none;
+    &_primary {
+      &:hover {
+        background: var(--gray-60);
+        transform: none;
+      }
+    }
+
+    &_secondary {
+      margin-top: var(--space_b);
+
+      color: var(--gray-60);
+      background: none;
+      border: 0;
+
+      &:hover {
+        color: var(--white);
+        transform: none;
+      }
     }
 
     &:not(:last-child) {
@@ -331,5 +357,13 @@
     &--links {
       margin-top: 0;
     }
+  }
+
+  .ankle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: calc(var(--ankle--padding) - 20px);
   }
 }
