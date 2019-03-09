@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar--links">
-    <Link :item="releasesLink" class="navbar--link" />
-    <LocalePicker class="can-hide" />
+    <Link :item="releasesLink" class="navbar--link hide--m" />
+    <LocalePicker class="hide--xs" />
     <Link :item="repoLink" class="navbar--link"><IconGithub /></Link>
   </nav>
 </template>

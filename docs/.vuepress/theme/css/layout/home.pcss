@@ -129,7 +129,6 @@
   &--heading {
     display: flex;
     margin-bottom: var(--space_m);
-    baseline: bottom;
 
     & h2 {
       flex: 1;
@@ -182,6 +181,8 @@
   &--item {
     position: relative;
     grid-column: span 3;
+    display: flex;
+    flex-direction: column;
 
     &:before, &:after {
       position: absolute;
@@ -208,6 +209,10 @@
   &--title {
     display: flex;
     margin: var(--space_xs) 0 19px;
+
+    & h3 {
+      margin-top: var(--space_u);
+    }
   }
 
   & .icon-feature {
@@ -224,8 +229,12 @@
     }
   }
 
+  &--description {
+    flex: 1;
+  }
+
   &--links {
-    margin: 20px 0 var(--space_s);
+    margin: var(--space_q) 0 var(--space_s);
 
     a:first-child {
       margin-right: 36px;

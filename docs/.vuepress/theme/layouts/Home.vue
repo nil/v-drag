@@ -25,7 +25,7 @@
 
         <div class="intro--heading">
           <h2>{{ this.$themeLocaleConfig.quickStartHeading }}</h2>
-          <Link :item="quickStartLink" />
+          <Link :item="quickStartLink" class="hide--s" />
         </div>
 
         <Content />
@@ -33,7 +33,7 @@
 
       <DragPill />
       <DragPill axis="x" />
-      <DragPill axis="y" :handle="true" />
+      <DragPill axis="y" :handle="true" class="hide--m" />
     </section>
 
     <section class="features grid home--wrapper">
@@ -46,7 +46,7 @@
           <FeatureIcon :icon="feature.icon" />
           <h3>{{ feature.title }}</h3>
         </div>
-        <p class="fetures--description">{{ feature.details }}</p>
+        <p class="features--description">{{ feature.details }}</p>
         <div class="features--links">
           <Link :item="{
             text: `${$themeLocaleConfig.learnMoreLabel} ›`,
@@ -55,7 +55,7 @@
           <Link :item="{
             text: `${$themeLocaleConfig.testPlaygroundLabel} ›`,
             link: feature.playground
-          }" />
+          }" class="hide--m" />
         </div>
       </div>
     </section>

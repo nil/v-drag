@@ -1,12 +1,13 @@
 :root {
   --navbar--height: var(--space_l);
-  --button--size: var(--space_s);
 
   --navbar-logo--left: var(--space_xs);
   --navbar-logo--right: 98px;
 
   --navbar-icon--hover: var(--gray-100);
   --navbar-icon--padding: var(--space_b);
+
+  --sidebar-button--size: var(--space_s);
 }
 
 .navbar {
@@ -28,20 +29,17 @@
     height: 100%;
   }
 
-  /* &--button {
-    display: none;
-
-
-    width: var(--button-size);
-    height: var(--button-size);
-
+  &--button {
+    width: var(--sidebar-button--size);
     margin-right: var(--space_xs);
 
-    & svg {
-      stroke: var(--white);
-      stroke-width: 2px;
+    background: none;
+    cursor: pointer;
+
+    & .icon-sidebar {
+      fill: var(--white);
     }
-  } */
+  }
 
   &--logo,
   &--navigation a {
@@ -72,6 +70,8 @@
     flex: 1;
     align-items: stretch;
 
+    margin-right: var(--space_xs);
+
     a {
       padding: 0 var(--space_s);
 
@@ -85,15 +85,19 @@
     display: flex;
     align-items: center;
     justify-content: end;
+
+    padding-left: var(--space_b);
     width: calc(200px + var(--navbar-icon--padding));
   }
 
   &--link,
-  .locale-picker--button {
+  .locale-picker--button,
+  .search-box--button {
     padding: var(--navbar-icon--padding);
     margin-left: var(--space_b);
 
     color: inherit;
+    background: none;
     border-radius: var(--space_q);
 
     font-size: ms(-1)rem;
@@ -107,9 +111,15 @@
         background: var(--navbar-icon--hover);
       }
     }
+
+    &.active {
+      background: var(--gray-90);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
-  svg {
+  & .icon {
     width: var(--space_s);
     fill: var(--white);
     vertical-align: top;

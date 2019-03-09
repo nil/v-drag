@@ -1,16 +1,16 @@
 <template>
-  <div class="locale-picker">
-    <div class="locale-picker--button"
-      @click="openDropdown(false)"
-      @mouseenter="openDropdown(500)"
+  <div class="locale-picker"
+    @mouseleave="closeDropdown(300)">
+    <button class="locale-picker--button"
+      @mouseenter="openDropdown(200)"
+      :class="{ active: isDropdownOpen }"
       :disabled="isDropdownOpen"
       ref="localePickerButton">
       <IconLocale />
-    </div>
+    </button>
 
     <div class="locale-picker--dropdown"
       :class="{ active: isDropdownOpen }"
-      @mouseleave="closeDropdown(300)"
       ref="localePickerDropdown">
       <Link v-for="locale in localeList" :item="locale" />
     </div>
@@ -70,11 +70,3 @@ export default {
 }
 
 </script>
-
-<style>
-svg.icon-locale {
-  width: 24px;
-  fill: red;
-}
-.router-link-active { color: red; }
-</style>

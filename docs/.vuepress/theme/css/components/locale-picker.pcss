@@ -7,7 +7,7 @@
 
   &--dropdown {
     position: absolute;
-    top: var(--space_xs);
+    top: var(--space_l);
     right: 0;
 
     width: 144px;
@@ -15,6 +15,7 @@
 
     background: var(--gray-90);
     border-radius: var(--space_q);
+    border-top-right-radius: 0;
 
     box-shadow: 0 0 0 var(--space_u) var(--black);
 
@@ -60,7 +61,7 @@
     }
 
     &.active {
-      top: 0;
+      top: 40px;
       opacity: 1;
       visibility: visible;
     }
