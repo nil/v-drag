@@ -1,7 +1,7 @@
 <template>
   <header class="navbar">
     <div class="navbar--wrapper">
-      <button class="navbar--button" @click="$emit('toggle-sidebar')">
+      <button class="navbar--button show--xs" @click="$emit('toggle-sidebar')">
         <IconSidebar />
       </button>
 
