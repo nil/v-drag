@@ -24,17 +24,6 @@ features:
   docs: /
   playground: /
 
-- title: Axis
-  icon: axis
-  details: Restringe el movimiento del elemento para que únicamente pueda seguir la dirección del eje vertical o del horizontal.
-  docs: /
-  playground: /
-
-- title: Tirador
-  icon: handle
-  details: Haz que el elemento solo pueda moverse al arrastrar a uno o más elementos concretos, estén situados dentro o fuera.
-  docs: /
-  playground: /
 ---
 
 ```bash
