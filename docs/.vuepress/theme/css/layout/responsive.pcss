@@ -112,21 +112,20 @@
     font-size: ms(3)rem;
   }
 
-  .navbar {
-    &--navigation {
-      a {
-        padding: 0 var(--space_xs);
-        &:hover {
-          color: var(--gray-40);
-          background: none;
-        }
+  .menu-primary {
+    a {
+      padding: 0 var(--space_xs);
+
+      &:hover {
+        color: var(--gray-40);
+        background: none;
       }
     }
+  }
 
-    &--links {
-      width: auto;
-      padding-left: 0;
-    }
+  .menu-secondary {
+    width: auto;
+    padding-left: 0;
   }
 
   .search-box {
@@ -210,10 +209,8 @@
     display: none;
   }
 
-  .navbar {
-    &--links {
-      padding: 0;
-    }
+  .menu-secondary {
+    padding: 0;
   }
 
   .search-box {

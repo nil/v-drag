@@ -1,83 +1,69 @@
-<template>
-  <div
-    class="dropdown-wrapper"
-    :class="{ open }"
-  >
-    <a
-      class="dropdown-title"
-      @click="toggle"
-    >
-      <span class="title">{{ item.text }}</span>
-      <span
-        class="arrow"
-        :class="open ? 'down' : 'right'"
-      ></span>
-    </a>
+:root {
+  --sidebar--width: 288px;
+  --sidebar--bg: var(--gray-10);
+  --sidebar--bg_hover: var(--gray-40);
+  --sidebar--border: var(--gray-40);
 
-    <DropdownTransition>
-      <ul
-        class="nav-dropdown"
-        v-show="open"
-      >
-        <li
-          class="dropdown-item"
-          :key="subItem.link || index"
-          v-for="(subItem, index) in item.items"
-        >
-          <h4 v-if="subItem.type === 'links'">{{ subItem.text }}</h4>
+  --sidebar--padding_1: 56px;
+  --sidebar--padding_2: 72px;
+  --sidebar--padding_3: 88px;
+}
 
-          <ul
-            class="dropdown-subitem-wrapper"
-            v-if="subItem.type === 'links'"
-          >
-            <li
-              class="dropdown-subitem"
-              :key="childSubItem.link"
-              v-for="childSubItem in subItem.items"
-            >
-              <Link :item="childSubItem"/>
-            </li>
-          </ul>
+.sidebar {
+  &--mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
 
-          <Link
-            v-else
-            :item="subItem"
-          />
-        </li>
-      </ul>
-    </DropdownTransition>
-  </div>
-</template>
+    width: 100vw;
+    height: 100vh;
 
-<script>
-import Link from '@theme/components/Link.vue'
-import DropdownTransition from '@theme/components/DropdownTransition.vue'
+    z-index: 9;
+  }
 
-export default {
-  components: { Link, DropdownTransition },
+  &--panel {
+    position: fixed;
+    left: -var(--sidebar--width);
+    top: var(--navbar--height);
+    bottom: 0;
 
-  data () {
-    return {
-      open: false
+    width: 100vw;
+    max-width: var(--sidebar--width);
+    padding-top: 40px;
+
+    background-color: var(--sidebar--bg);
+    border-right: var(--space_u) solid var(--sidebar--border);
+
+    z-index: 10;
+    overflow-y: auto;
+  }
+
+  a {
+    &.router-link-active:not(.dropdown--link) {
+      background: var(--gray-30);
+      cursor: default;
     }
-  },
 
-  props: {
-    item: {
-      required: true
+    &:not(.router-link-active):hover {
+      background: var(--sidebar--bg_hover);
     }
-  },
+  }
 
-  methods: {
-    toggle () {
-      this.open = !this.open
+  &.open {
+    & .sidebar {
+      &--mask {
+        display: block;
+      }
+
+      &--panel {
+        left: 0;
+      }
     }
   }
 }
-</script>
 
-<style lang="stylus">
-.dropdown-wrapper
+/* .dropdown-wrapper
   cursor pointer
   .dropdown-title
     display block
@@ -175,5 +161,4 @@ export default {
       text-align left
       border-radius 0.25rem
       white-space nowrap
-      margin 0
-</style>
+      margin 0 */

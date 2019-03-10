@@ -4,7 +4,7 @@ export default function () {
   const routes = this.$router.options.routes;
 
   // List of locales and links
-  return Object.keys(locales).map(path => {
+  return Object.keys(locales).map((path) => {
     const localeInfo = locales[path];
     const localeName = this.$site.locales[path].name;
     let localeLink;
@@ -26,6 +26,6 @@ export default function () {
     return {
       text: localeName,
       link: localeLink
-    }
+    };
   });
 }

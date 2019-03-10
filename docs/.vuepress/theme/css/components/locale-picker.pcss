@@ -29,30 +29,9 @@
       color: inherit;
 
       font-size: ms(-1)rem;
-      text-decoration: none;
 
       &:before {
-        position: absolute;
-        left: 0;
-
         width: var(--locale-picker--padding);
-        padding-left: var(--space_u);
-
-        font-size: ms(0)rem;
-        font-weight: 600;
-        text-align: center;
-        line-height: 0.8;
-
-        opacity: 0;
-        content: "\203A";
-      }
-
-      &.router-link-active {
-        cursor: default;
-
-        &:before {
-          opacity: 1;
-        }
       }
 
       &:not(.router-link-active):hover {
@@ -64,6 +43,33 @@
       top: 40px;
       opacity: 1;
       visibility: visible;
+    }
+  }
+}
+
+.locale-picker a,
+.dropdown--link {
+  &:before {
+    position: absolute;
+    left: 0;
+
+    padding-right: 10px;
+
+    font-size: ms(0)rem;
+    font-weight: 600;
+    text-align: right;
+    line-height: 0.8;
+
+    opacity: 0;
+    content: "\203A";
+    box-sizing: border-box;
+  }
+
+  &.router-link-active {
+    cursor: default;
+
+    &:before {
+      opacity: 1;
     }
   }
 }

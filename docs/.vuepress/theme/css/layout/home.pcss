@@ -77,7 +77,6 @@
   font-size: ms(1)rem;
   font-weight: 600;
   text-align: center;
-  text-decoration: none;
 
   border-radius: var(--space_q);
   z-index: 2;
@@ -137,6 +136,11 @@
 
     & a {
       padding-top: 9px;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 

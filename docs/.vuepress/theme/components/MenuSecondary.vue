@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar--links">
-    <Link :item="releasesLink" class="navbar--link hide--m" />
+  <nav class="menu-secondary">
+    <Link :item="releasesLink" class="menu-secondary--link hide--m" />
     <LocalePicker class="hide--xs" />
-    <Link :item="repoLink" class="navbar--link"><IconGithub /></Link>
+    <Link :item="repoLink" class="menu-secondary--link"><IconGithub /></Link>
   </nav>
 </template>
 
@@ -26,15 +26,15 @@ export default {
       return {
         text: `v${info.version}`,
         link: `${info.homepage}/releases`
-      }
+      };
     },
 
     repoLink() {
       return {
         link: info.homepage
-      }
+      };
     }
   }
-}
+};
 
 </script>

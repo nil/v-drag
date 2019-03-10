@@ -7,11 +7,11 @@
 
       <Link class="navbar--logo" :item="homeLink" />
 
-      <NavbarMenu :locales="false" class="hide--xs" />
+      <MenuPrimary :navbar="true" class="hide--xs" />
 
       <SearchBox />
 
-      <NavbarLinks />
+      <MenuSecondary />
     </div>
   </header>
 </template>
@@ -19,8 +19,8 @@
 <script>
 
 import Link from '@theme/components/Link.vue';
-import NavbarLinks from '@theme/components/NavbarLinks.vue';
-import NavbarMenu from '@theme/components/NavbarMenu.vue';
+import MenuPrimary from '@theme/components/MenuPrimary.vue';
+import MenuSecondary from '@theme/components/MenuSecondary.vue';
 import SearchBox from '@theme/components/SearchBox.vue';
 
 import IconSidebar from '@theme/components/icons/IconSidebar.vue';
@@ -28,8 +28,8 @@ import IconSidebar from '@theme/components/icons/IconSidebar.vue';
 export default {
   components: {
     Link,
-    NavbarLinks,
-    NavbarMenu,
+    MenuSecondary,
+    MenuPrimary,
     SearchBox,
     IconSidebar
   },
@@ -39,9 +39,9 @@ export default {
       return {
         text: this.$siteTitle,
         link: this.$localePath
-      }
+      };
     }
   }
-}
+};
 
 </script>

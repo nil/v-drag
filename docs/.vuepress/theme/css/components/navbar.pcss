@@ -42,12 +42,11 @@
   }
 
   &--logo,
-  &--navigation a {
+  & .menu-primary--navbar a {
     display: inline-flex;
     align-items: center;
 
     color: inherit;
-    text-decoration: none;
     line-height: 1;
   }
 
@@ -65,63 +64,5 @@
     }
   }
 
-  &--navigation {
-    display: flex;
-    flex: 1;
-    align-items: stretch;
 
-    margin-right: var(--space_xs);
-
-    a {
-      padding: 0 var(--space_s);
-
-      &:hover {
-        background: var(--navbar-icon--hover);
-      }
-    }
-  }
-
-  &--links {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-
-    padding-left: var(--space_b);
-    width: calc(200px + var(--navbar-icon--padding));
-  }
-
-  &--link,
-  .locale-picker--button,
-  .search-box--button {
-    padding: var(--navbar-icon--padding);
-    margin-left: var(--space_b);
-
-    color: inherit;
-    background: none;
-    border-radius: var(--space_q);
-
-    font-size: ms(-1)rem;
-    text-decoration: none;
-    line-height: 1.6;
-
-    &:not(:disabled) {
-      cursor: pointer;
-
-      &:hover {
-        background: var(--navbar-icon--hover);
-      }
-    }
-
-    &.active {
-      background: var(--gray-90);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-  }
-
-  & .icon {
-    width: var(--space_s);
-    fill: var(--white);
-    vertical-align: top;
-  }
 }

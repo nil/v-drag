@@ -1,86 +1,23 @@
 <template>
-  <ul
-    class="sidebar-links"
-    v-if="items.length"
-  >
-    <li v-for="(item, i) in items" :key="i">
-      <SidebarGroup
-        v-if="item.type === 'group'"
-        :item="item"
-        :open="i === openGroupIndex"
-        :collapsable="item.collapsable || item.collapsible"
-        :depth="depth"
-        @toggle="toggleGroup(i)"
-      />
-      <SidebarLink
-        v-else
-        :sidebarDepth="sidebarDepth"
-        :item="item"
-      />
+  <ul class="">
+    <li v-for="item in items" :key="item.path">
+      <router-link :to="item.path">{{ item.title }}</router-link>
+
+      <ul v-if="$route.path === item.path && item.headers">
+        <li v-for="link of item.headers" :key="link.slug">
+          <router-link :to="`${item.path}#${link.slug}`">{{ link.title }}</router-link>
+        </li>
+      </ul>
     </li>
   </ul>
 </template>
 
 <script>
-import SidebarGroup from '@theme/components/SidebarGroup.vue'
-import SidebarLink from '@theme/components/SidebarLink.vue'
-import { isActive } from '../js/utils'
 
 export default {
-  name: 'SidebarLinks',
-
-  components: { SidebarGroup, SidebarLink },
-
-  props: [
-    'items',
-    'depth',  // depth of current sidebar links
-    'sidebarDepth' // depth of headers to be extracted
-  ],
-
-  data () {
-    return {
-      openGroupIndex: 0
-    }
-  },
-
-  created () {
-    this.refreshIndex()
-  },
-
-  watch: {
-    '$route' () {
-      this.refreshIndex()
-    }
-  },
-
-  methods: {
-    refreshIndex () {
-      const index = resolveOpenGroupIndex(
-        this.$route,
-        this.items
-      )
-      if (index > -1) {
-        this.openGroupIndex = index
-      }
-    },
-
-    toggleGroup (index) {
-      this.openGroupIndex = index === this.openGroupIndex ? -1 : index
-    },
-
-    isActive (page) {
-      return isActive(this.$route, page.regularPath)
-    }
+  props: {
+    items: Array
   }
-}
+};
 
-function resolveOpenGroupIndex (route, items) {
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i]
-    if (item.type === 'group' && item.children.some(c => c.type === 'page' && isActive(route, c.path))) {
-      return i
-    }
-  }
-  return -1
-}
 </script>
