@@ -1,16 +1,38 @@
 {
-  "extends": "airbnb-base",
+  "root": true,
+
+  "extends": [
+    "plugin:vue/essential",
+    "airbnb-base"
+  ],
+
   "env": {
     "browser": true,
     "node": true,
     "jest": true
   },
+
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+
   "rules": {
     "func-names": 0,
-    "comma-dangle": ["error", "never"],
+    "no-continue": 0,
     "prefer-destructuring": 0,
+    "import/no-unresolved": 0,
+    "comma-dangle": ["error", "never"],
     "import/no-extraneous-dependencies": 0,
     "no-param-reassign": ["error", { "props": false }],
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-restricted-syntax": [
+      0,
+      "BinaryExpression[operator='in']",
+      "BinaryExpression[operator='of']"
+    ],
+
+    "vue/no-parsing-error": [2, {
+      "x-invalid-end-tag": false
+    }]
   }
 }
