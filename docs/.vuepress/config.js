@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const info = require('../../package.json');
 
 module.exports = {
@@ -7,7 +8,6 @@ module.exports = {
     '/': {
       lang: 'en-US',
       name: 'English',
-      title: info.name,
       description: info.description
     },
     '/es/': {
@@ -28,16 +28,23 @@ module.exports = {
         testPlaygroundLabel: 'Test on playground',
 
         nav: [
-          { text: 'Docs', link: '/installation.html' },
-          { text: 'Playground', link: '/playground.html' }
+          { text: 'Docs', link: '/installation/' },
+          { text: 'Playground', link: '/playground/' }
         ],
 
         sidebar: [
-          '/',
-          '/installation',
-          '/options',
-          ['/playground', 'Explicit link text']
-        ],
+          '/installation/',
+          '/options/axis',
+          {
+            title: 'Options',
+            link: '/options/',
+            children: [
+              '/options/axis',
+              '/options/handle',
+              '/options/shortcuts'
+            ]
+          }
+        ]
       },
 
       '/es/': {
@@ -49,16 +56,22 @@ module.exports = {
         testPlaygroundLabel: 'Provar en el patio',
 
         nav: [
-          { text: 'Docs', link: '/es/installation.html' },
-          { text: 'Patio', link: '/es/playground.html' }
+          { text: 'Docs', link: '/es/installation/' },
+          { text: 'Patio', link: '/es/playground/' }
         ],
 
         sidebar: [
-          '/es/',
-          '/es/installation',
-          '/es/options',
-          ['/es/playground', 'Explicit link text']
-        ],
+          '/es/installation/',
+          {
+            title: 'Options',
+            link: '/es/options/',
+            children: [
+              '/es/options/axis',
+              '/es/options/handle',
+              '/es/options/shortcuts'
+            ]
+          }
+        ]
       }
     }
   },
@@ -73,4 +86,4 @@ module.exports = {
       require('postcss-calc')
     ]
   }
-}
+};
