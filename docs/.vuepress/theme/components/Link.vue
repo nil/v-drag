@@ -43,6 +43,6 @@ export default {
       return /^(https?:)/.test(this.item.link);
     }
   }
-}
+};
 
 </script>

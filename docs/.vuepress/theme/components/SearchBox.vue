@@ -33,6 +33,7 @@
         @mouseleave="unfocusAllSuggestions">
         <li class="search-box--item"
           v-for="(item, index) in suggestionResults"
+          :key="item"
           :class="{ 'focused': index === focusIndex }"
           @mousedown="goToResult(index)"
           @mouseenter="focusSuggestion(index)">
@@ -40,7 +41,9 @@
             :href="item.path"
             @click.prevent>
             <span class="search-box--title">{{ item.title || item.path }}</span>
-            <span v-if="item.header" class="search-box--header">&#x203A; {{ item.header.title }}</span>
+            <span v-if="item.header" class="search-box--header">
+              &#x203A; {{ item.header.title }}
+            </span>
           </a>
         </li>
       </ul>
@@ -57,28 +60,28 @@ export default {
     IconSearch
   },
 
-  data () {
+  data() {
     return {
       query: '',
       isFieldFocused: false,
       focusIndex: 0
-    }
+    };
   },
 
   computed: {
-    showSuggestions () {
+    showSuggestions() {
       return (
-        this.isFieldFocused &&
-        this.suggestionResults &&
-        this.suggestionResults.length
-      )
+        this.isFieldFocused
+        && this.suggestionResults
+        && this.suggestionResults.length
+      );
     },
 
-    suggestionResults () {
+    suggestionResults() {
       const query = this.query.trim().toLowerCase();
 
       if (!query) {
-        return;
+        return null;
       }
 
       const results = [];
@@ -86,9 +89,7 @@ export default {
       const pagesList = this.$site.pages;
       const localePath = this.$localePath;
 
-      const matches = item => {
-        return item.title && item.title.toLowerCase().indexOf(query) > -1;
-      };
+      const matches = item => item.title && item.title.toLowerCase().indexOf(query) > -1;
 
       for (const page of pagesList) {
         if (results.length >= maxSuggestions) { break; }
@@ -110,7 +111,7 @@ export default {
             if (matches(header)) {
               results.push(Object.assign({}, page, {
                 path: `${page.path}#${header.slug}`,
-                header: header
+                header
               }));
             }
           }
@@ -170,5 +171,6 @@ export default {
       this.focusIndex = -1;
     }
   }
-}
+};
+
 </script>

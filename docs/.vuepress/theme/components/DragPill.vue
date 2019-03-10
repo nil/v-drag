@@ -9,7 +9,7 @@
 
 <script>
 
-import IconHandDrag from '@theme/components/icons/IconHandDrag.vue';
+import IconHandDrag from './icons/IconHandDrag.vue';
 
 export default {
   components: {
@@ -26,6 +26,6 @@ export default {
       return this.handle ? `handle-${Math.floor(Math.random() * 65535).toString(16)}` : false;
     }
   }
-}
+};
 
 </script>

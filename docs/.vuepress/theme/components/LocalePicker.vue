@@ -12,24 +12,22 @@
     <div class="locale-picker--dropdown"
       :class="{ active: isDropdownOpen }"
       ref="localePickerDropdown">
-      <Link v-for="locale in localeList" :item="locale" />
+      <Link v-for="locale in localeList" :item="locale" :key="locale.text" />
     </div>
   </div>
 </template>
 
 <script>
 
-import DropdownLink from '@theme/components/DropdownLink.vue'
-import Link from '@theme/components/Link.vue'
-import IconLocale from './icons/IconLocale.vue';
+import getLocaleList from '../js/getLocaleList';
 
-import getLocaleList from '@theme/js/getLocaleList';
+import Link from './Link.vue';
+import IconLocale from './icons/IconLocale.vue';
 
 export default {
   name: 'LocalePicker',
 
   components: {
-    DropdownLink,
     Link,
     IconLocale
   },
@@ -37,7 +35,7 @@ export default {
   data() {
     return {
       isDropdownOpen: false
-    }
+    };
   },
 
   computed: {
@@ -52,7 +50,7 @@ export default {
         this.isDropdownOpen = true;
       }, time);
 
-      this.$refs.localePickerButton.addEventListener('mouseleave', function () {
+      this.$refs.localePickerButton.addEventListener('mouseleave', () => {
         clearTimeout(timer);
       });
     },
@@ -62,11 +60,11 @@ export default {
         this.isDropdownOpen = false;
       }, time);
 
-      this.$refs.localePickerDropdown.addEventListener('mouseenter', function () {
+      this.$refs.localePickerDropdown.addEventListener('mouseenter', () => {
         clearTimeout(timer);
       });
     }
   }
-}
+};
 
 </script>

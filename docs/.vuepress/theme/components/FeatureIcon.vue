@@ -17,6 +17,6 @@ export default {
   props: {
     icon: String
   }
-}
+};
 
 </script>
