@@ -6,7 +6,12 @@
     }">
     <template v-for="item in navLinks">
       <Dropdown v-if="item.type === 'links'" :item="item" />
-      <Link v-else :item="item" class="menu-primary--link" />
+      <Link v-else :item="item" :class="[
+        'menu-primary--link', {
+          'sidebar--level_0': !navbar,
+          'sidebar--link': !navbar
+        }
+      ]" />
     </template>
   </nav>
 </template>

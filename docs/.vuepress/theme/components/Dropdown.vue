@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown" :class="{ active: isDropdownActive }">
-    <a class="dropdown--title" @click="toggleDropdown">
+    <a class="dropdown--title sidebar--link" @click="toggleDropdown">
       {{ item.text }}
     </a>
 
@@ -37,7 +37,7 @@ export default {
   },
 
   mounted() {
-    this.dropdownHeight = this.$refs.dropdownList.offsetHeight;
+    this.dropdownHeight = this.$refs.dropdownList.scrollHeight;
     this.isDropdownActive = false;
   },
 

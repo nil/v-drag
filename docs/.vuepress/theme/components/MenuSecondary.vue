@@ -1,9 +1,5 @@
 <template>
-  <nav class="menu-secondary">
-    <Link :item="releasesLink" class="menu-secondary--link hide--m" />
-    <LocalePicker class="hide--xs" />
-    <Link :item="repoLink" class="menu-secondary--link"><IconGithub /></Link>
-  </nav>
+
 </template>
 
 <script>

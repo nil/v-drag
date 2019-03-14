@@ -20,6 +20,6 @@ export default {
   props: {
     axis: [String, Boolean]
   }
-}
+};
 
 </script>

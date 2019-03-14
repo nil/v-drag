@@ -11,7 +11,11 @@
 
       <SearchBox />
 
-      <MenuSecondary />
+      <nav class="menu-secondary">
+        <Link :item="releasesLink" class="menu-secondary--link hide--m" />
+        <LocalePicker />
+        <Link :item="repoLink" class="menu-secondary--link"><IconGithub /></Link>
+      </nav>
     </div>
   </header>
 </template>
@@ -20,17 +24,21 @@
 
 import Link from '@theme/components/Link.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
-import MenuSecondary from '@theme/components/MenuSecondary.vue';
 import SearchBox from '@theme/components/SearchBox.vue';
+import LocalePicker from '@theme/components/LocalePicker.vue';
 
+import IconGithub from '@theme/components/icons/IconGithub.vue';
 import IconSidebar from '@theme/components/icons/IconSidebar.vue';
+
+import info from '../../../../package.json';
 
 export default {
   components: {
     Link,
-    MenuSecondary,
     MenuPrimary,
     SearchBox,
+    LocalePicker,
+    IconGithub,
     IconSidebar
   },
 
@@ -39,6 +47,19 @@ export default {
       return {
         text: this.$siteTitle,
         link: this.$localePath
+      };
+    },
+
+    releasesLink() {
+      return {
+        text: `v${info.version}`,
+        link: `${info.homepage}/releases`
+      };
+    },
+
+    repoLink() {
+      return {
+        link: info.homepage
       };
     }
   }

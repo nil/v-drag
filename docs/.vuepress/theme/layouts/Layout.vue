@@ -110,9 +110,3 @@ export default {
 };
 
 </script>
-
-<style>
-body {
-  margin-top: 100px;
-}
-</style>

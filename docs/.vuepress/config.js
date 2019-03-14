@@ -34,7 +34,6 @@ module.exports = {
 
         sidebar: [
           '/installation/',
-          '/options/axis',
           {
             title: 'Options',
             link: '/options/',
@@ -43,7 +42,8 @@ module.exports = {
               '/options/handle',
               '/options/shortcuts'
             ]
-          }
+          },
+          '/playground/'
         ]
       },
 
@@ -70,7 +70,8 @@ module.exports = {
               '/es/options/handle',
               '/es/options/shortcuts'
             ]
-          }
+          },
+          '/es/playground/'
         ]
       }
     }

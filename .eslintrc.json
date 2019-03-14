@@ -31,6 +31,7 @@
       "BinaryExpression[operator='of']"
     ],
 
+    "vue/valid-v-for": 0,
     "vue/no-parsing-error": [2, {
       "x-invalid-end-tag": false
     }]

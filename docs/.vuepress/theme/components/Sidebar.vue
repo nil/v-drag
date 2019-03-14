@@ -1,5 +1,5 @@
 <template>
-  <section class="sidebar open"
+  <section class="sidebar"
     :class="{ open: isSidebarOpen }">
     <div class="sidebar--mask" @click="$emit('toggle-sidebar')"></div>
 
@@ -7,10 +7,10 @@
       <MenuPrimary :navbar="false" class="show--xs" />
 
       <div class="sidebar--links" v-if="items.length">
-        <div v-for="(item, i) in items" :key="i">
-          <SidebarGroup v-if="item.type === 'group'" :item="item" />
-          <SidebarLinks v-else :items="[item]" />
-        </div>
+        <template v-for="item in items">
+          <SidebarGroup v-if="item.type === 'group'" :item="item" :level="0" />
+          <SidebarLinks v-else :items="[item]" :level="0" />
+        </template>
       </div>
     </aside>
   </section>

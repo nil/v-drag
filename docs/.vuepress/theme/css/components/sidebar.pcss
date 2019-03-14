@@ -4,9 +4,10 @@
   --sidebar--bg_hover: var(--gray-40);
   --sidebar--border: var(--gray-40);
 
-  --sidebar--padding_1: 56px;
-  --sidebar--padding_2: 72px;
-  --sidebar--padding_3: 88px;
+  --sidebar--padding_y: var(--space_b);
+  --sidebar--padding_0: 48px;
+  --sidebar--padding_1: 64px;
+  --sidebar--padding_2: 80px;
 }
 
 .sidebar {
@@ -39,7 +40,10 @@
     overflow-y: auto;
   }
 
-  a {
+  &--link,
+  .dropdown--link {
+    display: block;
+
     &.router-link-active:not(.dropdown--link) {
       background: var(--gray-30);
       cursor: default;
@@ -47,6 +51,32 @@
 
     &:not(.router-link-active):hover {
       background: var(--sidebar--bg_hover);
+    }
+  }
+
+  &--links {
+    margin-bottom: var(--space_l);
+    & .sidebar--level_0 {
+      padding: 10px var(--sidebar--padding_0);
+      font-weight: 600;
+    }
+  }
+
+  &--level {
+    &_0 {
+      padding: var(--sidebar--padding_y) var(--sidebar--padding_0);
+    }
+
+    &_1 {
+      padding: 7px var(--sidebar--padding_1);
+
+      font-size: ms(-1)rem;
+    }
+
+    &_2 {
+      padding: 6px var(--sidebar--padding_2);
+
+      font-size: ms(-1)rem;
     }
   }
 
