@@ -1,56 +1,22 @@
 :root {
   --search--height: 40px;
   --search--margin: calc((var(--navbar--height) - var(--search--height)) / 2);
-  --search--bg: var(--gray-100);
-  --search--bg_focus: var(--gray-90);
-  --search--radius: var(--space_q);
+  --search--bg: var(--gray-30);
 }
 
 .search-box {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  top: -var(--navbar--height);
+  right: var(--menu-icon--padding);
+  width: 352px;
 
-  width: 320px;
   font-size: ms(-1)rem;
 
-  .navbar &--button {
-    padding: var(--space_d);
+  transition: var(--motion);
+  z-index: 999;
 
-    & .icon-search {
-      width: 36px;
-    }
-  }
-
-  &--button {
-    margin-top: var(--search--margin);
-  }
-
-  &--container {
-    &.focused {
-      & .search-box {
-        &--label,
-        &--field {
-          background: var(--search--bg_focus);
-        }
-      }
-
-      & .icon-search {
-        fill: var(--white);
-      }
-    }
-
-    &.active {
-      & .search-box {
-        &--label {
-          border-bottom-left-radius: 0;
-        }
-
-        &--field {
-          border-bottom-right-radius: 0;
-        }
-      }
-    }
+  &.focused {
+    top: 0;
   }
 
   &--input {
@@ -64,12 +30,11 @@
     height: var(--search--height);
 
     background: var(--search--bg);
-    border-radius: var(--search--radius) 0 0 var(--search--radius);
 
     & .icon-search {
       width: var(--space_s);
       margin: auto;
-      fill: var(--gray-60);
+      fill: var(--gray-80);
     }
   }
 
@@ -77,9 +42,7 @@
     width: calc(100% - var(--search--height));
     height: var(--search--height);
 
-    color: var(--white);
     background: var(--search--bg);
-    border-radius: 0 var(--search--radius) var(--search--radius) 0;
 
     font-size: inherit;
     font-family: var(--sans);
@@ -87,31 +50,30 @@
 
   &--suggestions {
     width: 100%;
-    padding: var(--space_b) 0;
-    margin-top: var(--space_u);
+    padding-bottom: var(--space_b);
 
-    background: var(--gray-90);
-    border-radius: 0 0 var(--space_q) var(--space_q);
-    box-shadow: 0 0 0 var(--space_u) var(--black);
+    background: var(--search--bg);
 
     list-style-type: none;
   }
 
   &--item {
-    padding: 6px var(--space_xs);
+    padding: var(--space_b) var(--space_xs);
 
     cursor: pointer;
+    transition: var(--motion);
 
     &.focused {
-      background: var(--gray-100);
+      background: var(--gray-40);
     }
   }
 
   &--link {
     color: inherit;
+    text-decoration: none;
   }
 
   &--title {
-    font-weight: 600;
+    font-weight: 700;
   }
 }

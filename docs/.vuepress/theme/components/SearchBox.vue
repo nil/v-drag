@@ -1,63 +1,61 @@
 <template>
-  <div class="search-box">
-    <button class="search-box--button show--m"
-      @click="updateSearchFocus(true)">
-      <IconSearch />
-    </button>
+  <div class="search-box"
+    :class="{ 'focused': isFieldFocused }">
+    <div class="search-box--input">
+      <label for="input-search"
+        class="search-box--label">
+        <IconSearchField />
+      </label>
 
-    <div class="search-box--container"
-    :class="{ 'focused': isFieldFocused, 'active': showSuggestions }">
-      <div class="search-box--input">
-        <label for="input-search"
-          class="search-box--label">
-          <IconSearch />
-        </label>
+      <input class="search-box--field"
+        :value="query"
+        :focus="state"
+        aria-label="Search"
+        autocomplete="off"
+        spellcheck="false"
+        id="input-search"
+        ref="searchBoxInput"
+        @input="updateSearchQuery($event)"
+        @blur="updateSearchFocus(false)"
+        @keyup.up="updateFocusIndex($event)"
+        @keyup.down="updateFocusIndex($event)"
+        @keyup.enter="goToResult(focusIndex)">
+    </div>
 
-        <input class="search-box--field"
-          :value="query"
-          aria-label="Search"
-          autocomplete="off"
-          spellcheck="false"
-          id="input-search"
-          ref="searchBoxInput"
-          @input="updateSearchQuery($event)"
-          @focus="updateSearchFocus(true)"
-          @blur="updateSearchFocus(false)"
-          @keyup.up="updateFocusIndex($event)"
-          @keyup.down="updateFocusIndex($event)"
-          @keyup.enter="goToResult(focusIndex)">
-      </div>
-
-      <ul class="search-box--suggestions"
-        v-if="showSuggestions"
-        @mouseleave="unfocusAllSuggestions">
-        <li class="search-box--item"
-          v-for="(item, index) in suggestionResults"
-          :key="item"
-          :class="{ 'focused': index === focusIndex }"
-          @mousedown="goToResult(index)"
-          @mouseenter="focusSuggestion(index)">
-          <a class="search-box--link"
-            :href="item.path"
-            @click.prevent>
-            <span class="search-box--title">{{ item.title || item.path }}</span>
-            <span v-if="item.header" class="search-box--header">
-              &#x203A; {{ item.header.title }}
-            </span>
-          </a>
-        </li>
-      </ul>
+    <ul class="search-box--suggestions"
+      v-if="showSuggestions"
+      @mouseleave="unfocusAllSuggestions">
+      <li class="search-box--item"
+        v-for="(item, index) in suggestionResults"
+        :key="item"
+        :class="{ 'focused': index === focusIndex }"
+        @mousedown="goToResult(index)"
+        @mouseenter="focusSuggestion(index)">
+        <a class="search-box--link"
+          :href="item.path"
+          @click.prevent>
+          <span class="search-box--title">{{ item.title || item.path }}</span>
+          <span v-if="item.header" class="search-box--header">
+            &#x203A; {{ item.header.title }}
+          </span>
+        </a>
+      </li>
+    </ul>
     </div>
   </div>
 </template>
 
 <script>
 
-import IconSearch from '@theme/components/icons/IconSearch';
+import IconSearchField from '@theme/components/icons/IconSearchField';
 
 export default {
   components: {
-    IconSearch
+    IconSearchField
+  },
+
+  props: {
+    state: Boolean
   },
 
   data() {
@@ -66,6 +64,13 @@ export default {
       isFieldFocused: false,
       focusIndex: 0
     };
+  },
+
+  updated() {
+    if (this.state) {
+      this.$refs.searchBoxInput.focus();
+      this.updateSearchFocus(true);
+    }
   },
 
   computed: {
@@ -132,6 +137,8 @@ export default {
 
       if (state === true) {
         this.$refs.searchBoxInput.focus();
+      } else {
+        this.$emit('end-focus');
       }
     },
 
@@ -158,6 +165,7 @@ export default {
     },
 
     goToResult(i) {
+      this.updateSearchFocus(false);
       this.$router.push(this.suggestionResults[i].path);
       this.query = '';
       this.focusIndex = 0;

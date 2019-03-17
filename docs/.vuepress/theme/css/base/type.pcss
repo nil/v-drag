@@ -1,7 +1,12 @@
+:root {
+  --link--color: var(--accent-40);
+  --link--color_hover: var(--black);
+}
+
 /* --- Links ---------- */
 a {
-  color: var(--black);
-  text-decoration: none;
+  color: var(--link--color);
+  transition: var(--motion);
 }
 
 /* --- Headings ---------- */
@@ -12,16 +17,16 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: ms(4)rem;
-  line-height: 1.5;
+  font-size: ms(9)rem;
+  line-height: 1.6;
 }
 
 h2 {
-  font-size: ms(2)rem;
+  font-size: ms(4)rem;
 }
 
 h3 {
-  font-size: ms(1)rem;
+  font-size: ms(2)rem;
 }
 
 h4 {
@@ -32,5 +37,5 @@ h4 {
 p {
   margin-bottom: var(--space_xs);
 
-  line-height: 1.78;
+  line-height: 1.9;
 }

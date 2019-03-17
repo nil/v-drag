@@ -1,6 +1,9 @@
 <template>
   <div class="theme-container"
-    :class="{ 'sidebar-open': isSidebarOpen }"
+    :class="{
+      'sidebar-open': isSidebarOpen,
+      'no-sidebar': !shouldShowSidebar
+    }"
     @touchstart="onTouchStart"
     @touchend="onTouchEnd">
 
@@ -58,11 +61,9 @@ export default {
     },
 
     shouldShowSidebar() {
-      const { frontmatter } = this.$page;
       return (
-        !frontmatter.home
-        && frontmatter.sidebar !== false
-        && this.sidebarItems.length
+        !this.$frontmatter.home
+        && this.$frontmatter.sidebar !== false
       );
     },
 

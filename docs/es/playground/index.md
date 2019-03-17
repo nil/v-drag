@@ -1,5 +1,1 @@
----
-navbar: false
----
-
-# Patio de juegos
+# Patio de juegos!

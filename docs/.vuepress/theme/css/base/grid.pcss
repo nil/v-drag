@@ -24,3 +24,20 @@
   padding-right: var(--grid-margin);
   margin: auto;
 }
+
+/* --- Docs ---------- */
+.theme-container {
+  &.no-sidebar {
+    & .page {
+      margin-left: 0;
+    }
+
+    & .sidebar {
+      display: none;
+    }
+  }
+}
+
+.page {
+  margin-left: var(--sidebar--width);
+}

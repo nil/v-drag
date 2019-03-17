@@ -1,17 +1,39 @@
+:root {
+  --menu-item--bg_hover: var(--gray-30);
+  --menu-item--bg_active: var(--gray-30);
+  --menu-item--color_hover: var(--accent-50);
+  --menu-item--color_active: var(--accent-40);
+
+  --menu-link--padding: var(--space_s);
+
+  --menu-icon--padding: var(--space_b);
+}
+
 .menu-primary {
   &--navbar {
     display: flex;
     align-items: stretch;
     flex: 1;
+  }
 
-    margin-right: var(--space_xs);
+  &--link {
+    display: inline-flex;
+    align-items: center;
 
-    a {
-      padding: 0 var(--space_s);
+    padding: 0 var(--menu-link--padding);
 
-      &:hover {
-        background: var(--navbar-icon--hover);
-      }
+    color: inherit;
+    text-decoration: none;
+    line-height: 1;
+
+    &:hover {
+      color: var(--menu-item--color_hover);
+      background: var(--menu-item--bg_hover);
+    }
+
+    &.router-link-active {
+      color: var(--menu-item--color_active);
+      font-weight: 700;
     }
   }
 
@@ -21,44 +43,46 @@
 }
 
 .menu-secondary {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: end;
 
   padding-left: var(--space_b);
   width: calc(200px + var(--navbar-icon--padding));
-}
 
-.menu-secondary--link,
-.locale-picker--button,
-.search-box--button {
-  padding: var(--navbar-icon--padding);
-  margin-left: var(--space_b);
+  &--icon {
+    padding: var(--menu-icon--padding);
+    margin-left: var(--space_b);
 
-  color: inherit;
-  background: none;
-  border-radius: var(--space_q);
+    color: inherit;
+    background: none;
+    fill: var(--black);
 
-  font-size: ms(-1)rem;
-  line-height: 1.6;
+    font-size: ms(-1)rem;
+    text-decoration: none;
+    line-height: 1.6;
 
-  &:not(:disabled) {
-    cursor: pointer;
+    transition: var(--motion);
 
-    &:hover {
-      background: var(--navbar-icon--hover);
+    & .icon {
+      width: var(--space_s);
+      vertical-align: top;
     }
-  }
 
-  & .icon {
-    width: var(--space_s);
-    fill: var(--white);
-    vertical-align: top;
-  }
+    &:not(:disabled) {
+      cursor: pointer;
 
-  &.active {
-    background: var(--gray-90);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+      &:hover {
+        background: var(--menu-item--bg_hover);
+        fill: var(--menu-item--color_hover);
+        color: var(--menu-item--color_hover);
+      }
+    }
+
+    &.active {
+      background: var(--menu-item--bg_active);
+      fill: var(--menu-item--color_hover);
+    }
   }
 }

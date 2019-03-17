@@ -3,26 +3,21 @@
   --ankle--padding: 48px;
 }
 
-
 .hero {
   position: relative;
+  padding-top: var(--space_l);
+  padding-bottom: 144px;
 
-  padding-top: 88px;
-  padding-bottom: var(--space_xxl);
-
-  color: var(--white);
-  background: var(--gray-100);
+  background: var(--gray-10);
 
   overflow: hidden;
 
   &--logo {
     position: relative;
-
     width: 112px;
-    margin-bottom: calc(var(--space_xl) / 2);
+    margin-bottom: 41px;
 
-    fill: var(--white);
-
+    fill: currentColor;
     z-index: 2;
   }
 
@@ -32,29 +27,31 @@
     max-width: 14em;
     margin-bottom: var(--space_l);
 
+    font-size: ms(7)rem;
+    line-height: 1.45;
+
     z-index: 2;
   }
 
   &--hand {
     position: absolute;
-    top: -var(--space_b);
+    top: var(--space_b);
     right: var(--space_l);
 
     width: 416px;
 
-    fill: var(--white);
-
+    fill: var(--gray-60);
     z-index: 1;
   }
 
   &:after {
     position: absolute;
     display: block;
-    bottom: 0;
+    bottom: -6px;
     left: 0;
 
     width: 100%;
-    height: var(--space_m);
+    height: 66px;
 
     background-image: url('../../assets/images/hero-border.svg');
     background-size: 1440px;
@@ -72,13 +69,13 @@
   display: inline-block;
 
   width: 200px;
-  padding: 17px 0;
+  padding: 20px 0;
 
-  font-size: ms(1)rem;
-  font-weight: 600;
+  font-size: ms(2)rem;
+  font-weight: 700;
   text-align: center;
+  text-decoration: none;
 
-  border-radius: var(--space_q);
   z-index: 2;
 
   &:not(:last-child) {
@@ -86,21 +83,21 @@
   }
 
   &_primary {
-    color: var(--gray-100);
-    background: var(--white);
+    color: var(--white);
+    background: var(--accent-40);
 
     &:hover {
-      transform: translateY(-var(--space_b)) rotate(3deg);
+      background: var(--accent-50);
     }
   }
 
   &_secondary {
-    color: var(--white);
-    background: var(--gray-90);
-    border: var(--space_u) solid var(--gray-80);
+    color: var(--gray-90);
+    background: var(--gray-20);
+    border: var(--space_u) solid var(--gray-40);
 
     &:hover {
-      transform: translateY(-var(--space_b)) rotate(-3deg);
+      background: var(--gray-30);
     }
   }
 }
@@ -110,8 +107,8 @@
   grid-template-rows: repeat(3, 1fr);
   grid-gap: var(--space_m) var(--grid-gutter);
 
-  padding-top: 132px;
-  padding-bottom: 116px;
+  padding-top: 120px;
+  padding-bottom: var(--space_xxl);
 
   &--content {
     grid-column: span 4;
@@ -135,11 +132,10 @@
     }
 
     & a {
-      padding-top: 9px;
-      text-decoration: underline;
+      padding-top: 12px;
 
       &:hover {
-        text-decoration: none;
+        color: var(--link--color_hover);
       }
     }
   }
@@ -226,11 +222,11 @@
     margin-right: var(--space_xs);
 
     &--primary {
-      fill: var(--black);
+      fill: var(--accent-40);
     }
 
     &--secondary {
-      fill: var(--gray-60);
+      fill: var(--accent-20);
     }
   }
 
@@ -241,8 +237,19 @@
   &--links {
     margin: var(--space_q) 0 var(--space_s);
 
-    a:first-child {
-      margin-right: 36px;
+    a {
+      &:hover {
+        color: var(--link--color_hover);
+      }
+
+      &:last-child {
+        margin-left: 36px;
+        color: var(--gray-80);
+
+        &:hover {
+          color: var(--link--color_hover);
+        }
+      }
     }
   }
 }
@@ -252,6 +259,6 @@
   padding-top: var(--ankle--padding);
   padding-bottom: var(--ankle--padding);
 
-  background: var(--gray-100);
+  background: var(--gray-10);
   text-align: center;
 }
