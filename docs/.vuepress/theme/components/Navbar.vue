@@ -1,20 +1,25 @@
 <template>
-  <header class="navbar">
+  <header class="navbar"
+    :class="{ 'navbar--home': isPageHome, 'navbar--docs': !isPageHome }">
+    <button class="navbar--button show--xs" @click="$emit('toggle-sidebar')">
+      <IconSidebar />
+    </button>
+
+    <Link class="navbar--logo menu-primary--link"  v-if="!isPageHome" :item="homeLink" />
+
     <div class="navbar--wrapper">
-      <button class="navbar--button show--xs" @click="$emit('toggle-sidebar')">
-        <IconSidebar />
-      </button>
-
-      <Link class="navbar--logo" :item="homeLink" />
-
       <MenuPrimary :navbar="true" class="hide--xs" />
 
-      <SearchBox />
+
 
       <nav class="menu-secondary">
-        <Link :item="releasesLink" class="menu-secondary--link hide--m" />
+        <Link :item="releasesLink" class="menu-secondary--icon hide--m" />
+        <SearchBox :state="isSearchBoxOpen" @end-focus="toggleSearchBox(false)"/>
+        <div class="menu-secondary--icon" @click="toggleSearchBox(true)">
+          <IconSearchButton />
+        </div>
         <LocalePicker />
-        <Link :item="repoLink" class="menu-secondary--link"><IconGithub /></Link>
+        <Link :item="repoLink" class="menu-secondary--icon"><IconGithub /></Link>
       </nav>
     </div>
   </header>
@@ -28,6 +33,7 @@ import SearchBox from '@theme/components/SearchBox.vue';
 import LocalePicker from '@theme/components/LocalePicker.vue';
 
 import IconGithub from '@theme/components/icons/IconGithub.vue';
+import IconSearchButton from '@theme/components/icons/IconSearchButton.vue';
 import IconSidebar from '@theme/components/icons/IconSidebar.vue';
 
 import info from '../../../../package.json';
@@ -39,10 +45,21 @@ export default {
     SearchBox,
     LocalePicker,
     IconGithub,
+    IconSearchButton,
     IconSidebar
   },
 
+  data() {
+    return {
+      isSearchBoxOpen: false
+    };
+  },
+
   computed: {
+    isPageHome() {
+      return this.$localePath === this.$page.path;
+    },
+
     homeLink() {
       return {
         text: this.$siteTitle,
@@ -61,6 +78,12 @@ export default {
       return {
         link: info.homepage
       };
+    }
+  },
+
+  methods: {
+    toggleSearchBox(to) {
+      this.isSearchBoxOpen = to;
     }
   }
 };

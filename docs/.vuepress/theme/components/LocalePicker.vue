@@ -1,7 +1,7 @@
 <template>
   <div class="locale-picker"
     @mouseleave="closeDropdown(300)">
-    <button class="locale-picker--button"
+    <button class="locale-picker--button menu-secondary--icon"
       @mouseenter="openDropdown(200)"
       :class="{ active: isDropdownOpen }"
       :disabled="isDropdownOpen"
@@ -12,7 +12,11 @@
     <div class="locale-picker--dropdown"
       :class="{ active: isDropdownOpen }"
       ref="localePickerDropdown">
-      <Link v-for="locale in localeList" :item="locale" :key="locale.text" />
+      <Link class="locale-picker--link"
+        v-for="locale in localeList"
+        :item="locale"
+        :key="locale.text"
+      />
     </div>
   </div>
 </template>

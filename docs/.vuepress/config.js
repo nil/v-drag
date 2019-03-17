@@ -25,11 +25,12 @@ module.exports = {
         quickStartLink: 'Go to installation',
         featuresLabel: 'Features',
         learnMoreLabel: 'Learn more',
-        testPlaygroundLabel: 'Test on playground',
+        testPlaygroundLabel: 'Try it on playground',
 
         nav: [
           { text: 'Docs', link: '/installation/' },
-          { text: 'Playground', link: '/playground/' }
+          { text: 'Playground', link: '/playground/' },
+          { text: 'Contribute', link: '/contribute/' }
         ],
 
         sidebar: [
@@ -57,7 +58,8 @@ module.exports = {
 
         nav: [
           { text: 'Docs', link: '/es/installation/' },
-          { text: 'Patio', link: '/es/playground/' }
+          { text: 'Patio', link: '/es/playground/' },
+          { text: 'Contribuir', link: '/es/contribute/' }
         ],
 
         sidebar: [

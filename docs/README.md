@@ -6,7 +6,7 @@ cta:
     text: Get started
     link: /installation/
   secondary:
-    text: Playground
+    text: Try it live
     link: /playground/
 
 about: Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its purpose is to quickly integrate and customize draggable elements on projects using Vue.js.
