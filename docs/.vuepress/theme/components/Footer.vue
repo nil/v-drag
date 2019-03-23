@@ -6,7 +6,7 @@
     <span class="footer--license">
       {{ $themeLocaleConfig.footerLicenseText }} <Link :item="licenseLink" />.
     </span>
-    <IconPersonalLogo class="footer--logo" />
+    <IconPersonalLogo class="footer--logo hide--m" />
   </footer>
 </template>
 
