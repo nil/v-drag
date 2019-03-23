@@ -15,14 +15,14 @@ features:
 - title: Axis
   icon: axis
   details: Restringe el movimiento del elemento para que únicamente pueda seguir la dirección del eje vertical o del horizontal.
-  docs: /options/axis.md
-  playground: /
+  docs: /es/options/axis.md
+  playground: /es/
 
 - title: Tirador
   icon: handle
   details: Haz que el elemento solo pueda moverse al arrastrar a uno o más elementos concretos, estén situados dentro o fuera.
-  docs: /options/handle.md
-  playground: /
+  docs: /es/options/handle.md
+  playground: /es/
 
 ---
 

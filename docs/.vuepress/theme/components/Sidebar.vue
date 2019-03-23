@@ -1,6 +1,6 @@
 <template>
   <section class="sidebar"
-    :class="{ 'open': isSidebarOpen, 'not-show': shouldSidebarShow }">
+    :class="{ 'open': isSidebarOpen }">
     <div class="sidebar--mask" @click="$emit('toggle-sidebar')"></div>
 
     <aside class="sidebar--panel">

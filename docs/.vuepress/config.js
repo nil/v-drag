@@ -27,6 +27,10 @@ module.exports = {
         learnMoreLabel: 'Learn more',
         testPlaygroundLabel: 'Try it on playground',
 
+        footerLicenseText: 'Released under the',
+        footerLicenseName: 'MIT License',
+        footerLicenseLink: `${info.homepage}/blob/master/LICENSE`,
+
         nav: [
           { text: 'Docs', link: '/installation/' },
           { text: 'Playground', link: '/playground/' },
@@ -46,6 +50,27 @@ module.exports = {
           },
           '/playground/'
         ]
+
+        // footer: [
+        //   {
+        //     title: 'Docs',
+        //     children: [
+        //       '/installation/',
+        //       '/options/',
+        //       '/contribute/',
+        //       '/playground/'
+        //     ]
+        //   },
+        //   {
+        //     title: 'Contribute',
+        //     children: [
+        //       { text: 'Go to GitHub', link: info.homepage },
+        //       { text: 'Open an issue', link: info.bugs.url },
+        //       { text: 'Edit this page', link: '/contribute/' },
+        //       { text: 'Help translate', link: '/contribute/' }
+        //     ]
+        //   }
+        // ]
       },
 
       '/es/': {
@@ -74,6 +99,27 @@ module.exports = {
             ]
           },
           '/es/playground/'
+        ],
+
+        footer: [
+          {
+            title: 'Docs',
+            children: [
+              '/es/installation/',
+              '/es/options/',
+              '/es/contribute/',
+              '/es/playground/'
+            ]
+          },
+          {
+            title: 'Contribuir',
+            children: [
+              { text: 'Ir a GitHub', link: info.homepage },
+              { text: 'Abrir un issue', link: info.bugs.url },
+              { text: 'Editar esta página', link: '/es/contribute/' },
+              { text: 'Ayudar a traducir', link: '/es/contribute/' }
+            ]
+          }
         ]
       }
     }

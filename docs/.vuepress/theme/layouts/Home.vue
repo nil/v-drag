@@ -13,7 +13,7 @@
             class="cta-button"
             :class="`cta-button_${type}`"
             :item="obj"
-            :key="obj" />
+            :key="obj.link" />
         </div>
 
         <IconHandHero class="hero--hand" />
@@ -66,8 +66,10 @@
         class="cta-button"
         :class="`cta-button_${type}`"
         :item="obj"
-        :key="obj" />
+        :key="obj.link" />
     </section>
+
+    <Footer />
   </main>
 </template>
 
@@ -75,6 +77,7 @@
 
 import DragPill from '@theme/components/DragPill.vue';
 import FeatureIcon from '@theme/components/FeatureIcon.vue';
+import Footer from '@theme/components/Footer.vue';
 import Link from '@theme/components/Link.vue';
 
 import IconHandHero from '@theme/components/icons/IconHandHero.vue';
@@ -84,6 +87,7 @@ export default {
   components: {
     DragPill,
     FeatureIcon,
+    Footer,
     Link,
     IconHandHero,
     IconLogo
@@ -97,7 +101,7 @@ export default {
     quickStartLink() {
       return {
         text: `${this.$themeLocaleConfig.quickStartLink} ›`,
-        link: 'installation.html'
+        link: 'installation/'
       };
     },
 
