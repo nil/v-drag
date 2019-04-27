@@ -1,18 +1,19 @@
 <template>
   <div class="locale-picker"
     @mouseleave="closeDropdown(300)">
-    <button class="locale-picker--button menu-secondary--icon"
+    <button class="locale-picker__button menu-secondary__icon"
       @mouseenter="openDropdown(200)"
-      :class="{ active: isDropdownOpen }"
+      @click="openDropdown(0)"
+      :class="{ 'menu-secondary__icon--active': isDropdownOpen }"
       :disabled="isDropdownOpen"
       ref="localePickerButton">
       <IconLocale />
     </button>
 
-    <div class="locale-picker--dropdown"
-      :class="{ active: isDropdownOpen }"
+    <div class="locale-picker__dropdown"
+      :class="{ 'locale-picker__dropdown--active': isDropdownOpen }"
       ref="localePickerDropdown">
-      <Link class="locale-picker--link"
+      <Link class="locale-picker__link"
         v-for="locale in localeList"
         :item="locale"
         :key="locale.text"

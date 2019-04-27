@@ -1,59 +1,40 @@
 :root {
-  --locale-picker--padding: var(--space_m);
+  --locale-picker--padding: 32px;
 }
 
 .locale-picker {
   position: relative;
 
-  &--dropdown {
+  &__dropdown {
     position: absolute;
-    top: var(--space_l);
+    top: 64px;
     right: 0;
 
     width: 144px;
     padding: 12px 0;
 
-    background: var(--gray-30);
+    background-color: var(--gray-30);
 
     opacity: 0;
     visibility: hidden;
     transition: var(--motion);
 
-    &.active {
+    &--active {
       top: 40px;
       opacity: 1;
       visibility: visible;
     }
   }
 
-  &--link {
+  &__link {
     position: relative;
     display: block;
-    padding: 6px var(--space_xs) var(--space_b) var(--locale-picker--padding);
+    padding: 6px 16px 8px var(--locale-picker--padding);
 
     color: var(--gray-80);
-    font-size: ms(-1)rem;
     text-decoration: none;
 
     overflow: hidden;
-
-    &:before {
-      position: absolute;
-      left: -var(--space_s);
-
-      width: var(--locale-picker--padding);
-      padding-right: 12px;
-
-      font-family: var(--serif);
-      font-size: ms(0)rem;
-      font-weight: 700;
-      text-align: right;
-      line-height: 1;
-
-      content: "\203A";
-      box-sizing: border-box;
-      transition: var(--motion);
-    }
 
     &.router-link-active {
       color: var(--black);
@@ -67,7 +48,24 @@
 
     &:not(.router-link-active):hover {
       background: var(--gray-40);
-      color: var(--black);
+    }
+
+    &:before {
+      position: absolute;
+      left: -24px;
+
+      width: var(--locale-picker--padding);
+      padding-right: 12px;
+
+      font-family: var(--serif);
+      font-size: ms(0)rem;
+      font-weight: 700;
+      text-align: right;
+      line-height: 1;
+
+      content: "\203A";
+      box-sizing: border-box;
+      transition: var(--motion);
     }
   }
 }
