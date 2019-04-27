@@ -4,12 +4,14 @@
       'menu-primary--navbar': navbar,
       'menu-primary--sidebar': !navbar
     }">
-    <template v-for="item in navLinks">
-      <Dropdown v-if="item.type === 'links'" :item="item" />
-      <Link v-else :item="item" :class="[
-        'menu-primary--link', {
-          'sidebar--level_0': !navbar,
-          'sidebar--link': !navbar
+    <template>
+      <Link v-for="item in navLinks"
+       :item="item"
+       :class="[
+        'menu-primary__link', {
+          'menu-primary__link--navbar': navbar,
+          'sidebar__link--level-0': !navbar,
+          'sidebar__link': !navbar
         }
       ]" />
     </template>
@@ -17,15 +19,11 @@
 </template>
 
 <script>
-import Dropdown from '@theme/components/Dropdown.vue';
 import Link from '@theme/components/Link.vue';
-
-import getLocaleList from '@theme/js/getLocaleList';
 
 export default {
   components: {
-    Link,
-    Dropdown
+    Link
   },
 
   props: {
@@ -33,22 +31,9 @@ export default {
   },
 
   computed: {
-    navItems() {
-      const userNav = this.$themeLocaleConfig.nav || [];
-
-      if (!this.navbar) {
-        return [...userNav, {
-          text: this.$themeLocaleConfig.localePickerLabel,
-          items: getLocaleList.call(this)
-        }];
-      }
-
-      return userNav;
-    },
-
     navLinks() {
-      return (this.navItems || []).map((item) => {
-        item.type = (!item.type && item.items && item.items.length) ? 'links' : 'link';
+      return (this.$themeLocaleConfig.nav || []).map((item) => {
+        item.type = 'link';
         return item;
       });
     }

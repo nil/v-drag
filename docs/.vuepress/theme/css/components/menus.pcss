@@ -1,72 +1,68 @@
 :root {
   --menu-item--bg_hover: var(--gray-30);
-  --menu-item--bg_active: var(--gray-30);
+  --menu-item--bg_active: var(--menu-item--bg_hover);
   --menu-item--color_hover: var(--accent-50);
   --menu-item--color_active: var(--accent-40);
 
-  --menu-link--padding: var(--space_s);
+  --menu-link--padding: 24px;
 
-  --menu-icon--padding: var(--space_b);
+  --menu-icon--width: 24px;
+  --menu-icon--padding: 8px;
 }
 
 .menu-primary {
-  &--navbar {
-    display: flex;
-    align-items: stretch;
-    flex: 1;
-  }
-
-  &--link {
+  &__link--navbar {
     display: inline-flex;
     align-items: center;
 
     padding: 0 var(--menu-link--padding);
 
-    color: inherit;
-    text-decoration: none;
     line-height: 1;
-
-    &:hover {
-      color: var(--menu-item--color_hover);
-      background: var(--menu-item--bg_hover);
-    }
 
     &.router-link-active {
       color: var(--menu-item--color_active);
       font-weight: 700;
     }
+
+    &:hover {
+      color: var(--menu-item--color_hover);
+      background-color: var(--menu-item--bg_hover);
+    }
   }
 
-  &--sidebar {
-    margin-bottom: 56px;
+  &--navbar {
+    display: flex;
+    align-items: stretch;
   }
 }
 
 .menu-secondary {
   position: relative;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: end;
 
-  padding-left: var(--space_b);
-  width: calc(200px + var(--navbar-icon--padding));
+  padding-left: 8px;
 
-  &--icon {
+  font-size: ms(-1)rem;
+
+  &__icon {
     padding: var(--menu-icon--padding);
-    margin-left: var(--space_b);
+    margin-left: 8px;
 
-    color: inherit;
     background: none;
-    fill: var(--black);
-
-    font-size: ms(-1)rem;
-    text-decoration: none;
     line-height: 1.6;
 
     transition: var(--motion);
 
+    &--active {
+      background-color: var(--menu-item--bg_active);
+      fill: var(--menu-item--color_hover);
+    }
+
     & .icon {
-      width: var(--space_s);
+      width: var(--menu-icon--width);
       vertical-align: top;
     }
 
@@ -74,15 +70,20 @@
       cursor: pointer;
 
       &:hover {
-        background: var(--menu-item--bg_hover);
+        background-color: var(--menu-item--bg_hover);
         fill: var(--menu-item--color_hover);
         color: var(--menu-item--color_hover);
       }
     }
 
-    &.active {
-      background: var(--menu-item--bg_active);
-      fill: var(--menu-item--color_hover);
+    @media (max-width: 700px) {
+      margin-left: 0;
+    }
+  }
+
+  &__version {
+    @media (max-width: 1000px) {
+      display: none;
     }
   }
 }

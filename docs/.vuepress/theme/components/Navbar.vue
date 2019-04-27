@@ -1,26 +1,17 @@
 <template>
-  <header class="navbar"
-    :class="{ 'navbar--home': isPageHome, 'navbar--docs': !isPageHome }">
-    <button class="navbar--button show--xs" @click="$emit('toggle-sidebar')">
+  <header class="navbar">
+    <button class="navbar__button u-show--900" @click="$emit('toggle-sidebar')">
       <IconSidebar />
     </button>
 
-    <Link class="navbar--logo menu-primary--link"  v-if="!isPageHome" :item="homeLink" />
+    <Link class="navbar__logo"
+      :class="{ 'u-show--900': isPageHome }"
+      :item="homeLink" />
 
-    <div class="navbar--wrapper">
-      <MenuPrimary :navbar="true" class="hide--xs" />
-
-
-
-      <nav class="menu-secondary">
-        <Link :item="releasesLink" class="menu-secondary--icon hide--m" />
-        <SearchBox :state="isSearchBoxOpen" @end-focus="toggleSearchBox(false)"/>
-        <div class="menu-secondary--icon" @click="toggleSearchBox(true)">
-          <IconSearchButton />
-        </div>
-        <LocalePicker />
-        <Link :item="repoLink" class="menu-secondary--icon"><IconGithub /></Link>
-      </nav>
+    <div class="navbar__wrapper"
+      :class="{ 'navbar--home': isPageHome, 'navbar--docs': !isPageHome }">
+      <MenuPrimary :navbar="true" class="u-hide--900" />
+      <MenuSecondary />
     </div>
   </header>
 </template>
@@ -29,23 +20,15 @@
 
 import Link from '@theme/components/Link.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
-import SearchBox from '@theme/components/SearchBox.vue';
-import LocalePicker from '@theme/components/LocalePicker.vue';
+import MenuSecondary from '@theme/components/MenuSecondary.vue';
 
-import IconGithub from '@theme/components/icons/IconGithub.vue';
-import IconSearchButton from '@theme/components/icons/IconSearchButton.vue';
 import IconSidebar from '@theme/components/icons/IconSidebar.vue';
-
-import info from '../../../../package.json';
 
 export default {
   components: {
     Link,
     MenuPrimary,
-    SearchBox,
-    LocalePicker,
-    IconGithub,
-    IconSearchButton,
+    MenuSecondary,
     IconSidebar
   },
 
@@ -65,25 +48,6 @@ export default {
         text: this.$siteTitle,
         link: this.$localePath
       };
-    },
-
-    releasesLink() {
-      return {
-        text: `v${info.version}`,
-        link: `${info.homepage}/releases`
-      };
-    },
-
-    repoLink() {
-      return {
-        link: info.homepage
-      };
-    }
-  },
-
-  methods: {
-    toggleSearchBox(to) {
-      this.isSearchBoxOpen = to;
     }
   }
 };
