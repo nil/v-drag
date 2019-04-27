@@ -1,9 +1,18 @@
-/* .content {
-  & a {
-    text-decoration: underline;
+:root {
+  --page--margin: 48px;
+  --page--margin_s: 24px;
+}
 
-    &:hover {
-      text-decoration: none;
+.site {
+  &.has-sidebar {
+    padding-left: var(--sidebar--width);
+
+    @media (max-width: 1100px) {
+      padding-left: var(--sidebar--width_m);
+    }
+
+    @media (max-width: 900px) {
+      padding-left: 0;
     }
   }
-} */
+}

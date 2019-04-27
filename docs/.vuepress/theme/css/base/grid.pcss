@@ -1,10 +1,10 @@
 :root {
-  --grid-gutter: var(--space_xl);
-  --grid-gutter_l: var(--space_l);
+  --grid--gutter: 80px;
+  --grid--gutter_l: 64px;
 
-  --grid-margin: var(--space_l);
-  --grid-margin_m: var(--space_m);
-  --grid-margin_s: var(--space_s);
+  --grid--margin: 64px;
+  --grid--margin_m: 32px;
+  --grid--margin_s: 24px;
 }
 
 /* --- General ---------- */
@@ -15,29 +15,12 @@
 
 
 /* --- Home & Navbar ---------- */
-.home--wrapper,
-.navbar--wrapper {
+.home__wrapper,
+.navbar__wrapper {
   position: relative;
 
   max-width: 1248px;
-  padding-left: var(--grid-margin);
-  padding-right: var(--grid-margin);
+  padding-left: var(--grid--margin);
+  padding-right: var(--grid--margin);
   margin: auto;
-}
-
-/* --- Docs ---------- */
-.theme-container {
-  &.no-sidebar {
-    & .page {
-      margin-left: 0;
-    }
-
-    & .sidebar {
-      display: none;
-    }
-  }
-}
-
-.page {
-  margin-left: var(--sidebar--width);
 }
