@@ -1,7 +1,7 @@
 <template>
   <main class="home" aria-labelledby="main-title">
     <section class="hero">
-      <div class="home--wrapper">
+      <div class="home__wrapper">
         <div class="hero--logo">
           <IconLogo v-drag:x />
         </div>
