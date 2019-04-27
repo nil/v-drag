@@ -13,7 +13,7 @@
 
       <div class="sidebar__menu u-show--900" >
         <MenuPrimary :navbar="false" />
-        <span>Locale picker</span>
+        <LocalePicker :navbar="false" />
       </div>
 
       <div class="sidebar__links" v-if="items.length">
@@ -32,12 +32,14 @@
 <script>
 
 import Link from '@theme/components/Link.vue';
+import LocalePicker from '@theme/components/LocalePicker.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
 import SidebarGroup from '@theme/components/SidebarGroup.vue';
 
 export default {
   components: {
     Link,
+    LocalePicker,
     SidebarGroup,
     MenuPrimary
   },

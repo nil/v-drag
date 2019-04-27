@@ -5,11 +5,20 @@
       <div class="sidebar__arrow" @click="toggleDropdown()">
         <IconSidebarArrow />
       </div>
+
       <Link class="sidebar__title sidebar__link"
+        v-if="item.link"
         @click.native="updateSidebarGroup()"
         ref="sidebarGroupTitle"
         :item="item" />
+
+      <span class="sidebar__title sidebar__link"
+        v-else
+        @click="toggleDropdown()">
+        {{ item.text }}
+      </span>
     </div>
+
     <div class="sidebar__dropdown"
       ref="sidebarDropdown"
       :style="{ maxHeight: currentHeight }">
@@ -55,7 +64,9 @@ export default {
 
   mounted() {
     this.setUpGroup();
-    this.isGroupOpen = this.$refs.sidebarGroupTitle.$el.classList.contains('router-link-active');
+
+    const groupTitle = this.$refs.sidebarGroupTitle;
+    this.isGroupOpen = groupTitle ? groupTitle.$el.classList.contains('router-link-active') : false;
   },
 
   computed: {
