@@ -1,15 +1,28 @@
 <template>
-  <section class="sidebar"
-    :class="{ 'open': isSidebarOpen }">
-    <div class="sidebar--mask" @click="$emit('toggle-sidebar')"></div>
+  <section class="sidebar">
+    <div class="sidebar__mask"
+      :class="{ 'sidebar__mask--active': isSidebarOpen }"
+      @click="$emit('toggle-sidebar')">
+    </div>
 
-    <aside class="sidebar--panel">
-      <MenuPrimary :navbar="false" class="show--xs" />
+    <aside class="sidebar__panel"
+      :class="{
+        'sidebar__panel--open': isSidebarOpen,
+        'sidebar__panel--hidden': !show
+      }">
 
-      <div class="sidebar--links" v-if="items.length">
+      <div class="sidebar__menu u-show--900" >
+        <MenuPrimary :navbar="false" />
+        <span>Locale picker</span>
+      </div>
+
+      <div class="sidebar__links" v-if="items.length">
         <template v-for="item in items">
-          <SidebarGroup v-if="item.type === 'group'" :item="item" :level="0" />
-          <SidebarLinks v-else :items="[item]" :level="0" />
+          <Link v-if="item.type === 'link'"
+            class="sidebar__link sidebar__link--level-0"
+            :item="item" />
+
+          <SidebarGroup v-else :item="item" />
         </template>
       </div>
     </aside>
@@ -18,20 +31,21 @@
 
 <script>
 
+import Link from '@theme/components/Link.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
-import SidebarLinks from '@theme/components/SidebarLinks.vue';
 import SidebarGroup from '@theme/components/SidebarGroup.vue';
 
 export default {
   components: {
-    SidebarLinks,
+    Link,
     SidebarGroup,
     MenuPrimary
   },
 
   props: {
     items: Array,
-    state: Boolean
+    state: Boolean,
+    show: Boolean
   },
 
   computed: {

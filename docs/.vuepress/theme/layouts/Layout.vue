@@ -1,7 +1,7 @@
 <template>
-  <div class="theme-container"
+  <div class="site"
     :class="{
-      'sidebar-open': isSidebarOpen,
+      'has-sidebar': shouldShowSidebar,
       'no-sidebar': !shouldShowSidebar
     }"
     @touchstart="onTouchStart"
@@ -12,6 +12,7 @@
     <Sidebar
       :items="sidebarItems"
       :state="isSidebarOpen"
+      :show="shouldShowSidebar"
       @toggle-sidebar="toggleSidebar(false)"
     />
 
@@ -68,12 +69,7 @@ export default {
     },
 
     sidebarItems() {
-      return resolveSidebarItems(
-        this.$page,
-        this.$page.regularPath,
-        this.$site,
-        this.$localePath
-      );
+      return resolveSidebarItems.call(this);
     }
   },
 

@@ -31,24 +31,33 @@ module.exports = {
         footerLicenseName: 'MIT License',
         footerLicenseLink: `${info.homepage}/blob/master/LICENSE`,
 
-        nav: [
-          { text: 'Docs', link: '/installation/' },
-          { text: 'Playground', link: '/playground/' },
-          { text: 'Contribute', link: '/contribute/' }
+        nav: [{
+          text: 'Docs',
+          link: '/installation/'
+        },
+        {
+          text: 'Playground',
+          link: '/playground/'
+        },
+        {
+          text: 'Contribute',
+          link: '/contribute/'
+        }
         ],
 
-        sidebar: [
-          '/installation/',
-          {
-            title: 'Options',
-            link: '/options/',
-            children: [
-              '/options/axis',
-              '/options/handle',
-              '/options/shortcuts'
-            ]
-          },
-          '/playground/'
+        sidebar: [{
+          link: '/installation/',
+          group: true
+        },
+        {
+          title: 'Options',
+          link: '/options/',
+          children: [
+            '/options/axis',
+            '/options/handle',
+            '/options/shortcuts'
+          ]
+        }
         ]
       },
 
@@ -64,24 +73,33 @@ module.exports = {
         footerLicenseName: 'Licencia MIT',
         footerLicenseLink: `${info.homepage}/blob/master/LICENSE`,
 
-        nav: [
-          { text: 'Docs', link: '/es/installation/' },
-          { text: 'Patio', link: '/es/playground/' },
-          { text: 'Contribuir', link: '/es/contribute/' }
+        nav: [{
+          text: 'Docs',
+          link: '/es/installation/'
+        },
+        {
+          text: 'Patio',
+          link: '/es/playground/'
+        },
+        {
+          text: 'Contribuir',
+          link: '/es/contribute/'
+        }
         ],
 
-        sidebar: [
-          '/es/installation/',
-          {
-            title: 'Options',
-            link: '/es/options/',
-            children: [
-              '/es/options/axis',
-              '/es/options/handle',
-              '/es/options/shortcuts'
-            ]
-          },
-          '/es/playground/'
+        sidebar: [{
+          link: '/es/installation/',
+          group: true
+        },
+        {
+          title: 'Options',
+          link: '/es/options/',
+          children: [
+            '/es/options/axis',
+            '/es/options/handle',
+            '/es/options/shortcuts'
+          ]
+        }
         ]
       }
     }
