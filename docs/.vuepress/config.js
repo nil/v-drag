@@ -90,7 +90,6 @@ module.exports = {
   postcss: {
     plugins: [
       require('postcss-import'),
-      require('postcss-custom-media'),
       require('postcss-nested'),
       require('postcss-modular-scale'),
       require('postcss-css-variables'),
