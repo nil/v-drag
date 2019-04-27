@@ -24,6 +24,30 @@ features:
   docs: /options/handle.md
   playground: /
 
+- title: Axis
+  icon: axis
+  details: Restrict the movement of the element so that it can only follow the direction of either vertical or horizontal axis.
+  docs: /options/axis.md
+  playground: /
+
+- title: Handle
+  icon: handle
+  details: Make the element move only when one or more specific objects are dragged, whether they are inside or outside.
+  docs: /options/handle.md
+  playground: /
+
+- title: Axis
+  icon: axis
+  details: Restrict the movement of the element so that it can only follow the direction of either vertical or horizontal axis.
+  docs: /options/axis.md
+  playground: /
+
+- title: Handle
+  icon: handle
+  details: Make the element move only when one or more specific objects are dragged, whether they are inside or outside.
+  docs: /options/handle.md
+  playground: /
+
 ---
 
 ```bash
