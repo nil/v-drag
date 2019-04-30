@@ -29,6 +29,13 @@
   background-color: var(--gray-10);
   overflow: hidden;
 
+  @media (max-width: 600px) {
+    padding-top: 72px;
+    padding-bottom: 102px;
+
+    text-align: center;
+  }
+
   &__logo {
     position: relative;
     width: 112px;
@@ -63,8 +70,18 @@
     }
 
     @media (max-width: 600px) {
+      margin-bottom: 48px;
+
       max-width: 100%;
-      font-size: 1.7rem;
+      font-size: ms(4)rem;
+    }
+  }
+
+  &__cta {
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
@@ -80,6 +97,13 @@
 
     @media (max-width: 800px) {
       fill: var(--gray-40);
+    }
+
+    @media (max-width: 600px) {
+      top: -32px;
+      left: 50%;
+      right: 0;
+      transform: translateX(calc(-50% + 32px));
     }
   }
 
@@ -121,11 +145,14 @@
 
   z-index: 2;
 
+  @media (max-width: 900px) {
+    width: 184px;
+    padding: 16px;
+  }
+
   &--primary {
     color: var(--white);
     background-color: var(--accent-40);
-
-    width: 100%;
 
     &:hover {
       color: var(--white);
@@ -146,5 +173,13 @@
 
   &:not(:last-child) {
     margin-right: 32px;
+
+    @media (max-width: 900px) {
+      margin-right: 24px;
+    }
+
+    @media (max-width: 600px) {
+      margin: 0 0 16px 0;
+    }
   }
 }
