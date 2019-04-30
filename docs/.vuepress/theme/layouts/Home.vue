@@ -2,31 +2,31 @@
   <main class="home" aria-labelledby="main-title">
     <section class="hero">
       <div class="home__wrapper">
-        <div class="hero--logo">
+        <div class="hero__logo">
           <IconLogo v-drag:x />
         </div>
 
-        <h1 class="hero--tagline">{{ this.$description }}</h1>
+        <h1 class="hero__tagline">{{ this.$description }}</h1>
 
-        <div class="hero--cta">
+        <div class="hero__cta">
           <Link v-for="(obj, type) in data.cta"
             class="cta-button"
-            :class="`cta-button_${type}`"
+            :class="`cta-button--${type}`"
             :item="obj"
             :key="obj.link" />
         </div>
 
-        <IconHandHero class="hero--hand" />
+        <IconHandHero class="hero__hand" />
       </div>
     </section>
 
-    <section class="intro grid home--wrapper">
-      <div class="intro--content">
-        <p class="intro--about">{{ data.about }}</p>
+    <section class="intro grid home__wrapper">
+      <div class="intro__content">
+        <p class="intro__about">{{ data.about }}</p>
 
-        <div class="intro--heading">
+        <div class="intro__heading">
           <h2>{{ this.$themeLocaleConfig.quickStartHeading }}</h2>
-          <Link :item="quickStartLink" class="hide--s" />
+          <Link :item="quickStartLink" class="u-hide--s" />
         </div>
 
         <Content />
@@ -34,21 +34,21 @@
 
       <DragPill />
       <DragPill axis="x" />
-      <DragPill axis="y" :handle="true" class="hide--m" />
+      <DragPill axis="y" :handle="true" class="u-hide--m" />
     </section>
 
-    <section class="features grid home--wrapper">
-      <h2 class="features--heading">{{ $themeLocaleConfig.featuresLabel }}</h2>
+    <section class="features grid home__wrapper">
+      <h2 class="features__heading">{{ $themeLocaleConfig.featuresLabel }}</h2>
 
-      <div class="features--item"
+      <div class="features__item"
         v-for="(feature, index) in data.features"
         :key="index">
-        <div class="features--title">
+        <div class="features__title">
           <FeatureIcon :icon="feature.icon" />
           <h3>{{ feature.title }}</h3>
         </div>
-        <p class="features--description">{{ feature.details }}</p>
-        <div class="features--links">
+        <p class="features__description">{{ feature.details }}</p>
+        <div class="features__links">
           <Link :item="{
             text: `${$themeLocaleConfig.learnMoreLabel} ›`,
             link: feature.docs
@@ -56,7 +56,7 @@
           <Link :item="{
             text: `${$themeLocaleConfig.testPlaygroundLabel} ›`,
             link: feature.playground
-          }" class="hide--m" />
+          }" class="u-hide__m" />
         </div>
       </div>
     </section>
@@ -64,7 +64,7 @@
     <section class="ankle">
       <Link v-for="(obj, type) in data.cta"
         class="cta-button"
-        :class="`cta-button_${type}`"
+        :class="`cta-button--${type}`"
         :item="obj"
         :key="obj.link" />
     </section>
