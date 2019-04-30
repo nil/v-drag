@@ -13,7 +13,7 @@
 
       <div class="sidebar__menu u-show--900" >
         <MenuPrimary :navbar="false" />
-        <LocalePicker :navbar="false" />
+        <SidebarGroup :item="localePickerList" />
       </div>
 
       <div class="sidebar__links" v-if="items.length">
@@ -32,14 +32,14 @@
 <script>
 
 import Link from '@theme/components/Link.vue';
-import LocalePicker from '@theme/components/LocalePicker.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
 import SidebarGroup from '@theme/components/SidebarGroup.vue';
+
+import getLocaleList from '@theme/js/getLocaleList';
 
 export default {
   components: {
     Link,
-    LocalePicker,
     SidebarGroup,
     MenuPrimary
   },
@@ -53,6 +53,14 @@ export default {
   computed: {
     isSidebarOpen() {
       return this.state;
+    },
+
+    localePickerList() {
+      return {
+        type: 'group',
+        text: this.$themeLocaleConfig.localePickerLabel,
+        children: getLocaleList.call(this)
+      };
     }
   }
 };

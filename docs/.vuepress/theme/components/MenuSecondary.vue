@@ -2,7 +2,7 @@
   <nav class="menu-secondary">
     <Link :item="releasesLink" class="menu-secondary__icon menu-secondary__version" />
     <SearchBox />
-    <LocalePicker :navbar="true" class="u-hide--700" />
+    <LocalePicker class="u-hide--700" />
     <Link :item="repoLink" class="menu-secondary__icon"><IconGithub /></Link>
   </nav>
 </template>
