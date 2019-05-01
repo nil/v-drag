@@ -1,19 +1,19 @@
 :root {
-  --code-padding--x: var(--space_s);
+  --code-padding--x: 24px;
   --code-padding--y: 20px;
 }
 
 code[class*="language-"],
 pre[class*="language-"] {
   position: relative;
-  padding: var(--code-padding--y) var(--space_xl) var(--code-padding--y) var(--code-padding--x);
-  margin-bottom: var(--space_xs);
+  padding: calc(var(--code-padding--y) - 1px) 80px var(--code-padding--y) var(--code-padding--x);
+  margin-bottom: 16px;
 
   color: var(--code-40);
   background: var(--gray-20);
 
   font-size: ms(-1)rem;
-  line-height: 1.6;
+  line-height: 1.55;
 
   white-space: pre;
   word-spacing: normal;
