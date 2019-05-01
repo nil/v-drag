@@ -26,7 +26,7 @@
 
         <div class="intro__heading">
           <h2>{{ this.$themeLocaleConfig.quickStartHeading }}</h2>
-          <Link :item="quickStartLink" class="u-hide--s" />
+          <Link :item="quickStartLink" class="u-hide--600" />
         </div>
 
         <Content />
@@ -34,7 +34,7 @@
 
       <DragPill />
       <DragPill axis="x" />
-      <DragPill axis="y" :handle="true" class="u-hide--m" />
+      <DragPill axis="y" :handle="true" />
     </section>
 
     <section class="features grid home__wrapper">
@@ -56,7 +56,7 @@
           <Link :item="{
             text: `${$themeLocaleConfig.testPlaygroundLabel} ›`,
             link: feature.playground
-          }" class="u-hide__m" />
+          }" class="u-hide--900" />
         </div>
       </div>
     </section>
