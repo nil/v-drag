@@ -42,8 +42,11 @@ export default {
         el.onmousedown = null;
         el.ontouchstart = null;
 
-        const oldHandleArray = document.querySelectorAll(binding.oldValue)
-          || document.querySelectorAll(binding.oldValue.handle);
+        const handle = typeof binding.oldValue === 'object'
+          ? binding.oldValue.handle
+          : binding.oldValue;
+
+        const oldHandleArray = document.querySelectorAll(handle);
 
         oldHandleArray.forEach((oldHandle) => {
           // Remove events from the old handle
