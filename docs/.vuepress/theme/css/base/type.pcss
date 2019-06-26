@@ -1,6 +1,9 @@
 :root {
   --link--color: var(--accent-40);
   --link--color_hover: var(--black);
+
+  --anchor--width: 56px;
+  --anchor--color: var(--gray-70);
 }
 
 /* --- Links ---------- */
@@ -15,21 +18,55 @@ a {
 
 /* --- Headings ---------- */
 h1, h2, h3, h4 {
+  position: relative;
+
   font-family: var(--serif);
   font-weight: 700;
   letter-spacing: -0.01em;
+
+  a {
+    position: absolute;
+    bottom: 0.1em;
+
+    left: -var(--anchor--width);
+    width: var(--anchor--width);
+
+    color: var(--anchor--color);
+
+    font-size: ms(1)rem;
+    text-align: center;
+    text-decoration: none;
+
+    opacity: 0;
+
+    &:hover {
+      color: var(--anchor--color);
+    }
+  }
+
+  &:hover a {
+    opacity: 1;
+  }
 }
 
 h1 {
+  margin-bottom: 32px;
+
   font-size: ms(9)rem;
   line-height: 1.6;
 }
 
 h2 {
+  margin: -var(--navbar--height) 0 20px;
+  padding-top: calc(25px + var(--navbar--height));
+
   font-size: ms(4)rem;
 }
 
 h3 {
+  margin: -var(--navbar--height) 0 20px;
+  padding-top: calc(15px + var(--navbar--height));
+
   font-size: ms(2)rem;
 }
 
@@ -39,7 +76,7 @@ h4 {
 
 /* --- Paragraph ---------- */
 p {
-  margin-bottom: var(--space_xs);
+  margin-bottom: 16px;
 
-  line-height: 1.9;
+  line-height: 1.88;
 }

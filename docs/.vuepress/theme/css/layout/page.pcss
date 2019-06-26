@@ -1,4 +1,6 @@
 :root {
+  --page--width: 648px;
+
   --page--margin: 128px;
   --page--margin_m: 48px;
   --page--margin_s: 24px;
@@ -15,5 +17,35 @@
     @media (max-width: 900px) {
       padding-left: 0;
     }
+  }
+}
+
+.page {
+  padding-left: var(--page--margin);
+
+  &__wrapper {
+    max-width: var(--page--width);
+
+    @media (max-width: 1100px) {
+      padding-left: var(--home--margin_m);
+      padding-right: var(--home--margin_m);
+    }
+
+    @media (max-width: 700px) {
+      padding-left: var(--home--margin_s);
+      padding-right: var(--home--margin_s);
+    }
+  }
+
+  &__intro {
+    padding: 86px 0 70px;
+
+  }
+
+  &__summary {
+    width: 512px;
+
+    font-size: ms(2)rem;
+    color: var(--gray-80);
   }
 }

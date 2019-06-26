@@ -1,8 +1,12 @@
 <template>
   <main class="page">
-    <slot name="top"/>
-
-    <Content/>
+    <section class="page__wrapper">
+      <div class="page__intro" v-if="$page.frontmatter.title && $page.frontmatter.summary">
+        <h1 class="page__title">{{ $page.frontmatter.title }}</h1>
+        <p class="page__summary">{{ $page.frontmatter.summary }}</p>
+      </div>
+      <Content />
+    </section>
 
     <footer class="page-edit">
       <div
@@ -62,7 +66,10 @@
 </template>
 
 <script>
+
+
 import { resolvePage, normalize, outboundRE, endingSlashRE } from '../js/utils'
+
 
 export default {
   props: ['sidebarItems'],
