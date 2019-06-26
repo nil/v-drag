@@ -8,21 +8,45 @@ const bannerText = `/*!
  * by ${info.author}
  */`;
 
-export default {
-  input: 'src/index.js',
-  output: {
-    file: 'dist/main.js',
-    name: 'optionsConfig',
-    format: 'umd',
-    banner: bannerText
+const pluginsList = [
+  nodeResolve(),
+  commonjs(),
+  terser({
+    output: {
+      comments: /^!/
+    }
+  })
+];
+
+export default [
+  {
+    input: 'src/index.js',
+    output: {
+      file: info.main,
+      name: 'vdrag',
+      format: 'cjs',
+      banner: bannerText
+    },
+    plugins: pluginsList
   },
-  plugins: [
-    nodeResolve(),
-    commonjs(),
-    terser({
-      output: {
-        comments: /^!/
-      }
-    })
-  ]
-};
+  {
+    input: 'src/index.js',
+    output: {
+      file: info.module,
+      name: 'vdrag',
+      format: 'esm',
+      banner: bannerText
+    },
+    plugins: pluginsList
+  },
+  {
+    input: 'src/index.js',
+    output: {
+      file: info.unpkg,
+      name: 'vdrag',
+      format: 'iife',
+      banner: bannerText
+    },
+    plugins: pluginsList
+  }
+];
