@@ -1,0 +1,43 @@
+:root {
+  --demo--height: 40px;
+  --demo--padding: 14px;
+
+  --demo--color_primary: var(--gray-30);
+  --demo--color_secondary: var(--gray-60);
+
+  --demo-button--size: calc(var(--demo--height) - (var(--demo--padding) * 2));
+}
+
+.demo-container {
+  margin-bottom: 32px;
+  &__header {
+    height: var(--demo--height);
+    padding: 0 var(--demo--padding);
+
+    background: var(--demo--color_primary);
+  }
+
+  &__buttons {
+    display: flex;
+
+    padding: var(--demo--padding) 0;
+  }
+
+  &__button {
+    width: var(--demo-button--size);
+    height: var(--demo-button--size);
+
+    background: var(--demo--color_secondary);
+    border-radius: 100%;
+
+    &:not(:last-child) {
+      margin-right: calc(var(--demo-button--size) / 2);
+    }
+  }
+
+  &__content {
+    padding: 16px;
+    border: 2px solid var(--demo--color_primary);
+    border-top-width: 0;
+  }
+}
