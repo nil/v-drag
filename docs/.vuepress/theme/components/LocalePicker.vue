@@ -24,10 +24,11 @@
 
 <script>
 
-import getLocaleList from '../js/getLocaleList';
+import Link from '@theme/components/Link.vue';
 
-import Link from './Link.vue';
-import IconLocale from './icons/IconLocale.vue';
+import IconLocale from '@theme/icons/IconLocale.vue';
+
+import getLocaleList from '@theme/js/getLocaleList';
 
 export default {
   name: 'LocalePicker',

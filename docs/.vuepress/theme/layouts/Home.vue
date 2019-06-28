@@ -80,8 +80,8 @@ import FeatureIcon from '@theme/components/FeatureIcon.vue';
 import Footer from '@theme/components/Footer.vue';
 import Link from '@theme/components/Link.vue';
 
-import IconHandHero from '@theme/components/icons/IconHandHero.vue';
-import IconLogo from '@theme/components/icons/IconLogo.vue';
+import IconHandHero from '@theme/icons/IconHandHero.vue';
+import IconLogo from '@theme/icons/IconLogo.vue';
 
 export default {
   components: {

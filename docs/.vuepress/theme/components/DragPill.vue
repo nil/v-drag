@@ -9,7 +9,7 @@
 
 <script>
 
-import IconHandDrag from './icons/IconHandDrag.vue';
+import IconHandDrag from '@theme/icons/IconHandDrag.vue';
 
 export default {
   components: {

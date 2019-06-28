@@ -43,7 +43,8 @@
 <script>
 
 import Link from '@theme/components/Link.vue';
-import IconSidebarArrow from '@theme/components/icons/IconSidebarArrow';
+
+import IconSidebarArrow from '@theme/icons/IconSidebarArrow';
 
 export default {
   components: {

@@ -57,9 +57,9 @@
 
 <script>
 
-import IconCancel from '@theme/components/icons/IconCancel.vue';
-import IconSearchButton from '@theme/components/icons/IconSearchButton.vue';
-import IconSearchField from '@theme/components/icons/IconSearchField';
+import IconCancel from '@theme/icons/IconCancel.vue';
+import IconSearchButton from '@theme/icons/IconSearchButton.vue';
+import IconSearchField from '@theme/icons/IconSearchField';
 
 export default {
   components: {

@@ -5,8 +5,8 @@
 
 <script>
 
-import IconFeatureAxis from '@theme/components/icons/IconFeatureAxis.vue';
-import IconFeatureHandle from '@theme/components/icons/IconFeatureHandle.vue';
+import IconFeatureAxis from '@theme/icons/IconFeatureAxis.vue';
+import IconFeatureHandle from '@theme/icons/IconFeatureHandle.vue';
 
 export default {
   components: {

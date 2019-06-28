@@ -22,7 +22,7 @@ import Link from '@theme/components/Link.vue';
 import MenuPrimary from '@theme/components/MenuPrimary.vue';
 import MenuSecondary from '@theme/components/MenuSecondary.vue';
 
-import IconSidebar from '@theme/components/icons/IconSidebar.vue';
+import IconSidebar from '@theme/icons/IconSidebar.vue';
 
 export default {
   components: {

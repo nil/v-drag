@@ -13,7 +13,8 @@
 <script>
 
 import Link from '@theme/components/Link.vue';
-import IconPersonalLogo from '@theme/components/icons/IconPersonalLogo.vue';
+
+import IconPersonalLogo from '@theme/icons/IconPersonalLogo.vue';
 
 export default {
   components: {

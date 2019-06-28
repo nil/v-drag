@@ -13,7 +13,7 @@ import Link from '@theme/components/Link.vue';
 import SearchBox from '@theme/components/SearchBox.vue';
 import LocalePicker from '@theme/components/LocalePicker.vue';
 
-import IconGithub from '@theme/components/icons/IconGithub.vue';
+import IconGithub from '@theme/icons/IconGithub.vue';
 
 import info from '../../../../package.json';
 
