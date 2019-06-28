@@ -1,0 +1,58 @@
+.drag-draggable,
+.drag-handle,
+.d1,
+.drag-adsf {
+
+}
+
+body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+#app {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.d1 {
+  width: 150px;
+  height: 100px;
+  background: royalBlue;
+  margin: 30px 30px 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 4s;
+}
+
+.d2 {
+  width: 100px;
+  height: 100px;
+  background: lightgreen;
+  margin: 30px 30px 0;
+}
+
+.d3 {
+  background: darkblue;
+  width: 100%;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+.d4 {
+  background: darkblue;
+  width: 50px;
+  height: 20px;
+  border: 5px solid royalblue;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+.b1 {
+  margin: 30px;
+  width: 50%;
+  height: 20px;
+}
