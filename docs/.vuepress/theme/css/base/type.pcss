@@ -42,6 +42,10 @@ h1, h2, h3, h4 {
     &:hover {
       color: var(--anchor--color);
     }
+
+    @media (max-width: 1100px) {
+      display: none;
+    }
   }
 
   &:hover a {
@@ -54,6 +58,11 @@ h1 {
 
   font-size: ms(9)rem;
   line-height: 1.6;
+
+  @media (max-width: 700px) {
+    margin-bottom: 15px;
+    font-size: ms(6)rem;
+  }
 }
 
 h2 {
@@ -61,6 +70,10 @@ h2 {
   padding-top: calc(26px + var(--navbar--height));
 
   font-size: ms(4)rem;
+
+  @media (max-width: 700px) {
+    font-size: ms(2)rem;
+  }
 }
 
 h3 {
@@ -68,6 +81,10 @@ h3 {
   padding-top: calc(16px + var(--navbar--height));
 
   font-size: ms(2)rem;
+
+  @media (max-width: 700px) {
+    font-size: ms(1)rem;
+  }
 }
 
 h4 {
