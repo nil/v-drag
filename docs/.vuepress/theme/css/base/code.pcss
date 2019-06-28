@@ -6,14 +6,14 @@
 code[class*="language-"],
 pre[class*="language-"] {
   position: relative;
-  padding: calc(var(--code-padding--y) - 1px) 80px var(--code-padding--y) var(--code-padding--x);
+  padding: calc(var(--code-padding--y) - 1px) 80px calc(var(--code-padding--y) + 1px) var(--code-padding--x);
   margin-bottom: 16px;
 
   color: var(--code-40);
   background: var(--gray-20);
 
   font-size: ms(-1)rem;
-  line-height: 1.55;
+  line-height: 1.53;
 
   white-space: pre;
   word-spacing: normal;
@@ -37,6 +37,18 @@ pre[class*="language-"] {
     font-family: var(--sans);
     font-size: 15px;
     text-transform: uppercase;
+  }
+}
+
+div[class*="language-"] {
+  p + &,
+  h2 + &,
+  h3 + & {
+    padding-top: 6px;
+  }
+
+  & + p {
+    padding-top: 10px;
   }
 }
 

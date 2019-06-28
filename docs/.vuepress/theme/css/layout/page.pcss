@@ -21,14 +21,17 @@
 }
 
 .page {
-  padding-left: var(--page--margin);
-
   &__wrapper {
     max-width: var(--page--width);
+    margin-left: var(--page--margin);
+    margin-right: var(--page--margin);
 
     @media (max-width: 1100px) {
-      padding-left: var(--home--margin_m);
-      padding-right: var(--home--margin_m);
+      max-width: 100%;
+      padding-left: var(--page--margin_m);
+      padding-right: var(--page--margin_m);
+      margin-left: 0;
+      margin-right: 0;
     }
 
     @media (max-width: 700px) {
@@ -38,12 +41,15 @@
   }
 
   &__intro {
-    padding: 86px 0 70px;
+    padding: 86px 0 54px;
 
+    @media (max-width: 1100px) {
+      padding: 46px 0 54px;
+    }
   }
 
   &__summary {
-    width: 512px;
+    max-width: 512px;
 
     font-size: ms(2)rem;
     color: var(--gray-80);
