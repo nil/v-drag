@@ -16,6 +16,8 @@
         <SidebarGroup :item="localePickerList" />
       </div>
 
+      <slot name="top" />
+
       <div class="sidebar__links" v-if="items.length">
         <template v-for="item in items">
           <Link v-if="item.type === 'link'"
@@ -25,6 +27,8 @@
           <SidebarGroup v-else :item="item" />
         </template>
       </div>
+
+      <slot name="bottom" />
     </aside>
   </section>
 </template>

@@ -4,6 +4,12 @@
   --page--margin: 128px;
   --page--margin_m: 48px;
   --page--margin_s: 24px;
+
+  --nav--border: var(--gray-50);
+  --nav--padding_hover: 24px;
+  --nav--arrow_hover: -8px;
+
+  --nav-boundry--width: 1px;
 }
 
 .site {
@@ -61,5 +67,141 @@
     @media (max-width: 700px) {
       font-size: ms(1)rem;
     }
+  }
+
+  &__meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    margin: 39px 0 84px;
+  }
+
+  &__edit {
+    color: var(--gray-80);
+    text-decoration: none;
+  }
+
+  &__update {
+    color: var(--gray-80);
+    text-align: right;
+  }
+}
+
+.page-nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  margin-top: 78px;
+
+  border-bottom: 1px solid var(--nav--border);
+
+  &__button {
+    position: relative;
+    display: block;
+    padding: 16px 0 33px;
+
+    text-decoration: none;
+
+    &--prev {
+      grid-column: 1 / 2;
+
+      &:hover {
+        padding-left: var(--nav--padding_hover);
+
+        &:before {
+          left: var(--nav--arrow_hover);
+        }
+      }
+
+      &:before {
+        left: 0;
+        background-image: url('../../assets/images/nav-arrow_prev.svg');
+      }
+
+      &:after {
+        right: calc(var(--nav-boundry--width) / -2);
+      }
+    }
+
+    &--next {
+      grid-column: 2 / 3;
+      text-align: right;
+
+      &:hover {
+        padding-right: var(--nav--padding_hover);
+
+        &:before {
+          right: var(--nav--arrow_hover);
+        }
+      }
+
+      &:before {
+        right: 0;
+        background-image: url('../../assets/images/nav-arrow_next.svg');
+      }
+
+      &:after {
+        left: calc(var(--nav-boundry--width) / -2);
+      }
+    }
+
+    &:hover {
+      & .page-nav__indictation {
+        color: var(--black);
+      }
+
+      &:before {
+        opacity: 1;
+      }
+    }
+
+    &:before {
+      position: absolute;
+      top: 50%;
+
+      width: 16px;
+      height: 48px;
+
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      transform: translateY(calc(-50% - 8px));
+      transition: var(--motion);
+      opacity: 0;
+      content: '';
+    }
+
+    &:after {
+      position: absolute;
+      top: 0;
+
+      width: var(--nav-boundry--width);
+      height: 100%;
+
+      background: var(--nav--border);
+      content: '';
+    }
+  }
+
+  &__indictation {
+    color: var(--gray-80);
+    font-size: ms(-1)rem;
+  }
+
+  &__heading {
+    padding: 0;
+    margin: 11px 0 0;
+
+    color: var(--black);
+
+    font-size: ms(3)rem;
+  }
+}
+
+.content__default {
+  & h2:first-child {
+    padding-top: 0;
+    margin-top: 0;
   }
 }

@@ -1,206 +1,94 @@
 <template>
   <main class="page">
+
     <section class="page__wrapper">
       <div class="page__intro" v-if="$page.frontmatter.title && $page.frontmatter.summary">
         <h1 class="page__title">{{ $page.frontmatter.title }}</h1>
         <p class="page__summary">{{ $page.frontmatter.summary }}</p>
       </div>
+
+      <slot name="top" />
+
       <Content />
+
+      <div class="page-nav"
+        v-if="navPages.prev || navPages.next">
+
+        <Link class="page-nav__button page-nav__button--prev"
+          v-if="navPages.prev"
+          :item="navLink('prev')">
+          <span class="page-nav__indictation">{{ $themeLocaleConfig.prevPageLabel }}</span>
+          <h2 class="page-nav__heading">{{ navPages.prev.text }}</h2>
+        </Link>
+
+        <Link class="page-nav__button page-nav__button--next"
+          v-if="navPages.next"
+          :item="navLink('next')">
+          <span class="page-nav__indictation">{{ $themeLocaleConfig.nextPageLabel }}</span>
+          <h2 class="page-nav__heading">{{ navPages.next.text }}</h2>
+        </Link>
+      </div>
+
+      <div class="page__meta">
+        <Link class="page__edit" :item="editLink" />
+        <div class="page__update"> <!-- v-if="lastUpdated" -->
+          <span class="page__label">{{ $themeLocaleConfig.lastUpdatedLabel }}:</span>
+          <span class="page__time">28 jun 2019</span>
+        </div>
+      </div>
     </section>
 
-    <footer class="page-edit">
-      <div
-        class="edit-link"
-        v-if="editLink"
-      >
-        <a
-          :href="editLink"
-          target="_blank"
-          rel="noopener noreferrer"
-        >{{ editLinkText }}</a>
-        <OutboundLink/>
-      </div>
+    <slot name="bottom" />
 
-      <div
-        class="last-updated"
-        v-if="lastUpdated"
-      >
-        <span class="prefix">{{ lastUpdatedText }}: </span>
-        <span class="time">{{ lastUpdated }}</span>
-      </div>
-    </footer>
-
-    <div class="page-nav" v-if="prev || next">
-      <p class="inner">
-        <span
-          v-if="prev"
-          class="prev"
-        >
-          ←
-          <router-link
-            v-if="prev"
-            class="prev"
-            :to="prev.path"
-          >
-            {{ prev.title || prev.path }}
-          </router-link>
-        </span>
-
-        <span
-          v-if="next"
-          class="next"
-        >
-          <router-link
-            v-if="next"
-            :to="next.path"
-          >
-            {{ next.title || next.path }}
-          </router-link>
-          →
-        </span>
-      </p>
-    </div>
-
-    <slot name="bottom"/>
+    <Footer />
   </main>
 </template>
 
 <script>
 
+import Link from '@theme/components/Link.vue';
+import Footer from '@theme/components/Footer.vue';
 
-import { resolvePage, normalize, outboundRE, endingSlashRE } from '../js/utils'
-
+import getPageNavigation from '@theme/js/getPageNavigation';
 
 export default {
-  props: ['sidebarItems'],
+  props: {
+    sidebar: Array
+  },
+
+  components: {
+    Link,
+    Footer
+  },
 
   computed: {
-    lastUpdated () {
-      return this.$page.lastUpdated
+    navPages() {
+      return getPageNavigation(this.$page, this.sidebar);
     },
 
-    lastUpdatedText () {
-      if (typeof this.$themeLocaleConfig.lastUpdated === 'string') {
-        return this.$themeLocaleConfig.lastUpdated
-      }
-      if (typeof this.$site.themeConfig.lastUpdated === 'string') {
-        return this.$site.themeConfig.lastUpdated
-      }
-      return 'Last Updated'
+    lastUpdated() {
+      return this.$page.lastUpdated;
     },
 
-    prev () {
-      const prev = this.$page.frontmatter.prev
-      if (prev === false) {
-        return
-      } else if (prev) {
-        return resolvePage(this.$site.pages, prev, this.$route.path)
-      } else {
-        return resolvePrev(this.$page, this.sidebarItems)
-      }
-    },
+    editLink() {
+      const repo = 'https://github.com/nil/v-drag/blob/docs-v1/docs';
+      const path = this.$page.regularPath;
+      const replacedPath = path.replace(/\/$/, '/index.md').replace('.html', '.md');
 
-    next () {
-      const next = this.$page.frontmatter.next
-      if (next === false) {
-        return
-      } else if (next) {
-        return resolvePage(this.$site.pages, next, this.$route.path)
-      } else {
-        return resolveNext(this.$page, this.sidebarItems)
-      }
-    },
-
-    editLink () {
-      if (this.$page.frontmatter.editLink === false) {
-        return
-      }
-      const {
-        repo,
-        editLinks,
-        docsDir = '',
-        docsBranch = 'master',
-        docsRepo = repo
-      } = this.$site.themeConfig
-
-      let path = normalize(this.$page.path)
-      if (endingSlashRE.test(path)) {
-        path += 'README.md'
-      } else {
-        path += '.md'
-      }
-      if (docsRepo && editLinks) {
-        return this.createEditLink(repo, docsRepo, docsDir, docsBranch, path)
-      }
-    },
-
-    editLinkText () {
-      return (
-        this.$themeLocaleConfig.editLinkText
-        || this.$site.themeConfig.editLinkText
-        || `Edit this page`
-      )
+      return {
+        link: repo + replacedPath,
+        text: this.$themeLocaleConfig.editPageLabel
+      };
     }
   },
 
   methods: {
-    createEditLink (repo, docsRepo, docsDir, docsBranch, path) {
-      const bitbucket = /bitbucket.org/
-      if (bitbucket.test(repo)) {
-        const base = outboundRE.test(docsRepo)
-          ? docsRepo
-          : repo
-        return (
-          base.replace(endingSlashRE, '')
-           + `/src`
-           + `/${docsBranch}`
-           + (docsDir ? '/' + docsDir.replace(endingSlashRE, '') : '')
-           + path
-           + `?mode=edit&spa=0&at=${docsBranch}&fileviewer=file-view-default`
-        )
-      }
-
-      const base = outboundRE.test(docsRepo)
-        ? docsRepo
-        : `https://github.com/${docsRepo}`
-
-      return (
-        base.replace(endingSlashRE, '')
-        + `/edit/${docsBranch}`
-        + (docsDir ? '/' + docsDir.replace(endingSlashRE, '') : '')
-        + path
-      )
+    navLink(page) {
+      return {
+        link: this.navPages[page].link
+      };
     }
   }
-}
-
-function resolvePrev (page, items) {
-  return find(page, items, -1)
-}
-
-function resolveNext (page, items) {
-  return find(page, items, 1)
-}
-
-function find (page, items, offset) {
-  const res = []
-  flatten(items, res)
-  for (let i = 0; i < res.length; i++) {
-    const cur = res[i]
-    if (cur.type === 'page' && cur.path === decodeURIComponent(page.path)) {
-      return res[i + offset]
-    }
-  }
-}
-
-function flatten (items, res) {
-  for (let i = 0, l = items.length; i < l; i++) {
-    if (items[i].type === 'group') {
-      flatten(items[i].children || [], res)
-    } else {
-      res.push(items[i])
-    }
-  }
-}
+};
 
 </script>
