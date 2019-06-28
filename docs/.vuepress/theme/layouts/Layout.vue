@@ -49,14 +49,16 @@ import drag from '../../../../dist/main';
 
 import '@theme/css/main.pcss';
 
-Vue.use(drag);
-
 export default {
   components: {
     Home,
     Page,
     Sidebar,
     Navbar
+  },
+
+  directives: {
+    drag
   },
 
   data() {
