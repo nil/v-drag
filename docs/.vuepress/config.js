@@ -1,8 +1,5 @@
 /* eslint-disable global-require */
-const dayjs = require('dayjs');
 const pkg = require('../../package.json');
-
-require('dayjs/locale/es');
 
 module.exports = {
   title: pkg.name,
@@ -137,13 +134,7 @@ module.exports = {
 
   plugins: [
     ['@vuepress/last-updated', {
-      transformer(timestamp, lang) {
-        if (lang === 'es-ES') {
-          return dayjs(timestamp).locale('es').format('D MMMM YYYY');
-        }
-
-        return dayjs(timestamp).locale('en').format('MMMM D YYYY');
-      }
+      transformer(timestamp) { return timestamp; }
     }]
   ]
 };

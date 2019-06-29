@@ -33,7 +33,7 @@
         <Link class="page__edit" :item="editLink" />
         <div class="page__update" v-if="$page.lastUpdated">
           <span class="page__label">{{ $themeLocaleConfig.lastUpdatedLabel }}:</span>
-          <span class="page__time">{{ $page.lastUpdated }}</span>
+          <span class="page__time">{{ lastUpdatedDate }}</span>
         </div>
       </div>
     </section>
@@ -49,6 +49,7 @@
 import Link from '@theme/components/Link.vue';
 import Footer from '@theme/components/Footer.vue';
 
+import formatDate from '@theme/js/formatDate';
 import getPageNavigation from '@theme/js/getPageNavigation';
 
 export default {
@@ -75,6 +76,10 @@ export default {
         link: repo + replacedPath,
         text: this.$themeLocaleConfig.editPageLabel
       };
+    },
+
+    lastUpdatedDate() {
+      return formatDate(this.$page.lastUpdated, this.$lang);
     }
   },
 
