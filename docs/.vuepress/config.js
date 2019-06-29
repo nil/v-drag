@@ -3,6 +3,9 @@ const pkg = require('../../package.json');
 
 module.exports = {
   title: pkg.name,
+  description: pkg.description,
+  base: `/${pkg.name}/`,
+  dest: 'public',
 
   locales: {
     '/': {

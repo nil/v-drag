@@ -5,8 +5,9 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "rollup --config",
-    "serve": "vuepress dev docs",
-    "docs": "vuepress build docs"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "vuepress build docs && gh-pages -d public -m 'Docs update' && rm -r public"
   },
   "keywords": [
     "vue",
@@ -32,6 +33,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-vue": "^5.2.2",
+    "gh-pages": "^2.0.1",
     "postcss-calc": "^7.0.1",
     "postcss-css-variables": "^0.11.0",
     "postcss-import": "^12.0.1",
