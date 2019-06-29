@@ -1,14 +1,14 @@
 /* eslint-disable global-require */
-const info = require('../../package.json');
+const pkg = require('../../package.json');
 
 module.exports = {
-  title: info.name,
+  title: pkg.name,
 
   locales: {
     '/': {
       lang: 'en-US',
       name: 'English',
-      description: info.description
+      description: pkg.description
     },
     '/es/': {
       lang: 'es-ES',
@@ -33,7 +33,7 @@ module.exports = {
 
         footerLicenseText: 'Released under the',
         footerLicenseName: 'MIT License',
-        footerLicenseLink: `${info.homepage}/blob/master/LICENSE`,
+        footerLicenseLink: `${pkg.homepage}/blob/master/LICENSE`,
 
         nav: [
           {
@@ -81,7 +81,7 @@ module.exports = {
 
         footerLicenseText: 'Publicado bajo la',
         footerLicenseName: 'Licencia MIT',
-        footerLicenseLink: `${info.homepage}/blob/master/LICENSE`,
+        footerLicenseLink: `${pkg.homepage}/blob/master/LICENSE`,
 
         nav: [
           {

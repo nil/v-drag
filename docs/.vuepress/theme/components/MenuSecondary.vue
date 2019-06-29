@@ -15,7 +15,7 @@ import LocalePicker from '@theme/components/LocalePicker.vue';
 
 import IconGithub from '@theme/icons/IconGithub.vue';
 
-import info from '../../../../package.json';
+import pkg from '../../../../package.json';
 
 export default {
   components: {
@@ -28,14 +28,14 @@ export default {
   computed: {
     releasesLink() {
       return {
-        text: `v${info.version}`,
-        link: `${info.homepage}/releases`
+        text: `v${pkg.version}`,
+        link: `${pkg.homepage}/releases`
       };
     },
 
     repoLink() {
       return {
-        link: info.homepage
+        link: pkg.homepage
       };
     }
   }
