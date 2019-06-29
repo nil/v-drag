@@ -31,9 +31,9 @@
 
       <div class="page__meta">
         <Link class="page__edit" :item="editLink" />
-        <div class="page__update"> <!-- v-if="lastUpdated" -->
+        <div class="page__update" v-if="$page.lastUpdated">
           <span class="page__label">{{ $themeLocaleConfig.lastUpdatedLabel }}:</span>
-          <span class="page__time">28 jun 2019</span>
+          <span class="page__time">{{ $page.lastUpdated }}</span>
         </div>
       </div>
     </section>
@@ -64,10 +64,6 @@ export default {
   computed: {
     navPages() {
       return getPageNavigation(this.$page, this.sidebar);
-    },
-
-    lastUpdated() {
-      return this.$page.lastUpdated;
     },
 
     editLink() {

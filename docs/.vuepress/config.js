@@ -1,5 +1,8 @@
 /* eslint-disable global-require */
+const dayjs = require('dayjs');
 const pkg = require('../../package.json');
+
+require('dayjs/locale/es');
 
 module.exports = {
   title: pkg.name,
@@ -21,6 +24,8 @@ module.exports = {
   },
 
   themeConfig: {
+    lastUpdated: true,
+
     locales: {
       '/': {
         localePickerLabel: 'Language',
@@ -80,7 +85,7 @@ module.exports = {
         prevPageLabel: 'Página anterior',
         nextPageLabel: 'Página siguiente',
         editPageLabel: 'Editar esta página en GitHub',
-        lastUpdatedLabel: 'Última actualicación',
+        lastUpdatedLabel: 'Actualizado',
 
         footerLicenseText: 'Publicado bajo la',
         footerLicenseName: 'Licencia MIT',
@@ -128,5 +133,17 @@ module.exports = {
       require('postcss-css-variables'),
       require('postcss-calc')
     ]
-  }
+  },
+
+  plugins: [
+    ['@vuepress/last-updated', {
+      transformer(timestamp, lang) {
+        if (lang === 'es-ES') {
+          return dayjs(timestamp).locale('es').format('D MMMM YYYY');
+        }
+
+        return dayjs(timestamp).locale('en').format('MMMM D YYYY');
+      }
+    }]
+  ]
 };
