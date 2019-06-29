@@ -17,14 +17,20 @@
         <Link class="page-nav__button page-nav__button--prev"
           v-if="navPages.prev"
           :item="navLink('prev')">
-          <span class="page-nav__indictation">{{ $themeLocaleConfig.prevPageLabel }}</span>
+          <div class="page-nav__indication">
+            <span class="u-hide--600">{{ $themeLocaleConfig.prevPageLabel }}</span>
+            <span class="u-show--600">&#8592;</span>
+          </div>
           <h2 class="page-nav__heading">{{ navPages.prev.text }}</h2>
         </Link>
 
         <Link class="page-nav__button page-nav__button--next"
           v-if="navPages.next"
           :item="navLink('next')">
-          <span class="page-nav__indictation">{{ $themeLocaleConfig.nextPageLabel }}</span>
+          <div class="page-nav__indication">
+            <span class="u-hide--600">{{ $themeLocaleConfig.nextPageLabel }}</span>
+            <span class="u-show--600">&#8594;</span>
+          </div>
           <h2 class="page-nav__heading">{{ navPages.next.text }}</h2>
         </Link>
       </div>
