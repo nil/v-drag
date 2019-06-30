@@ -96,3 +96,30 @@ p {
 
   line-height: 1.88;
 }
+
+/* --- Containers ---------- */
+.custom-block {
+  padding: 19px 24px 7px;
+  margin-bottom: 16px;
+
+  background: var(--gray-20);
+  border-left: 8px solid currentColor;
+  color: red;
+
+  &-title {
+    margin-bottom: 11px;
+
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  & p:not(.custom-block-title) {
+    font-size: ms(-1);
+    color: var(--black);
+  }
+
+  &.tip     { color: var(--color-tip); }
+  &.warning { color: var(--color-warning); }
+  &.danger  { color: var(--color-danger); }
+  &.success { color: var(--color-success); }
+}

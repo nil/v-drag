@@ -42,6 +42,7 @@
     "rollup": "^0.68.1",
     "rollup-plugin-terser": "^3.0.0",
     "vue": "^2.6.6",
-    "vuepress": "^1.0.0-alpha.40"
+    "vuepress": "^1.0.0-alpha.40",
+    "vuepress-plugin-container": "^2.0.1"
   }
 }

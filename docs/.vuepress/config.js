@@ -135,6 +135,34 @@ module.exports = {
   plugins: [
     ['@vuepress/last-updated', {
       transformer(timestamp) { return timestamp; }
+    }],
+    ['container', {
+      type: 'tip',
+      defaultTitle: {
+        '/': 'Tip',
+        '/es/': 'Consejo'
+      }
+    }],
+    ['container', {
+      type: 'warning',
+      defaultTitle: {
+        '/': 'Warning',
+        '/es/': 'Precaución'
+      }
+    }],
+    ['container', {
+      type: 'danger',
+      defaultTitle: {
+        '/': 'Danger',
+        '/es/': 'Peligro'
+      }
+    }],
+    ['container', {
+      type: 'success',
+      defaultTitle: {
+        '/': 'Success',
+        '/es/': 'Éxito'
+      }
     }]
   ]
 };
