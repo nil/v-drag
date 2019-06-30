@@ -1,0 +1,40 @@
+.download-button {
+  padding: 25px 8px 26px;
+  margin-bottom: 16px;
+
+  background: var(--gray-80);
+
+  text-decoration: none;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    padding: 21px 8px 22px;
+  }
+
+  &:hover {
+    background: var(--gray-90);
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 24px;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__name {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  &__size {
+    margin-left: 12px;
+
+    color: var(--gray-30);
+
+    font-size: ms(-1)rem;
+  }
+}
