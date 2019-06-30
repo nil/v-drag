@@ -1,5 +1,6 @@
 <template>
-  <footer class="footer">
+  <footer class="footer"
+    :class="{ 'footer--page': page }">
     <span class="footer__copyright">
       &copy; {{ new Date().getFullYear() }} Nil Vila.
     </span>
@@ -23,7 +24,8 @@ export default {
   },
 
   props: {
-    items: Array
+    items: Array,
+    page: Boolean
   },
 
   computed: {

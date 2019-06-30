@@ -1,7 +1,12 @@
+:root {
+  --footer--background: var(--gray-20);
+}
+
 .footer {
+  position: relative;
   padding: 48px 0 35px;
 
-  background: var(--gray-20);
+  background: var(--footer--background);
 
   text-align: center;
 
@@ -32,5 +37,22 @@
   &__logo {
     width: 32px;
     fill: var(--accent-personal);
+  }
+
+  &--page {
+    &:before {
+      position: absolute;
+      bottom: 0;
+      left: -5000px;
+      display: block;
+
+      width: 10000px;
+      height: 100%;
+
+      background: var(--footer--background);
+
+      content: '';
+      z-index: -1;
+    }
   }
 }

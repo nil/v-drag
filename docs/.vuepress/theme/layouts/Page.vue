@@ -42,11 +42,11 @@
           <span class="page__time">{{ lastUpdatedDate }}</span>
         </div>
       </div>
+
+      <slot name="bottom" />
+
+      <Footer :page="true" />
     </section>
-
-    <slot name="bottom" />
-
-    <Footer />
   </main>
 </template>
 

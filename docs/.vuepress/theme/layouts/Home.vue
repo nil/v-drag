@@ -69,7 +69,7 @@
         :key="obj.link" />
     </section>
 
-    <Footer />
+    <Footer :page="false" />
   </main>
 </template>
 
