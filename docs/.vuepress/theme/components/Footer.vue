@@ -1,13 +1,15 @@
 <template>
   <footer class="footer"
     :class="{ 'footer--page': page }">
-    <span class="footer__copyright">
-      &copy; {{ new Date().getFullYear() }} Nil Vila.
-    </span>
-    <span class="footer__license">
-      {{ $themeLocaleConfig.footerLicenseText }} <Link :item="licenseLink" />.
-    </span>
-    <IconPersonalLogo class="footer__logo" />
+    <div class="footer__wrapper">
+      <span class="footer__copyright">
+        &copy; {{ new Date().getFullYear() }} Nil Vila.
+      </span>
+      <span class="footer__license">
+        {{ $themeLocaleConfig.footerLicenseText }} <Link :item="licenseLink" />.
+      </span>
+      <IconPersonalLogo class="footer__logo" />
+    </div>
   </footer>
 </template>
 

@@ -22,29 +22,31 @@
     @media (max-width: 900px) {
       padding-left: 0;
     }
+
+    & .page {
+      &__wrapper {
+        max-width: var(--page--width);
+        margin-left: var(--page--margin);
+        margin-right: var(--page--margin);
+
+        @media (max-width: 1100px) {
+          max-width: 100%;
+          padding-left: var(--page--margin_m);
+          padding-right: var(--page--margin_m);
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+        @media (max-width: 700px) {
+          padding-left: var(--page--margin_s);
+          padding-right: var(--page--margin_s);
+        }
+      }
+    }
   }
 }
 
 .page {
-  &__wrapper {
-    max-width: var(--page--width);
-    margin-left: var(--page--margin);
-    margin-right: var(--page--margin);
-
-    @media (max-width: 1100px) {
-      max-width: 100%;
-      padding-left: var(--page--margin_m);
-      padding-right: var(--page--margin_m);
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    @media (max-width: 700px) {
-      padding-left: var(--home--margin_s);
-      padding-right: var(--home--margin_s);
-    }
-  }
-
   &__intro {
     padding: 86px 0 54px;
 
@@ -53,7 +55,7 @@
     }
 
     @media (max-width: 700px) {
-      padding: 30px 0 22px;
+      padding: 38px 0 22px;
     }
   }
 
@@ -214,7 +216,6 @@
 
 .content__default {
   & h2:first-child {
-    padding-top: 0;
-    margin-top: 0;
+    margin-top: calc(-var(--navbar--height) - 27px);
   }
 }

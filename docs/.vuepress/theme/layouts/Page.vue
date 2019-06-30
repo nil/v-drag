@@ -1,6 +1,5 @@
 <template>
   <main class="page">
-
     <section class="page__wrapper">
       <div class="page__intro" v-if="$page.frontmatter.title && $page.frontmatter.summary">
         <h1 class="page__title">{{ $page.frontmatter.title }}</h1>
@@ -12,8 +11,7 @@
       <Content />
 
       <div class="page-nav"
-        v-if="navPages.prev || navPages.next">
-
+        v-if="showNav && (navPages.prev || navPages.next)">
         <Link class="page-nav__button page-nav__button--prev"
           v-if="navPages.prev"
           :item="navLink('prev')">
@@ -35,18 +33,18 @@
         </Link>
       </div>
 
-      <div class="page__meta">
+      <div class="page__meta" v-if="showNav">
         <Link class="page__edit" :item="editLink" />
         <div class="page__update" v-if="$page.lastUpdated">
           <span class="page__label">{{ $themeLocaleConfig.lastUpdatedLabel }}:</span>
           <span class="page__time">{{ lastUpdatedDate }}</span>
         </div>
-      </div>
+       </div>
 
       <slot name="bottom" />
-
-      <Footer :page="true" />
     </section>
+
+    <Footer :page="true && showNav" />
   </main>
 </template>
 
@@ -60,7 +58,8 @@ import getPageNavigation from '@theme/js/getPageNavigation';
 
 export default {
   props: {
-    sidebar: Array
+    sidebar: Array,
+    showNav: Boolean
   },
 
   components: {

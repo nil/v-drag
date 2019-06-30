@@ -40,19 +40,12 @@
   }
 
   &--page {
-    &:before {
-      position: absolute;
-      bottom: 0;
-      left: -5000px;
-      display: block;
-
-      width: 10000px;
-      height: 100%;
-
-      background: var(--footer--background);
-
-      content: '';
-      z-index: -1;
+    & .footer__wrapper {
+      @media(min-width: 1101px) {
+        max-width: var(--page--width);
+        margin-left: var(--page--margin);
+        margin-right: var(--page--margin);
+      }
     }
   }
 }

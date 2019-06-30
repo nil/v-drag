@@ -1,30 +1,42 @@
 :root {
-  --code-padding--x: 24px;
-  --code-padding--y: 20px;
+  --code-padding--x: var(--page--margin_s);
+  --code-padding--y: 19px;
 }
 
-code[class*="language-"],
 pre[class*="language-"] {
   position: relative;
-  padding: calc(var(--code-padding--y) - 1px) 80px calc(var(--code-padding--y) + 1px) var(--code-padding--x);
+  padding: var(--code-padding--y) 80px var(--code-padding--y) var(--code-padding--x);
   margin-bottom: 16px;
 
   color: var(--code-40);
   background: var(--gray-20);
 
   font-size: ms(-1)rem;
-  line-height: 1.53;
+  line-height: 1.61;
 
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
+  overflow-x: auto;
 
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
 
+  @media (max-width: 700px) {
+    width: calc(100% + (var(--page--margin_s) * 2));
+    padding-left: var(--page--margin_s);
+    padding-right: var(--page--margin_s);
+    margin-left: -var(--page--margin_s);
+  }
+
   & code {
+    display: inline-block;
     font-family: var(--mono);
+
+    @media (max-width: 700px) {
+      margin-right: var(--page--margin_s);
+    }
   }
 
   &:after {
@@ -69,4 +81,12 @@ pre.language-js,
 
 .token.keyword {
   color: var(--code-40);
+}
+
+@media (min-width: 701px) {
+  pre.language-html:after { content: 'HTML'; }
+  pre.language-css:after  { content: 'CSS'; }
+  pre.language-js:after   { content: 'JS'; }
+  pre.language-sh:after   { content: 'SH'; }
+  pre.language-vue:after  { content: 'VUE'; }
 }

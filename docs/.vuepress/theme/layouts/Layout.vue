@@ -26,7 +26,9 @@
 
     <Home v-if="$page.frontmatter.home" />
 
-    <Page v-else :sidebar="sidebarItems">
+    <Page v-else
+      :sidebar="sidebarItems"
+      :showNav="shouldShowSidebar">
       <slot name="page-top" slot="top" />
       <slot name="page-bottom" slot="bottom" />
     </Page>
@@ -34,8 +36,6 @@
 </template>
 
 <script>
-
-import Vue from 'vue';
 
 import Navbar from '@theme/components/Navbar.vue';
 import Sidebar from '@theme/components/Sidebar.vue';
@@ -48,6 +48,8 @@ import resolveSidebarItems from '@theme/js/resolveSidebarItems';
 import drag from '../../../../dist/main';
 
 import '@theme/css/main.pcss';
+
+// Vue.use(drag);
 
 export default {
   components: {
