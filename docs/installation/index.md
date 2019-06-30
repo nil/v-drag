@@ -47,8 +47,10 @@ Depending on the file you have imported v-drag into, you might get an error sayi
 
 Another method of installation, this one more suited for browser-based projects, is importing v-drag using HTML’s `script` tag. Download v-drag’s source code directly from GitHub:
 
-+ [Uncompressed](https://raw.githubusercontent.com/nil/v-drag/master/dist/browser.js)
-+ [Minified](https://raw.githubusercontent.com/nil/v-drag/master/dist/browser.js)
+<div class="download-button__container">
+  <DownloadButton name="Uncompressed" link="dist/browser.js" />
+  <DownloadButton name="Minified" link="dist/browser.min.js" />
+</div>
 
 v-drag is also available on [unpkg](https://unpkg.com/v-drag):
 
