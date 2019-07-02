@@ -9,9 +9,9 @@ summary: 'A step-by-step guide of how to include v-drag in your project and how 
 
 ## Install
 
-There are two different ways to install v-drag in your project. [A package manager](#package-manager) is more optimal if you are working with Node, whereas [a &lt;script&gt; tag](#script-tag) is better fro browser-based projects.
+There are two different ways to install v-drag in your project. A [package manager](#method-1-package-manager) is more optimal if you are working with Node, whereas [a &lt;script&gt; tag](#method-2-script-tag) is better for browser-based projects.
 
-### Package manager
+### Method 1: Package manager
 
 The easiest and quickest method to download v-drag into a Node project is a package manager. npm, included by default with Node, and Yarn are the most popular options. Open Terminal and run the command from the package manager you prefer:
 
@@ -40,10 +40,10 @@ Vue.use(vdrag);
 ```
 
 ::: warning Warning: Vue is not defined
-Depending on the file you have imported v-drag into, you might get an error saying that Vue is not defined. In such case, import Vue into the same file using the line `import Vue from 'vue` or `const Vue = require('vue')`.
+Depending on the file you have imported v-drag into, you might get an error saying that Vue is not defined. In such case, import Vue into the same file using the line import Vue from 'vue' or const Vue = require('vue').
 :::
 
-### &lt;script&gt; tag
+### Method 2: &lt;script&gt; tag
 
 Another method of installation, this one more suited for browser-based projects, is importing v-drag using HTML’s `script` tag. Download v-drag’s source code directly from GitHub:
 
@@ -60,7 +60,7 @@ v-drag is also available on [unpkg](https://unpkg.com/v-drag):
 
 ## Usage
 
-You have now completed v-drag’s installation. However, there is no element that by default is draggable. To allow the drag interaction, v-drag uses a custom directive. Add the `v-drag` attribute to the element you want to make draggable:
+Regardless of the method you have used, you have now completed v-drag’s installation. However, there is no element that by default is draggable. To allow the drag interaction, v-drag uses a custom directive. Add the `v-drag` attribute to the element you want to make draggable:
 
 ```vue
 <div v-drag>Drag me!</div>
