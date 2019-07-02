@@ -215,7 +215,34 @@
 }
 
 .content__default {
-  & h2:first-child {
+  & h2:not(.options-item__name):first-child {
     margin-top: calc(-var(--navbar--height) - 27px);
+  }
+}
+
+.options-item {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 32px;
+
+  margin-bottom: 40px;
+
+  & .drag-pill {
+    grid-column: span 2;
+  }
+
+  &__text {
+    grid-column: span 3;
+
+    padding: 4px 0 11px;
+  }
+
+  &__name {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  &__info {
+    margin-bottom: 22px;
   }
 }

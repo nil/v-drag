@@ -10,6 +10,20 @@
 
       <Content />
 
+      <div class="options-item" v-for="item in optionItems" :key="item.name">
+        <DragPill v-if="item.link.match('axis')" axis="y" />
+        <DragPill v-if="item.link.match('handle')" :handle="true" />
+
+        <div class="options-item__text">
+          <h2 class="options-item__name">{{ item.name }}</h2>
+          <p class="options-item__info">{{ item.text }}</p>
+          <Link class="options-item__link" :item="{
+            text: 'Learn more ›',
+            link: item.link
+          }" />
+        </div>
+      </div>
+
       <div class="page-nav"
         v-if="showNav && (navPages.prev || navPages.next)">
         <Link class="page-nav__button page-nav__button--prev"
@@ -50,6 +64,7 @@
 
 <script>
 
+import DragPill from '@theme/components/DragPill.vue';
 import Link from '@theme/components/Link.vue';
 import Footer from '@theme/components/Footer.vue';
 
@@ -63,6 +78,7 @@ export default {
   },
 
   components: {
+    DragPill,
     Link,
     Footer
   },
@@ -85,6 +101,10 @@ export default {
 
     lastUpdatedDate() {
       return formatDate(this.$page.lastUpdated, this.$lang);
+    },
+
+    optionItems() {
+      return this.$page.frontmatter.options;
     }
   },
 
