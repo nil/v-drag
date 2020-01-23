@@ -37,6 +37,7 @@
 
 <script>
 
+import Vue from 'vue';
 import Navbar from '@theme/components/Navbar.vue';
 import Sidebar from '@theme/components/Sidebar.vue';
 
@@ -49,7 +50,7 @@ import drag from '../../../../dist/main';
 
 import '@theme/css/main.pcss';
 
-// Vue.use(drag);
+Vue.use(drag);
 
 export default {
   components: {
