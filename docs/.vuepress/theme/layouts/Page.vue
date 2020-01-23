@@ -18,7 +18,7 @@
           <h2 class="options-item__name">{{ item.name }}</h2>
           <p class="options-item__info">{{ item.text }}</p>
           <Link class="options-item__link" :item="{
-            text: 'Learn more ›',
+            text: `${$themeLocaleConfig.learnMoreLabel} ›`,
             link: item.link
           }" />
         </div>
