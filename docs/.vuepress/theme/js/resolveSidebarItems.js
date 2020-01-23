@@ -39,13 +39,15 @@ export default function () {
 
     if (item.title) {
       linkedChildren = item.children.map((child) => {
-        return generateLink(resolveLink(child, this.$site.pages));
+        const linkedChild = resolveLink(child, this.$site.pages);
+
+        return generateLink(linkedChild);
       });
     }
 
     return {
       type: 'group',
-      text: item.title || linkedPage.title,
+      text: linkedPage.title || item.title,
       link: item.link,
       children: item.title ? linkedChildren : resolveHeaders(linkedPage)
     };
