@@ -5,7 +5,7 @@ summary: 'A step-by-step guide of how to include v-drag in your project and how 
 
 ## Requisites
 
-...
+*WIP. This section will be updated in the future.*
 
 ## Install
 
