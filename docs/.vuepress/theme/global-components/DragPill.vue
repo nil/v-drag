@@ -12,6 +12,8 @@
 import IconHandDrag from '@theme/icons/IconHandDrag.vue';
 
 export default {
+  name: 'DragPill',
+
   components: {
     IconHandDrag
   },

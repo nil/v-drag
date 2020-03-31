@@ -64,7 +64,7 @@
 
 <script>
 
-import DragPill from '@theme/components/DragPill.vue';
+import DragPill from '@theme/global-components/DragPill.vue';
 import Link from '@theme/components/Link.vue';
 import Footer from '@theme/components/Footer.vue';
 

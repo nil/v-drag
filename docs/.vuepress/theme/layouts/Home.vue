@@ -75,7 +75,7 @@
 
 <script>
 
-import DragPill from '@theme/components/DragPill.vue';
+import DragPill from '@theme/global-components/DragPill.vue';
 import FeatureIcon from '@theme/components/FeatureIcon.vue';
 import Footer from '@theme/components/Footer.vue';
 import Link from '@theme/components/Link.vue';
