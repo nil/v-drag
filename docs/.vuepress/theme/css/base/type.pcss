@@ -3,6 +3,8 @@
   --link--color_hover: var(--black);
 
   --anchor--color: var(--gray-70);
+
+  --table--border: 1px solid var(--gray-30);
 }
 
 /* --- Links ---------- */
@@ -122,4 +124,45 @@ p {
   &.warning { color: var(--color-warning); }
   &.danger  { color: var(--color-danger); }
   &.success { color: var(--color-success); }
+}
+
+/* --- Tables ---------- */
+table {
+  width: 100%;
+  margin-bottom: 32px;
+
+  border-spacing: 0;
+
+  & th, & td {
+    padding: 10px 16px;
+
+    border-bottom: var(--table--border);
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &:not(:last-child) {
+      border-right: var(--table--border);
+    }
+  }
+
+  & th {
+    font-weight: 700;
+    text-align: left;
+  }
+
+  & tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .drag-pill {
+    min-width: 224px;
+    height: 112px;
+    margin: 6px 0;
+  }
 }
