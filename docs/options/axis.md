@@ -22,7 +22,7 @@ The axis has only two possible values:
 |Value|Description|Demo|
 |------|------|------|
 |`x`|Horizontal movement|<DragPill axis="x" />|
-|`y`|Veritcal movement|<DragPill axis="y" />|
+|`y`|Vertical movement|<DragPill axis="y" />|
 
 ## Shortcut
 
