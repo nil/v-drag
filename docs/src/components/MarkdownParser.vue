@@ -1,7 +1,7 @@
 <template>
   <main>
-    <TableOfContents :map="mappedDocsText" />
-    <div class="wrapper" v-html="parsedDocsText"></div>
+    <TableOfContents v-if="toc" :map="mappedText" />
+    <div class="wrapper" v-html="parsedText"></div>
   </main>
 </template>
 
@@ -11,7 +11,6 @@ import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 
 import TableOfContents from './TableOfContents';
-import docsText from '!raw-loader!../../README.md';
 
 const md = new markdownIt().use(markdownItAnchor, {
   permalink: true,
@@ -31,12 +30,17 @@ export default {
     TableOfContents
   },
 
+  props: {
+    text: String,
+    toc: Boolean
+  },
+
   computed: {
-    parsedDocsText() {
-      return md.render(docsText);
+    parsedText() {
+      return md.render(this.text);
     },
-    mappedDocsText() {
-      return md.parse(docsText, {});
+    mappedText() {
+      return md.parse(this.text, {});
     }
   }
 }

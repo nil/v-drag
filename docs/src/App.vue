@@ -20,7 +20,7 @@
     <section class="intro">
 
     </section>
-    <MarkdownParser />
+    <MarkdownParser :text="docsText" :toc="true" />
   </div>
 </template>
 
@@ -31,6 +31,8 @@ import Icon from './components/Icon.vue'
 import Logo from './components/Logo.vue'
 import MarkdownParser from './components/MarkdownParser.vue'
 
+import docsText from '!raw-loader!../README.md';
+import introText from '!raw-loader!../QUICKSTART.md';
 import packageData from '../../package.json';
 
 export default {
@@ -49,7 +51,9 @@ export default {
         { text: 'GitHub', link: packageData.homepage, icon: 'github' },
         { text: 'Contribute', link: '#contribute', icon: 'contribute' },
         { text: 'Issues', link: packageData.bugs.url, icon: 'issue' }
-      ]
+      ],
+      docsText: docsText,
+      introText: introText
     }
   },
 
