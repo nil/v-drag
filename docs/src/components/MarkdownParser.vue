@@ -7,12 +7,27 @@
 
 <script>
 
+import hljs from 'highlightjs';
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 
 import TableOfContents from './TableOfContents';
 
-const md = new markdownIt().use(markdownItAnchor, {
+const md = new markdownIt({
+  highlight: function (str, lang) {
+    if (lang === 'vue') {
+      lang = 'html';
+    }
+
+    if (lang && hljs.getLanguage(lang)) {
+      return hljs.highlight(lang, str).value;
+    }
+
+    return '';
+  }
+});
+
+md.use(markdownItAnchor, {
   permalink: true,
   permalinkBefore: true,
   permalinkSymbol: '#',
