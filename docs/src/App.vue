@@ -17,15 +17,32 @@
       </div>
     </section>
 
-    <section class="intro">
+    <section class="intro grid large-wrapper">
+      <div class="intro-content">
+        <p class="intro-about">
+          Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its purpose is to quickly integrate and customize draggable elements on projects using Vue.js.
+        </p>
 
+        <div class="intro-heading">
+          <h1>Quick start</h1>
+          <a href="#docs" class="u-hide--600">Full docs below</a>
+        </div>
+
+        <MarkdownParser :text="introText" />
+      </div>
+
+      <DragPill />
+      <DragPill axis="x" />
+      <DragPill axis="y" :handle="true" />
     </section>
+
     <MarkdownParser :text="docsText" :toc="true" />
   </div>
 </template>
 
 <script>
 
+import DragPill from './components/DragPill.vue'
 import HeroHand from './components/HeroHand.vue'
 import Icon from './components/Icon.vue'
 import Logo from './components/Logo.vue'
@@ -39,6 +56,7 @@ export default {
   name: 'App',
 
   components: {
+    DragPill,
     HeroHand,
     Icon,
     Logo,

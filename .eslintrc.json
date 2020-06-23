@@ -23,8 +23,12 @@
     "import/no-unresolved": 0,
     "comma-dangle": ["error", "never"],
     "import/no-extraneous-dependencies": 0,
-    "no-param-reassign": ["error", { "props": false }],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }],
     "no-restricted-syntax": [
       0,
       "BinaryExpression[operator='in']",

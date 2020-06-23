@@ -1,8 +1,8 @@
 <template>
-  <main>
+  <div class="md-parsed">
     <TableOfContents v-if="toc" :map="mappedText" />
-    <div class="wrapper" v-html="parsedText"></div>
-  </main>
+    <div class="md-parsed-text" v-html="parsedText"></div>
+  </div>
 </template>
 
 <script>
