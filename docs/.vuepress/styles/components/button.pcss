@@ -1,0 +1,40 @@
+.button {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 64px;
+  padding: 0 32px;
+  margin: 0;
+
+  font-size: ms(0);
+  font-weight: 700;
+  text-decoration: none;
+
+  &__accent {
+    background: var(--accent-40);
+    color: var(--white);
+
+    &:hover {
+      background: var(--accent-50);
+    }
+  }
+
+  &__black {
+    background: var(--black);
+    color: var(--white);
+
+    &:hover {
+      background: var(--gray-80);
+    }
+  }
+
+  &__gray {
+    background: var(--gray-20);
+    color: var(--black);
+
+    &:hover {
+      background: var(--gray-40);
+    }
+  }
+}

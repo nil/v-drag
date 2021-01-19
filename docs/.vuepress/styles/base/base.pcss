@@ -1,0 +1,92 @@
+/* --- All elements ---------- */
+* {
+  padding: 0;
+  margin: 0;
+
+  border: 0;
+  outline: 0;
+
+
+  text-rendering: geometricPrecision;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+
+  box-sizing: border-box;
+  transition: all 200ms cubic-bezier(0.1, 0.7, 0.2, 1);
+}
+
+
+/* --- HTML & body ---------- */
+html {
+  font-size: 17px;
+}
+
+body {
+  background: var(--white);
+  color: var(--black);
+
+  font-family: var(--sans);
+  font-weight: 400;
+
+  cursor: default;
+  scroll-behavior: smooth;
+}
+
+
+/* --- Reduced motion ---------- */
+@media screen and (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    transition: none !important;
+  }
+}
+
+
+/* --- Links ---------- */
+a {
+  color: var(--black);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+/* --- Headings ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: ms(4)rem;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: ms(2)rem;
+}
+
+h3 {
+  font-size: ms(1)rem;
+}
+
+h4 {
+  font-size: ms(0)rem;
+}
+
+
+/* --- Paragraph ---------- */
+p {
+  margin-bottom: 16px;
+  line-height: 1.78;
+}
+
+
+/* --- Icon ---------- */
+.icon {
+  display: block;
+}

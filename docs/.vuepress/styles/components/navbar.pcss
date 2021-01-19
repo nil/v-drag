@@ -1,0 +1,64 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-30);
+
+  &--wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    height: 64px;
+  }
+
+  &--wordmark {
+    margin-top: 11px;
+    height: 37px;
+
+    fill: var(--accent-40);
+  }
+
+  &--version {
+    position: relative;
+    bottom: 9px;
+    margin-left: 7px;
+
+    font-size: ms(-1);
+
+    color: var(--gray-90);
+  }
+
+  &--links {
+    display: flex;
+  }
+
+  &--link {
+    width: 40px;
+    padding: 8px;
+
+    fill: var(--black);
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    &:hover {
+      background: var(--gray-30);
+      fill: var(--accent-50);
+    }
+  }
+
+  &--utilities {
+    display: flex;
+    align-items: center;
+    margin-right: 23px;
+  }
+
+  &--main {
+    font-size: 0;
+  }
+}

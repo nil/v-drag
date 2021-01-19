@@ -1,0 +1,25 @@
+:root {
+  --grid-gutter: 80px;
+  --grid-gutter_l: 64px;
+
+  --grid-margin: 64px;
+}
+
+/* --- General ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 80px;
+}
+
+
+/* --- Home & Navbar ---------- */
+.home--wrapper,
+.navbar--wrapper {
+  position: relative;
+
+  max-width: 1248px;
+  padding-left: var(--grid-margin);
+  padding-right: var(--grid-margin);
+  margin: auto;
+}
