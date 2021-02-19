@@ -6,6 +6,7 @@ import returnPositionString from '../utils/returnPositionString';
 import updateMousePosition from '../utils/updateMousePosition';
 
 export default function () {
+  if(!(window.data.grab && window.data.move)) return;
   // Stop move animation
   cancelAnimationFrame(window.data.posAnimation);
 
