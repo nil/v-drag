@@ -1,5 +1,6 @@
 import eventListener from '../utils/eventListener';
 import returnPositionString from '../utils/returnPositionString';
+import removeSelection from '../utils/removeSelection';
 
 export function updatePosition(x, y) {
   // Store relative coordinates
@@ -12,6 +13,8 @@ export function updatePosition(x, y) {
     window.data.matrixX + window.data.relativeX,
     window.data.matrixY + window.data.relativeY,
   );
+
+  removeSelection()
 }
 
 export const callPositionUpdate = {
