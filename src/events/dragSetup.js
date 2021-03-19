@@ -3,6 +3,7 @@ import dragEnd from './dragEnd';
 
 import isValidAxisValue from '../utils/isValidAxisValue';
 import eventListener from '../utils/eventListener';
+import {vueDragEnd} from '../utils/vueEvents';
 
 export default function (el, binding) {
   const value = binding.value;
@@ -44,4 +45,6 @@ export default function (el, binding) {
 
   // Add event to end drag
   eventListener(['mouseup', 'touchend'], dragEnd);
+  el.onmouseup = e => vueDragEnd(e, el)
+  el.ontouchend = e => vueDragEnd(e, el)
 }
