@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 20px; /* TODO: make responsive */
+  text-rendering: geometricPrecision;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+
+  cursor: default;
+}
+
+@layer components {
+  a {
+    @apply transition
+  }
+
+  .grid-basic {
+    @apply grid grid-cols-12 gap-x-s
+  }
+
+  .wrapper {
+    @apply max-w-[1312px] mx-auto px-xs sm:px-s md:px-m;
+  }
+}
