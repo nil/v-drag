@@ -72,6 +72,12 @@ module.exports = {
         xl: '128px',
         '2xl': '208px',
       },
+      borderWidth: {
+        DEFAULT: '1.5px',
+      },
+      borderRadius: {
+        DEFAULT: '6px',
+      },
     },
   },
 

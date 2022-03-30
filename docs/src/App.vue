@@ -4,7 +4,7 @@
     <LayoutHeader />
 
     <!-- QUICK START ----------------->
-    <main class="border-b-8 border-emerald-400 py-xl">
+    <main class="relative border-y-8 border-emerald-400 bg-gray-900 py-xl z-50">
       <div class="wrapper">
         <p>
           Quick start
