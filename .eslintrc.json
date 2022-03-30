@@ -1,5 +1,8 @@
 {
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/vue3-recommended"
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -7,9 +10,12 @@
   },
   "rules": {
     "func-names": 0,
-    "comma-dangle": ["error", "never"],
     "prefer-destructuring": 0,
     "no-param-reassign": ["error", { "props": false }],
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "vue/max-attributes-per-line": ["error", {
+      "singleline": 2,      
+      "multiline": 1
+    }]
   }
 }
