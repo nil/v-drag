@@ -11,8 +11,16 @@
   "rules": {
     "func-names": 0,
     "prefer-destructuring": 0,
+    "max-len": ["error", {
+      "code": 100,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+      "ignorePattern": "class=\""
+      }],
+    "import/no-unresolved": ["error", { "ignore": [ "@theme" ] }],
     "no-param-reassign": ["error", { "props": false }],
     "no-console": ["error", { "allow": ["warn", "error"] }],
+    "vue/multi-word-component-names": 0,
     "vue/max-attributes-per-line": ["error", {
       "singleline": 2,      
       "multiline": 1

@@ -5,7 +5,7 @@ import info from './package.json';
 
 const bannerText = `/*!
  * ${info.name} v${info.version}
- * by ${info.author}
+ * by ${info.author} and contributors
  */`;
 
 const pluginsList = [
@@ -13,9 +13,9 @@ const pluginsList = [
   commonjs(),
   terser({
     output: {
-      comments: /^!/
-    }
-  })
+      comments: /^!/,
+    },
+  }),
 ];
 
 export default [
@@ -25,9 +25,9 @@ export default [
       file: info.main,
       name: 'vdrag',
       format: 'cjs',
-      banner: bannerText
+      banner: bannerText,
     },
-    plugins: pluginsList
+    plugins: pluginsList,
   },
   {
     input: 'src/index.js',
@@ -35,9 +35,9 @@ export default [
       file: info.module,
       name: 'vdrag',
       format: 'esm',
-      banner: bannerText
+      banner: bannerText,
     },
-    plugins: pluginsList
+    plugins: pluginsList,
   },
   {
     input: 'src/index.js',
@@ -45,8 +45,8 @@ export default [
       file: info.unpkg,
       name: 'vdrag',
       format: 'iife',
-      banner: bannerText
+      banner: bannerText,
     },
-    plugins: pluginsList
-  }
+    plugins: pluginsList,
+  },
 ];
