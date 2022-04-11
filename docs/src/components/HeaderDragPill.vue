@@ -3,8 +3,8 @@
   <div
     ref="element"
     v-drag="{ axis: dragDirection }"
-    :style="{ backgroundColor: 'red', left: `${position[0]}px`, top: `${position[1]}px` }"
-    class="absolute flex w-[176px] h-[72px] rounded bg-gradient-to-b from-[#0F3038] to-[#0C242A] border border-[#124448] shadow-lg shadow-[#0F2029] text-emerald-200"
+    :style="{ left: `${position[0]}px`, top: `${position[1]}px` }"
+    class="absolute flex w-[176px] h-[72px] rounded bg-sky-50/20 bg-blur border border-white shadow-md text-sky-600"
   >
     <IconDragX v-if="dragDirection === 'x'" class="m-auto" />
     <IconDragY v-else-if="dragDirection === 'y'" class="m-auto" />

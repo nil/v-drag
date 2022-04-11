@@ -26,6 +26,10 @@ html {
   }
 
   .wrapper {
-    @apply max-w-[1312px] mx-auto px-xs sm:px-s md:px-m;
+    @apply max-w-[1312px] mx-auto px-[24px] sm:px-s md:px-m;
+  }
+
+  .bg-blur {
+    backdrop-filter: blur(20px);
   }
 }

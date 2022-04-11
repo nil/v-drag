@@ -6,8 +6,7 @@ module.exports = {
 
   theme: {
     fontFamily: {
-      display: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif'],
-      sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif'],
+      sans: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif'],
       mono: ['IBM Plex Mono', 'monospace'],
     },
     fontSize: {
@@ -56,11 +55,21 @@ module.exports = {
         lineHeight: '1.4',
       }],
     },
+    fontWeight: {
+      regular: 400,
+      bold: 600,
+    },
     transitionDuration: {
       DEFAULT: '150ms',
     },
     transitionTimingFunction: {
       DEFAULT: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    },
+    boxShadow: {
+      inset: 'inset 0px 2px 2px rgba(15, 23, 42, 0.03)',
+      DEFAULT: '0px 4px 2px rgba(15, 23, 42, 0.03)',
+      md: '0px 6px 12px rgba(15, 23, 42, 0.03)',
+      lg: '0px 6px 8px rgba(15, 23, 42, 0.1)',
     },
     extend: {
       spacing: {
