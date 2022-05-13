@@ -11,7 +11,7 @@ export default {
       usesHandle: 'drag-uses-handle',
       handle: 'drag-handle',
       down: 'drag-down',
-      move: 'drag-move'
+      move: 'drag-move',
     };
 
     // Replace default event classes with custom ones
@@ -32,12 +32,12 @@ export default {
     // Register 'v-drag' directive
     Vue.directive('drag', {
       // Add draggable configuration to element for the first time
-      inserted(el, binding) {
+      mounted(el, binding) {
         dragSetup(el, binding);
       },
 
       // Update the drag configuration
-      update(el, binding) {
+      updated(el, binding) {
         // Remove events from updated element
         el.onmousedown = null;
         el.ontouchstart = null;
@@ -60,7 +60,7 @@ export default {
 
         // Add draggable configuration to element
         dragSetup(el, binding);
-      }
+      },
     });
-  }
+  },
 };
