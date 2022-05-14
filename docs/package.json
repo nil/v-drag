@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist -m 'Website updates'"
+    "preview": "vite preview"
   },
   "dependencies": {
     "vue": "^3.2.25"
@@ -14,7 +13,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
     "autoprefixer": "^10.4.5",
-    "gh-pages": "^4.0.0",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.24",
     "vite": "^2.9.5"
