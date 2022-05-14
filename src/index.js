@@ -53,19 +53,29 @@ export default {
       move: 'drag-move',
     };
 
+    let removeTransition = true;
+
     // Replace default event classes with custom ones
     if (options) {
-      const classes = options.eventClass;
-      Object.keys(classes).forEach((key) => {
-        if (classes[key]) {
-          window.data.class[key] = classes[key];
-        }
-      });
+      if (options.eventClass) {
+        const classes = options.eventClass;
+
+        Object.keys(classes).forEach((key) => {
+          if (classes[key]) {
+            window.data.class[key] = classes[key];
+          }
+        });
+      }
+
+      if (typeof options.removeTransition === 'boolean') {
+        removeTransition = options.removeTransition;
+      }
     }
 
     // Create stylesheet with basic styling (position, z-index and cursors)
     const styleElement = document.createElement('style');
-    styleElement.innerHTML = `.${window.data.class.initial}{position:relative;}.${window.data.class.initial}:not(.${window.data.class.usesHandle}),.${window.data.class.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;}.${window.data.class.handle}.${window.data.class.down},.${window.data.class.initial}:not(.${window.data.class.usesHandle}).${window.data.class.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;}.${window.data.class.move}{transition:none;}`;
+    styleElement.innerHTML = `.${window.data.class.initial}{position:relative;}.${window.data.class.initial}:not(.${window.data.class.usesHandle}),.${window.data.class.handle}{cursor:move;cursor:grab;cursor:-webkit-grab;}.${window.data.class.handle}.${window.data.class.down},.${window.data.class.initial}:not(.${window.data.class.usesHandle}).${window.data.class.down}{z-index:999;cursor:grabbing;cursor:-webkit-grabbing;}`;
+    styleElement.innerHTML += removeTransition === true ? `.${window.data.class.move}{transition:none;}` : '';
     document.body.appendChild(styleElement);
 
     // Register 'v-drag' directive
