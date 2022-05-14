@@ -12,12 +12,15 @@ export function updatePosition(x, y) {
     window.data.matrixX + window.data.relativeX,
     window.data.matrixY + window.data.relativeY,
   );
+
+  // Remove text selection while dragging
+  (window.getSelection ? window.getSelection() : document.selection).empty();
 }
 
 export const callPositionUpdate = {
   x() { updatePosition(true, false); },
   y() { updatePosition(false, true); },
-  all() { updatePosition(true, true); }
+  all() { updatePosition(true, true); },
 };
 
 export function repeatRaf() {
