@@ -1,6 +1,7 @@
 import dragStart from './dragStart';
 import dragEnd from './dragEnd';
 
+import getSnappingValues from '../utils/getSnappingValues';
 import isValidAxisValue from '../utils/isValidAxisValue';
 import eventListener from '../utils/eventListener';
 import vueDragEvent from '../utils/vueDragEvent';
@@ -8,6 +9,7 @@ import vueDragEvent from '../utils/vueDragEvent';
 export default function (el, binding) {
   const value = binding.value;
   const handleSelector = value instanceof Object ? value.handle : value;
+  const snap = getSnappingValues(value.snap);
   let axis;
 
   // Update axis value
@@ -31,13 +33,13 @@ export default function (el, binding) {
       grabElement.classList.add(window.data.class.handle);
 
       // Add events to start drag with handle
-      grabElement.onmousedown = (e) => dragStart(grabElement, el, axis, e);
-      grabElement.ontouchstart = (e) => dragStart(grabElement, el, axis, e);
+      grabElement.onmousedown = (e) => dragStart(grabElement, el, axis, snap, e);
+      grabElement.ontouchstart = (e) => dragStart(grabElement, el, axis, snap, e);
     });
   } else {
     // Add events to start drag without handle
-    el.onmousedown = (e) => dragStart(el, el, axis, e);
-    el.ontouchstart = (e) => dragStart(el, el, axis, e);
+    el.onmousedown = (e) => dragStart(el, el, axis, snap, e);
+    el.ontouchstart = (e) => dragStart(el, el, axis, snap, e);
   }
 
   // Apply CSS classes to the element
