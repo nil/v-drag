@@ -17,7 +17,7 @@ export function updatePosition(x, y) {
 export const callPositionUpdate = {
   x() { updatePosition(true, false); },
   y() { updatePosition(false, true); },
-  all() { updatePosition(true, true); }
+  all() { updatePosition(true, true); },
 };
 
 export function repeatRaf() {

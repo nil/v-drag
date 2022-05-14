@@ -30,13 +30,13 @@ export default function (el, binding) {
       grabElement.classList.add(window.data.class.handle);
 
       // Add events to start drag with handle
-      grabElement.onmousedown = e => dragStart(grabElement, el, axis, e);
-      grabElement.ontouchstart = e => dragStart(grabElement, el, axis, e);
+      grabElement.onmousedown = (e) => dragStart(grabElement, el, axis, e);
+      grabElement.ontouchstart = (e) => dragStart(grabElement, el, axis, e);
     });
   } else {
     // Add events to start drag without handle
-    el.onmousedown = e => dragStart(el, el, axis, e);
-    el.ontouchstart = e => dragStart(el, el, axis, e);
+    el.onmousedown = (e) => dragStart(el, el, axis, e);
+    el.ontouchstart = (e) => dragStart(el, el, axis, e);
   }
 
   // Apply CSS classes to the element

@@ -6,7 +6,6 @@ import returnPositionString from '../utils/returnPositionString';
 import eventListener from '../utils/eventListener';
 import updateMousePosition from '../utils/updateMousePosition';
 
-
 export default function (grabElement, moveElement, axis, e) {
   // Store elements
   window.data.grab = grabElement;
@@ -41,7 +40,7 @@ export default function (grabElement, moveElement, axis, e) {
   moveElementTransform(
     returnPositionString(window.data.matrix, left, top),
     0,
-    0
+    0,
   );
 
   window.data.matrixX = left;
