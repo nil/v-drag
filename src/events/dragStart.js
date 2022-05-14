@@ -8,6 +8,8 @@ import updateMousePosition from '../utils/updateMousePosition';
 import vueDragEvent from '../utils/vueDragEvent';
 
 export default function (grabElement, moveElement, axis, snap, e) {
+  e.preventDefault();
+
   // Store elements
   window.data.grab = grabElement;
   window.data.move = moveElement;
