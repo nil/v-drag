@@ -1,5 +1,7 @@
 import dragSetup from './events/dragSetup';
 
+import vueDragEvent from './utils/vueDragEvent';
+
 // Add draggable configuration to element for the first time
 const mountedHook = (el, binding) => {
   dragSetup(el, binding);
@@ -25,6 +27,11 @@ const updatedHook = (el, binding) => {
     // Remove CSS classes related to the old handle
     oldHandle.classList.remove(window.data.class.handle);
     el.classList.remove(window.data.class.usesHandle);
+  });
+
+  // Vue event if anything is updated
+  Object.keys(binding.oldValue).forEach((key) => {
+    vueDragEvent(el, `update-${key}`);
   });
 
   // Add draggable configuration to element

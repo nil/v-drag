@@ -3,6 +3,7 @@ import dragEnd from './dragEnd';
 
 import isValidAxisValue from '../utils/isValidAxisValue';
 import eventListener from '../utils/eventListener';
+import vueDragEvent from '../utils/vueDragEvent';
 
 export default function (el, binding) {
   const value = binding.value;
@@ -30,17 +31,20 @@ export default function (el, binding) {
       grabElement.classList.add(window.data.class.handle);
 
       // Add events to start drag with handle
-      grabElement.onmousedown = e => dragStart(grabElement, el, axis, e);
-      grabElement.ontouchstart = e => dragStart(grabElement, el, axis, e);
+      grabElement.onmousedown = (e) => dragStart(grabElement, el, axis, e);
+      grabElement.ontouchstart = (e) => dragStart(grabElement, el, axis, e);
     });
   } else {
     // Add events to start drag without handle
-    el.onmousedown = e => dragStart(el, el, axis, e);
-    el.ontouchstart = e => dragStart(el, el, axis, e);
+    el.onmousedown = (e) => dragStart(el, el, axis, e);
+    el.ontouchstart = (e) => dragStart(el, el, axis, e);
   }
 
   // Apply CSS classes to the element
   el.classList.add(window.data.class.initial);
+
+  // Vue event on setup
+  vueDragEvent(el, 'setup');
 
   // Add event to end drag
   eventListener(['mouseup', 'touchend'], dragEnd);

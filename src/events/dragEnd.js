@@ -4,6 +4,7 @@ import eventListener from '../utils/eventListener';
 import moveElementTransform from '../utils/moveElementTransform';
 import returnPositionString from '../utils/returnPositionString';
 import updateMousePosition from '../utils/updateMousePosition';
+import vueDragEvent from '../utils/vueDragEvent';
 
 export default function () {
   // Prevent TypeError from showing
@@ -25,6 +26,9 @@ export default function () {
   // Remove CSS classes
   window.data.grab.classList.remove(window.data.class.down);
   window.data.move.classList.remove(window.data.class.move);
+
+  // Vue event on drag end
+  vueDragEvent(window.data.move, 'end');
 
   // Stop updating mouse position
   eventListener(['mousemove', 'touchmove'], updateMousePosition, 'remove');
