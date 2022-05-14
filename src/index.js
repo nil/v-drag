@@ -1,5 +1,37 @@
 import dragSetup from './events/dragSetup';
 
+// Add draggable configuration to element for the first time
+const mountedHook = (el, binding) => {
+  dragSetup(el, binding);
+};
+
+// Update the drag configuration
+const updatedHook = (el, binding) => {
+  // Remove events from updated element
+  el.onmousedown = null;
+  el.ontouchstart = null;
+
+  const handle = typeof binding.oldValue === 'object'
+    ? binding.oldValue.handle
+    : binding.oldValue;
+
+  const oldHandleArray = document.querySelectorAll(handle);
+
+  oldHandleArray.forEach((oldHandle) => {
+  // Remove events from the old handle
+    oldHandle.onmousedown = null;
+    oldHandle.ontouchstart = null;
+
+    // Remove CSS classes related to the old handle
+    oldHandle.classList.remove(window.data.class.handle);
+    el.classList.remove(window.data.class.usesHandle);
+  });
+
+  // Add draggable configuration to element
+  dragSetup(el, binding);
+};
+
+// Create custom directive
 export default {
   install(Vue, options) {
     // Initialize 'data' object
@@ -31,35 +63,22 @@ export default {
 
     // Register 'v-drag' directive
     Vue.directive('drag', {
-      // Add draggable configuration to element for the first time
+      // Hooks for Vue3
       mounted(el, binding) {
-        dragSetup(el, binding);
+        mountedHook(el, binding);
       },
 
-      // Update the drag configuration
       updated(el, binding) {
-        // Remove events from updated element
-        el.onmousedown = null;
-        el.ontouchstart = null;
+        updatedHook(el, binding);
+      },
 
-        const handle = typeof binding.oldValue === 'object'
-          ? binding.oldValue.handle
-          : binding.oldValue;
+      // Hooks for Vue2
+      inserted(el, binding) {
+        mountedHook(el, binding);
+      },
 
-        const oldHandleArray = document.querySelectorAll(handle);
-
-        oldHandleArray.forEach((oldHandle) => {
-          // Remove events from the old handle
-          oldHandle.onmousedown = null;
-          oldHandle.ontouchstart = null;
-
-          // Remove CSS classes related to the old handle
-          oldHandle.classList.remove(window.data.class.handle);
-          el.classList.remove(window.data.class.usesHandle);
-        });
-
-        // Add draggable configuration to element
-        dragSetup(el, binding);
+      update(el, binding) {
+        updatedHook(el, binding);
       },
     });
   },
