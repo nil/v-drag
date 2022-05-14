@@ -2,15 +2,12 @@
   "name": "v-drag",
   "version": "2.1.4",
   "description": "The simplest way to integrate drag on Vue.js",
-
   "scripts": {
     "build": "rollup --config"
   },
-
   "main": "dist/main.js",
   "module": "dist/module.js",
   "unpkg": "dist/browser.js",
-
   "keywords": [
     "vue",
     "vuejs",
@@ -29,11 +26,11 @@
   "bugs": {
     "url": "https://github.com/nil/v-drag/issues"
   },
-
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-vue": "^8.5.0",
     "rollup": "^2.9.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
