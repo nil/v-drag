@@ -114,3 +114,7 @@ exports
 *.cache
 build
 .strapi-updater.json
+
+
+vue2
+vue3
