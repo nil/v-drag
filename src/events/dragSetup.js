@@ -10,6 +10,7 @@ export default function (el, binding) {
   const value = binding.value;
   const handleSelector = value instanceof Object ? value.handle : value;
   const snap = getSnappingValues(value.snap);
+  const handleArray = [];
   let axis;
 
   // Update axis value
@@ -21,8 +22,17 @@ export default function (el, binding) {
     axis = 'all';
   }
 
-  // Handle is a class
-  const handleArray = document.querySelectorAll(handleSelector);
+  // Store all the DOM elements that will be used as handles.
+  // They can be declared using a string with a CSS tag, class or id, or using Vue refs.
+  if (handleSelector instanceof HTMLElement) {
+    handleArray.push(handleSelector);
+  } else {
+    console.warn(document.querySelectorAll(handleSelector));
+    // handleArray.push(document.querySelectorAll(handleSelector));
+    document.querySelectorAll(handleSelector).forEach((child) => {
+      handleArray.push(child);
+    });
+  }
 
   if (handleArray.length !== 0) {
     // Define move element and apply CSS class
