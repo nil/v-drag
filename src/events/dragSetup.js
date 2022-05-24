@@ -27,7 +27,6 @@ export default function (el, binding) {
   if (handleSelector instanceof HTMLElement) {
     handleArray.push(handleSelector);
   } else {
-    console.warn(document.querySelectorAll(handleSelector));
     // handleArray.push(document.querySelectorAll(handleSelector));
     document.querySelectorAll(handleSelector).forEach((child) => {
       handleArray.push(child);
