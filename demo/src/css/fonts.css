@@ -1,7 +1,0 @@
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-weight: 500;
-  src: url("../fonts/IBMPlexSans-Medium.woff2") format("woff2"),
-       url("../fonts/IBMPlexSans-Medium.woff") format("woff"),
-       url("../fonts/IBMPlexSans-Medium.ttf") format("truetype");
-}
