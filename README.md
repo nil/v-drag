@@ -8,6 +8,19 @@ Draggable elements are a common UX pattern, specially on touch screens. But as a
 [![Version](https://img.shields.io/npm/v/v-drag.svg)](https://www.npmjs.com/package/v-drag)
 [![License](https://img.shields.io/npm/l/v-drag.svg)](https://github.com/nil/v-drag/blob/master/LICENSE)
 
+## Table of contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Options](#options)
+  1. [Axis](#axis)
+  2. [Snap](#snap)
+  3. [Handle](#handle)
+4. [Vue events](#vue-events)
+5. [Global configuration](#global-configuration)
+  1. [Event classes](#event-classes)
+  2. [Remove transitions](#remove-transitions)
+
 ## Installation
 
 ```sh
