@@ -13,13 +13,13 @@ Draggable elements are a common UX pattern, specially on touch screens. But as a
 1. [Installation](#installation)
 2. [Usage](#usage)
 3. [Options](#options)
-  1. [Axis](#axis)
-  2. [Snap](#snap)
-  3. [Handle](#handle)
+    1. [Axis](#axis)
+    2. [Snap](#snap)
+    3. [Handle](#handle)
 4. [Vue events](#vue-events)
 5. [Global configuration](#global-configuration)
-  1. [Event classes](#event-classes)
-  2. [Remove transitions](#remove-transitions)
+    1. [Event classes](#event-classes)
+    2. [Remove transitions](#remove-transitions)
 
 ## Installation
 
