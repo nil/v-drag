@@ -1,24 +1,13 @@
 /* eslint no-undef: "off" */
 /* eslint import/extensions: "off" */
 
-import {
-  eMouse,
-  eTouch
-} from './event.js';
+import isValidAxisValue from '../utils/isValidAxisValue';
+import returnPositionString from '../utils/returnPositionString';
+import getTransformValue from '../utils/getTransformValue';
+import moveElementTransform from '../utils/moveElementTransform';
 
-import {
-  isValidAxisValue,
-  returnPositionString,
-  getTransformValue,
-  eventListener,
-  moveElementTransform,
-  updateMousePosition,
-
-  dragSetup,
-  dragStart,
-  dragEnd
-} from '../index.js';
-
+import dragSetup from '../events/dragSetup';
+import dragEnd from '../events/dragEnd';
 
 // Create element
 document.body.innerHTML = `
@@ -31,8 +20,6 @@ document.body.innerHTML = `
 const e1 = document.getElementById('e1');
 const e2 = document.getElementById('e2');
 const e3 = document.getElementById('e3');
-const e4 = document.getElementById('e4');
-
 
 /*
  * Set up dragging
@@ -153,7 +140,6 @@ describe('End dragging', () => {
     expect(result.movebElement.classList).not.toContain('drag-move');
   });
 });
-
 
 /*
  * Helpers
