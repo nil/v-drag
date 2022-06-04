@@ -2,7 +2,7 @@
 
 The simplest way to integrate drag on Vue.js.
 
-Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. Vue.js doesn’t help in this case, either. So to simplify things, v-drag was written. Its aim is to quickly integrate and customize draggable elements on projects using Vue.js.
+Draggable elements are a common UX pattern, specially on touch screens. But as a developer, you might know how challenging it is to apply it with JavaScript. So to simplify things, v-drag was written. Its aim is to quickly integrate and customize draggable elements on projects using Vue.js.
 
 [![Build status](https://travis-ci.org/nil/v-drag.svg?branch=master)](https://travis-ci.org/nil/v-drag)
 [![Dependencies status](https://img.shields.io/david/dev/nil/v-drag.svg)](https://david-dm.org/nil/v-drag)
@@ -19,7 +19,7 @@ v-drag’s source code is also available [uncompressed](https://raw.githubuserco
 
 ## Usage
 
-Import v-drag into any file you are planning to use it. You can use either import or require, although the first one is recommended as it’s part of the ES6 spec:
+Import v-drag into any file you are planning to use it:
 
 ```js
 import drag from "v-drag"
@@ -32,7 +32,9 @@ const drag = require("v-drag");
 Then call the v-drag plugin:
 
 ```js
-Vue.use(drag);
+Vue.use(drag, {
+  // global configuration
+});
 ```
 
 No extra setup is necessary at this point. Add the `v-drag` attribute to any element to make it draggable:
@@ -59,6 +61,7 @@ Constrains the element to move only in one direction: horizontal or vertical.
 
 **Values**
 
+- `all`: all directions `default`
 - `x`: horizontal movement
 - `y`: vertical movement
 
@@ -68,15 +71,30 @@ Constrains the element to move only in one direction: horizontal or vertical.
 <div v-drag:x>Horizontal</div>
 ```
 
+### Snap
+  
+When dragging, the element will snap to the specified grid. You can use either a number or a string with units.
+
+```html
+<div v-drag="{snap: 100}">Drag me in 100px increments</div>
+```
+
+Using an array, different values can be declared for each axis:
+
+```html
+<div vdrag="{snap: [10, 50]}">
+  Horizontal: 10px
+  Vertical: 50px
+</div>
+```
+
 ### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element, and each element can have more than one handle.
 
 **Values**
 
-Handle’s name must be a selector, the same used to refer to the element in CSS.
-
-***Note***: previously, handles were only declared with IDs, updating to v-drag `v2.1.0` or higher will mean you will also have to update the handle declarations, if you use them.
+Handle’s name must be a selector (the same used to refer to the element in CSS) or a Ref.
 
 **Shortcut**
 
@@ -85,7 +103,58 @@ Handle’s name must be a selector, the same used to refer to the element in CSS
 <div class="someElement">Drag me</div>
 ```
 
-## Event classes
+**Ref**
+
+To define handles using Refs, you must first set its value in `data` and replace it after the component is mounted:
+
+```html
+<template>
+  <div v-drag="{handle}">
+    Drag me using handle
+    <div ref="drag-handle">Handle</div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      handle: undefined,
+    }
+  },
+
+  mounted() {
+    this.$data.handle = this.$refs.dragHandle
+  }
+};
+
+</script>
+```
+
+## Vue events
+
+These events are emitted when the user makes the corresponding action.
+
+```html
+<div v-drag @v-drag-end="someFunction()">
+  Event on end
+</div>
+```
+
+| Event                   | Description                                                                |
+|-------------------------|----------------------------------------------------------------------------|
+| `@v-drag-setup`         | The component has completed the initial setup                              |
+| `@v-drag-start`         | The user has pressed the draggable element and its mouse or finger is down |
+| `@v-drag-moving`        | The user is moving the mouse or finger                                     |
+| `@v-drag-end`           | The user has released its mouse or finger                                  |
+| `@v-drag-update`        | Changes in the configuration of the draggable options                      |
+| `@v-drag-axis-update`   | The axis has been updated                                                  |
+| `@v-drag-handle-update` | The handle has been updated                                                |
+
+## Global configuration
+
+### Event classes
 
 v-drag uses CSS classes to add basic styling to the draggable elements. You can override one or multiple of the default classes when the plugin is called:
 
@@ -107,3 +176,15 @@ This are the default classes with its values:
 | `handle`    | `drag-handle`      | The element is the handle of another element 	|
 | `down`      | `drag-down`        | The user has pressed the element             	|
 | `move`      | `drag-move`        | The user has started to drag the element     	|
+
+### Remove transitions
+
+By default, v-drag removes all transition animations to keep the dragging as smooth as possible. However, if you want to enable them, you can:
+
+```js
+Vue.use(drag, {
+  eventClass: {
+    removeTransition: false // default: `true`
+  }
+});
+```
