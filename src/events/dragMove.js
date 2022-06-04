@@ -1,5 +1,7 @@
+import closestValueToSnap from '../utils/closestValueToSnap';
 import eventListener from '../utils/eventListener';
 import returnPositionString from '../utils/returnPositionString';
+import vueDragEvent from '../utils/vueDragEvent';
 
 export function updatePosition(x, y) {
   // Store relative coordinates
@@ -9,9 +11,12 @@ export function updatePosition(x, y) {
   // Apply transformation to move element
   window.data.move.style.transform = returnPositionString(
     window.data.matrix,
-    window.data.matrixX + window.data.relativeX,
-    window.data.matrixY + window.data.relativeY,
+    window.data.matrixX + closestValueToSnap(window.data.relativeX, 'x'),
+    window.data.matrixY + closestValueToSnap(window.data.relativeY, 'y'),
   );
+
+  // Vue event on drag moving
+  vueDragEvent(window.data.move, 'moving');
 
   // Remove text selection while dragging
   (window.getSelection ? window.getSelection() : document.selection).empty();
