@@ -4,13 +4,13 @@ import { createStore } from 'vuex';
 const store = createStore({
   state() {
     return {
-      count: 0,
+      axis: 'all',
     };
   },
 
   mutations: {
-    increment(state, number) {
-      state.count += number;
+    updateValue(state, n) {
+      state[n.property] = n.value;
     },
   },
 });
