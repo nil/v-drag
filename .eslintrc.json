@@ -21,9 +21,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "vue/multi-word-component-names": 0,
-    "vue/max-attributes-per-line": ["error", {
-      "singleline": 2,      
-      "multiline": 1
-    }]
+    "vue/max-attributes-per-line": 0,
+    "vue/require-default-prop": 0
   }
 }

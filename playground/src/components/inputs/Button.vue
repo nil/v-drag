@@ -1,7 +1,10 @@
 <template>
   <button
     type="button"
-    :class="{'active': $store.state[property] === value}"
+    :class="[
+      'h-m bg-white border border-slate-200 shadow',
+      `${$store.state[property] === value ? activeStyles : ''}`,
+    ]"
     @click="$store.commit('updateValue', { property, value })"
   >
     {{ label }}
@@ -14,23 +17,15 @@ export default {
   name: 'Button',
 
   props: {
-    label: {
-      type: String,
-      default: 'label',
-      required: false,
-    },
-    icon: {
-      type: String,
-      default: 'icon',
-      required: false,
-    },
-    property: {
-      type: String,
-      default: 'property',
-    },
-    value: {
-      type: String,
-      default: 'value',
+    label: String,
+    icon: String,
+    property: String,
+    value: String,
+  },
+
+  computed: {
+    activeStyles() {
+      return 'bg-lime-200 border-lime-400 text-green-900 fill-green-900 shadow-accent';
     },
   },
 };

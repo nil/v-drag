@@ -8,7 +8,7 @@ import ConfigBar from './ui/ConfigBar.vue';
 </script>
 
 <template>
-  <div class="flex h-full">
+  <div class="flex h-full font-sans text-s text-gray-900">
     <ConfigBar />
     <Preview
       msg="Hello Vue 3 + Vite"
