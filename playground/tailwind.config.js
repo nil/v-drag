@@ -4,9 +4,6 @@ module.exports = {
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
   theme: {
-    fontFamily: {
-      sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif'],
-    },
     fontSize: {
       '7xl': ['5.25rem', {
         letterSpacing: '-0.05em',
@@ -55,15 +52,15 @@ module.exports = {
     },
     extend: {
       spacing: {
-        '2xs': '8px',
-        xs: '16px',
-        s: '32px',
-        m: '48px',
-        l: '80px',
-        xl: '128px',
-        '2xl': '208px',
-        '3xl': '336px',
-        '4xl': '544px',
+        '2xs': '0.4rem',
+        xs: '0.8rem',
+        s: '1.6rem',
+        m: '2.4rem',
+        l: '4rem',
+        xl: '6.4rem',
+        '2xl': '10.4rem',
+        '3xl': '16.8rem',
+        '4xl': '27.2rem',
       },
     },
   },
