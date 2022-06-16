@@ -54,9 +54,11 @@ module.exports = {
       outer: '0px 1px 0px #F1F5F9',
       DEFAULT: '0px 1px 0px #F1F5F9, inset 0px 1px 0px #F8FAFC',
       accent: '0px 1px 0px #F1F5F9, inset 0px 1px 0px #ECFCCB',
+      lg: '0px 100px 80px rgba(15, 23, 42, 0.06), 0px 34.67px 24.12px rgba(15, 23, 42, 0.038), 0px 16.87px 10.02px rgba(15, 23, 42, 0.02), 0px 7.21px 3.62px rgba(15, 23, 42, 0.02)',
     },
     borderRadius: {
       DEFAULT: '5px',
+      lg: '8px',
     },
     extend: {
       spacing: {

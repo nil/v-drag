@@ -17,11 +17,14 @@
 .font-sans {
   font-family: 'Recursive', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif';
   font-variation-settings: "MONO" 0, "CASL" 0.15, "slnt" 0, "CRSV" 0.5;
+  /* TODO: font alternates are not working */
+  font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;
 }
 
 .font-mono: {
   font-family: 'Recursive', monospace;
   font-variation-settings: "MONO" 1, "CASL" 0.25, "slnt" 0, "CRSV" 0.5;
+  font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;
 }
 
 .font-bold {

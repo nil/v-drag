@@ -1,61 +1,25 @@
 <template>
-  <div class="flex-1 h-screen bg-gray-400">
-    <h1>
-      axis is: {{ $store.state.axis }}
-    </h1>
-
-    <Button
-      label="hello"
-      property="axis"
-      value="hello"
-    />
-
-    <Button
-      label="all"
-      property="axis"
-      value="all"
-    />
-
-    <Button
-      label="x"
-      property="axis"
-      value="x"
-    />
-
-    <Button
-      label="x"
-      property="axis"
-      value="y"
-    />
+  <div class="flex flex-1 h-screen bg-gray-400">
+    <div v-drag="dragConfig" class="flex w-4xl max-w-[75%] h-2xl max-h-[75%] m-auto bg-white rounded-lg shadow-lg">
+      <h2 class="m-auto text-l">
+        drag me!
+      </h2>
+    </div>
   </div>
 </template>
 
 <script>
-import Button from '../inputs/Button.vue';
 
 export default {
-  name: 'HelloWorld',
-  components: {
-    Button,
+  name: 'Preview',
+
+  computed: {
+    dragConfig() {
+      return {
+        axis: this.$store.state.axis,
+      };
+    },
   },
 };
 
 </script>
-
-<style scoped>
-a {
-  color: #42b983;
-}
-
-button {
-  display: block;
-  padding: 1em;
-  margin: 0.2em auto;
-  background: yellow;
-}
-
-button.active {
-  background: cyan;
-}
-
-</style>
