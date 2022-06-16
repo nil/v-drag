@@ -31,7 +31,14 @@
 
 /* --- Global ------------------ */
 * {
-  transition: all 200ms cubic-bezier(0.25, 1, 0.5, 1);
+  box-sizing: border-box;
+  transition: all 100ms cubic-bezier(0.25, 1, 0.5, 1), border-width 0s, padding-left 0s, padding-right 0s;
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none;
+  }
 }
 
 html {

@@ -8,8 +8,12 @@
       :value="value"
       :class="[
         'block px-[1px]',
-        `col-span-${Math.ceil(12 / values.length)}`,
-        { 'rounded-l': i === 0,
+        { 'col-span-1': closerNumber(values.length)[0] === 1,
+          'col-span-2': closerNumber(values.length)[0] === 2,
+          'col-span-3': closerNumber(values.length)[0] === 3,
+          'col-span-4': closerNumber(values.length)[0] === 4,
+          'col-span-6': closerNumber(values.length)[0] === 6,
+          'rounded-l': i === 0,
           'rounded-r': i === values.length - 1,
           'border-r-0 pl-0': noBorder(i, 'right'),
           'border-l-0 pr-0': noBorder(i, 'left'),
@@ -54,16 +58,14 @@ export default {
       // if side === 'right'
       return i !== values.length - 1;
     },
+
+    // Keeping this here as right now Tailwind
+    // doesn't recognise dynamically-generated classes
+    closerNumber(num) {
+      return [1, 2, 3, 4, 6].sort((a, b) => Math.abs((12 / num) - a) - Math.abs((12 / num) - b));
+    },
   },
 
 };
-
-/*
-  Keeping this here as right now Tailwind
-  doesn't recognise dynamically-generated classes
-
-  col-span-1, col-span-2, col-span-3, col-span-4, col-span-5, col-span-6,
-  col-span-7, col-span-8, col-span-9, col-span-10, col-span-11, col-span-12
-*/
 
 </script>

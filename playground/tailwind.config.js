@@ -52,8 +52,8 @@ module.exports = {
     },
     boxShadow: {
       outer: '0px 1px 0px #F1F5F9',
-      DEFAULT: '0px 1px 0px #F1F5F9, inset 0px 2px 0px #F8FAFC',
-      accent: '0px 1px 0px #F1F5F9, inset 0px 2px 0px #ECFCCB',
+      DEFAULT: '0px 1px 0px #F1F5F9, inset 0px 1px 0px #F8FAFC',
+      accent: '0px 1px 0px #F1F5F9, inset 0px 1px 0px #ECFCCB',
     },
     borderRadius: {
       DEFAULT: '5px',

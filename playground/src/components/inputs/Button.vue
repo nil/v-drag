@@ -3,7 +3,7 @@
     type="button"
     :class="[
       'h-m bg-white border border-slate-200 shadow',
-      `${$store.state[property] === value ? activeStyles : ''}`,
+      `${$store.state[property] === value ? activeStyles : 'hover:bg-slate-100'}`,
     ]"
     @click="$store.commit('updateValue', { property, value })"
   >
