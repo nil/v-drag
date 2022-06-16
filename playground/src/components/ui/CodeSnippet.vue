@@ -1,5 +1,5 @@
 <template>
-  <section class="flex-1  bg-white border-t border-slate-200 shadow">
+  <section class="bg-white border-t border-slate-200 shadow">
     <!-- Header --->
     <div class="flex items-center mx-s py-[0.7rem] border-b border-slate-200">
       <h2 class="flex-1 text-s font-bold">
