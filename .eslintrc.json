@@ -12,7 +12,7 @@
     "func-names": 0,
     "prefer-destructuring": 0,
     "max-len": ["error", {
-      "code": 100,
+      "code": 150,
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true,
       "ignorePattern": "class=\""
