@@ -3,7 +3,8 @@
   "version": "3.0.6",
   "description": "The simplest way to integrate drag on Vue.js",
   "scripts": {
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "test": "jest"
   },
   "main": "dist/main.js",
   "module": "dist/module.js",
@@ -28,10 +29,12 @@
     "url": "https://github.com/nil/v-drag/issues"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-vue": "^8.5.0",
+    "jest": "^28.1.1",
     "rollup": "^2.9.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
