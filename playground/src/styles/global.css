@@ -1,0 +1,53 @@
+/* --- Tailwind ------------------ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* --- Fonts ------------------ */
+@font-face {
+  font-family: 'Recursive';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('src/assets/Recursive_VF.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.font-sans {
+  font-family: 'Recursive', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Ubuntu', 'Roboto', 'Noto', 'Arial', 'sans-serif';
+  font-variation-settings: "wght" 380, "MONO" 0, "CASL" 0.15, "slnt" 0, "CRSV" 0.5;
+  /* TODO: font alternates are not working */
+  font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;
+}
+
+.font-mono {
+  font-family: 'Recursive', monospace;
+  font-variation-settings: "wght" 380, "MONO" 1, "CASL" 0.25, "slnt" 0, "CRSV" 0.5;
+  font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;
+}
+
+.font-bold {
+  font-variation-settings: "wght" 750;
+}
+
+button, input, optgroup, select, textarea {
+  font-variation-settings: "wght" 380, "MONO" 0, "CASL" 0.15, "slnt" 0, "CRSV" 0.5;
+}
+
+
+/* --- Global ------------------ */
+* {
+  box-sizing: border-box;
+  transition: all 100ms cubic-bezier(0.25, 1, 0.5, 1), border-width 0s, padding-left 0s, padding-right 0s;
+}
+
+@media (prefers-reduced-motion) {
+  * {
+    transition: none;
+  }
+}
+
+html {
+  font-size: 20px;
+}

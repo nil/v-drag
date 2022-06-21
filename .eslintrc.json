@@ -12,7 +12,7 @@
     "func-names": 0,
     "prefer-destructuring": 0,
     "max-len": ["error", {
-      "code": 100,
+      "code": 150,
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true,
       "ignorePattern": "class=\""
@@ -21,9 +21,7 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "vue/multi-word-component-names": 0,
-    "vue/max-attributes-per-line": ["error", {
-      "singleline": 2,      
-      "multiline": 1
-    }]
+    "vue/max-attributes-per-line": 0,
+    "vue/require-default-prop": 0
   }
 }
