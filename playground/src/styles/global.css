@@ -21,7 +21,7 @@
   font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;
 }
 
-.font-mono: {
+.font-mono {
   font-family: 'Recursive', monospace;
   font-variation-settings: "MONO" 1, "CASL" 0.25, "slnt" 0, "CRSV" 0.5;
   font-feature-settings: 'zero' on, 'ss02' on, 'ss03' on, 'ss08' on;

@@ -8,7 +8,7 @@
       <button
         type="button"
         :class="[
-          'flex p-2xs pr-xs fill-slate-900 text-slate-700 border border-slate-200 rounded shadow',
+          'flex p-2xs pr-xs text-xs fill-slate-900 text-slate-700 border border-slate-200 rounded shadow',
           {
             'bg-lime-200 border-lime-400 fill-green-900 text-green-900 shadow-accent': copyState === 'success',
             'bg-pink-200 border-pink-400 fill-red-900 text-red-900 shadow-accent': copyState === 'error',
@@ -17,9 +17,9 @@
         ]"
         @click="copyCode()"
       >
-        <CopyFile v-if="copyState === 'default'" class="mt-[0.2rem] ml-[0.2rem]" />
-        <Asterisk v-else-if="copyState === 'success'" class="mt-[0.2rem] ml-[0.2rem]" />
-        <WarningHex v-else class="mt-[0.2rem] ml-[0.2rem]" />
+        <CopyFile v-if="copyState === 'default'" class="mt-[0.1rem] ml-[0.2rem]" />
+        <Asterisk v-else-if="copyState === 'success'" class="mt-[0.1rem] ml-[0.2rem]" />
+        <WarningHex v-else class="mt-[0.1rem] ml-[0.2rem]" />
         <span class="ml-2xs">{{ copyButtonLabel }}</span>
       </button>
     </div>
