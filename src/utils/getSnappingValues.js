@@ -1,7 +1,8 @@
-// Return object even if it's a string (with or without units)
-function toNumber(value) {
-  const unmodifiedValue = typeof value === 'string' ? parseInt(value.replace(/px/g, ''), 10) : value;
-  return unmodifiedValue === 0 ? 1 : unmodifiedValue;
+// Return object even if it's a string (with or without units),
+// set 'force' to true to never return an undefined value
+function toNumber(input, force) {
+  const value = typeof input === 'string' ? parseInt(input.replace(/px/g, ''), 10) : input;
+  return (value === 0 || Number.isNaN(value) || (force && value === undefined)) ? 1 : value;
 }
 
 // Return many options to an object with x and y values
@@ -36,7 +37,7 @@ export default function (value) {
   if (Array.isArray(value)) {
     return {
       x: toNumber(value[0]) || 1,
-      y: toNumber(value[1]) !== undefined ? toNumber(value[1]) : toNumber(value[0]),
+      y: toNumber(value[1]) !== undefined ? toNumber(value[1], true) : toNumber(value[0], true),
     };
   }
 
