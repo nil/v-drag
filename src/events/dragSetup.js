@@ -7,7 +7,7 @@ import eventListener from '../utils/eventListener';
 import vueDragEvent from '../utils/vueDragEvent';
 
 export default function (el, binding) {
-  const value = binding.value;
+  const value = binding.value || {};
   const handleSelector = value instanceof Object ? value.handle : value;
   const snap = getSnappingValues(value.snap);
   const handleArray = [];
