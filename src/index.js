@@ -30,9 +30,12 @@ const updatedHook = (el, binding) => {
   });
 
   // Vue event if anything is updated
-  Object.keys(binding.oldValue).forEach((key) => {
-    vueDragEvent(el, `update-${key}`);
-  });
+  // binding.oldValue will be undefined when ref is used in setup
+  if (binding.oldValue) {
+    Object.keys(binding.oldValue).forEach((key) => {
+      vueDragEvent(el, `update-${key}`);
+    });
+  }
 
   // Add draggable configuration to element
   dragSetup(el, binding);
