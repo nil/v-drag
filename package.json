@@ -1,6 +1,6 @@
 {
   "name": "v-drag",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "The simplest way to integrate drag on Vue.js",
   "scripts": {
     "build": "rollup --config",
