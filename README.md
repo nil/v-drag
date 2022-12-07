@@ -109,6 +109,38 @@ You can toggle the dragging for each element. It does require a boolean.
 <div v-drag="{canDrag: false}">You can't drag me</div>
 ```
 
+### Width & Height
+
+If you need to set the default width and height for your elements you can do so with:
+
+You can either enter a number or a string. Both will work.
+
+```html
+<div v-drag="{size: { w: 100, h: 100 }}">I'm a 100x100 box</div>
+```
+
+### Position
+
+You can set the position of your elements.
+
+You can either enter a number or a string. Both will work.
+
+```html
+<div v-drag="{position: { top: 100, left: 100 }}">I will be positioned at top 100px left 100px</div>
+```
+
+### Restricting Draggable Area
+
+Your elments will be restricted to the parent you specified. If the user leaves the area the element will be resetted.
+
+To specify a parent simply add `draggable-parent` to the element of your choice.
+
+```html
+<div class="draggable-parent">
+  <component v-drag></component>
+</div>
+```
+
 ### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element, and each element can have more than one handle.
