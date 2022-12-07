@@ -5,7 +5,26 @@ import vueDragEvent from './utils/vueDragEvent';
 // Add draggable configuration to element for the first time
 const mountedHook = (el, binding) => {
   dragSetup(el, binding);
+
+  mountProperties(el, binding);
 };
+
+const mountProperties = (el, binding) => {
+  const value = binding.value || {};
+
+  const position = value.position ?? null;
+  const size = value.size ?? null;
+
+  if (position instanceof Object) {
+    el.style.top = typeof position.y === 'number' ? `${position.y}px` : position.y;
+    el.style.left = typeof position.x === 'number' ? `${position.x}px` : position.x;
+  }
+
+  if (size instanceof Object) {
+    el.style.width = typeof size.w === 'number' ? `${size.w}px` : size.w;
+    el.style.height = typeof size.h === 'number' ? `${size.h}px` : size.h;
+  }
+}
 
 // Update the drag configuration
 const updatedHook = (el, binding) => {

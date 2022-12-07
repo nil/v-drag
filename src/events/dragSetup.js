@@ -11,18 +11,6 @@ export default function (el, binding) {
   const handleSelector = value instanceof Object ? value.handle : value;
   const snap = getSnappingValues(value.snap);
   const canDrag = typeof value.canDrag === 'boolean' ? value.canDrag : true;
-  const position = value.position ?? null;
-  const size = value.size ?? null;
-
-  if (position instanceof Object) {
-    el.style.top = typeof position.y === 'number' ? `${position.y}px` : position.y;
-    el.style.left = typeof position.x === 'number' ? `${position.x}px` : position.x;
-  }
-
-  if (size instanceof Object) {
-    el.style.width = typeof size.w === 'number' ? `${size.w}px` : size.w;
-    el.style.height = typeof size.h === 'number' ? `${size.h}px` : size.h;
-  }
 
   if (!canDrag) {
     el.classList.add(window.data.class.initial, window.data.class.dragHandleDisable);
