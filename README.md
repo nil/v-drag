@@ -101,6 +101,14 @@ Using an array, different values can be declared for each axis:
 </div>
 ```
 
+### Toggle Dragging
+
+You can toggle the dragging for each element. It does require a boolean.
+
+```html
+<div v-drag="{canDrag: false}">You can't drag me</div>
+```
+
 ### Handle
 
 Informs that the element can only be dragged using another element, known as handle. It’s not necessary for the handle to be located inside the draggable element, and each element can have more than one handle.

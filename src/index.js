@@ -20,7 +20,7 @@ const updatedHook = (el, binding) => {
   const oldHandleArray = document.querySelectorAll(handle);
 
   oldHandleArray.forEach((oldHandle) => {
-  // Remove events from the old handle
+    // Remove events from the old handle
     oldHandle.onmousedown = null;
     oldHandle.ontouchstart = null;
 
@@ -53,6 +53,7 @@ export default {
       handle: 'drag-handle',
       down: 'drag-down',
       move: 'drag-move',
+      dragHandleDisable: 'drag-handle-disable'
     };
 
     let removeTransition = true;
