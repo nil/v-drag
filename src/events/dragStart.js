@@ -7,7 +7,7 @@ import eventListener from '../utils/eventListener';
 import updateMousePosition from '../utils/updateMousePosition';
 import vueDragEvent from '../utils/vueDragEvent';
 
-export default function (grabElement, moveElement, axis, snap, e) {
+export default function (grabElement, moveElement, options, e) {
   e.preventDefault();
 
   // Store elements
@@ -15,19 +15,22 @@ export default function (grabElement, moveElement, axis, snap, e) {
   window.data.move = moveElement;
 
   // Store axis
-  window.data.axis = axis;
+  window.data.axis = options.axis;
 
   // Store current mouse or touch position
-  window.data.initialX = e.pageX || e.touches[0].pageX;
-  window.data.initialY = e.pageY || e.touches[0].pageY;
+  window.data.initialX = e.pageX;
+  window.data.initialY = e.pageY;
 
   // Reset relative coordinates
   window.data.relativeX = 0;
   window.data.relativeY = 0;
 
   // Store snapping values
-  window.data.snapX = snap.x;
-  window.data.snapY = snap.y;
+  window.data.snapX = options.snap.x;
+  window.data.snapY = options.snap.y;
+
+  console.warn(options.axis);
+  // console.warn(window.data.axis);
 
   // Get transform string of the move element
   const matrix = window.getComputedStyle(window.data.move).transform;
@@ -40,8 +43,11 @@ export default function (grabElement, moveElement, axis, snap, e) {
   }
 
   // Apply transform to the move element
-  const left = getTransformValue(matrix, 'left');
-  const top = getTransformValue(matrix, 'top');
+  const elementsByCoordinates = ['rect', 'circle', 'text', 'ellipse', 'image', 'path'];
+  const leftProperty = elementsByCoordinates.includes(window.data.move.nodeName) ? 'x' : 'left';
+  const topProperty = elementsByCoordinates.includes(window.data.move.nodeName) ? 'y' : 'top';
+  const left = getTransformValue(matrix, leftProperty);
+  const top = getTransformValue(matrix, topProperty);
 
   // Replace left and top properties with transform
   moveElementTransform(
@@ -60,6 +66,6 @@ export default function (grabElement, moveElement, axis, snap, e) {
   vueDragEvent(moveElement, 'down');
 
   // Add events to move drag
-  eventListener(['mousemove', 'touchmove'], updateMousePosition);
-  eventListener(['mousemove', 'touchmove'], dragMove);
+  eventListener(['pointermove'], updateMousePosition);
+  eventListener(['pointermove'], dragMove);
 }

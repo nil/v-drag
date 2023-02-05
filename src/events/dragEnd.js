@@ -15,7 +15,7 @@ export default function () {
   cancelAnimationFrame(window.data.posAnimation);
 
   // Remove setUpMovement() if mouse/touch hasn't moved
-  eventListener(['mousemove', 'touchmove'], dragMove, 'remove');
+  eventListener(['pointermove'], dragMove, 'remove');
 
   // Replace transform properties with left and top
   moveElementTransform(
@@ -32,5 +32,5 @@ export default function () {
   vueDragEvent(window.data.move, 'end');
 
   // Stop updating mouse position
-  eventListener(['mousemove', 'touchmove'], updateMousePosition, 'remove');
+  eventListener(['pointermove'], updateMousePosition, 'remove');
 }

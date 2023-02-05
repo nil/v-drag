@@ -41,5 +41,5 @@ export default function setUpMovement() {
   window.data.posAnimation = requestAnimationFrame(repeatRaf);
 
   // Avoid this function to fire another time
-  eventListener(['mousemove', 'touchmove'], setUpMovement, 'remove');
+  eventListener(['pointermove'], setUpMovement, 'remove');
 }

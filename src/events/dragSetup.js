@@ -42,13 +42,11 @@ export default function (el, binding) {
       grabElement.classList.add(window.data.class.handle);
 
       // Add events to start drag with handle
-      grabElement.onmousedown = (e) => dragStart(grabElement, el, axis, snap, e);
-      grabElement.ontouchstart = (e) => dragStart(grabElement, el, axis, snap, e);
+      grabElement.onpointerdown = (e) => dragStart(grabElement, el, axis, snap, e);
     });
   } else {
     // Add events to start drag without handle
-    el.onmousedown = (e) => dragStart(el, el, axis, snap, e);
-    el.ontouchstart = (e) => dragStart(el, el, axis, snap, e);
+    el.onpointerdown = (e) => dragStart(el, el, axis, snap, e);
   }
 
   // Apply CSS classes to the element
@@ -58,5 +56,5 @@ export default function (el, binding) {
   vueDragEvent(el, 'setup');
 
   // Add event to end drag
-  eventListener(['mouseup', 'touchend'], dragEnd);
+  eventListener(['pointerup'], dragEnd);
 }
