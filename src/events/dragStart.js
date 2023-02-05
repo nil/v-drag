@@ -58,6 +58,7 @@ export default function (grabElement, moveElement, axis, snap, e) {
 
   // Vue event on drag down
   vueDragEvent(moveElement, 'down');
+  vueDragEvent(moveElement, 'start');
 
   // Add events to move drag
   eventListener(['mousemove', 'touchmove'], updateMousePosition);
