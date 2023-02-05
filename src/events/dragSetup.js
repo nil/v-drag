@@ -10,6 +10,18 @@ export default function (el, binding) {
   const value = binding.value || {};
   const handleSelector = value instanceof Object ? value.handle : value;
   const snap = getSnappingValues(value.snap);
+  const canDrag = typeof value.canDrag === 'boolean' ? value.canDrag : true;
+
+  if (!canDrag) {
+    el.classList.add(window.data.class.initial, window.data.class.dragHandleDisable);
+    return;
+  }
+
+  if (el.classList.contains(window.data.class.dragHandleDisable)) {
+    el.classList.remove(window.data.class.dragHandleDisable);
+  }
+
+
   const handleArray = [];
   let axis;
 

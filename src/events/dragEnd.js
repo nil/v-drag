@@ -24,6 +24,39 @@ export default function () {
     `${window.data.matrixY + closestValueToSnap(window.data.relativeY, 'y')}px`,
   );
 
+  const el = document.getElementsByClassName('draggable-parent');
+  if (el.length === 1) {
+    const firstEl = el[0];
+    const width = firstEl.clientWidth -
+      parseFloat(window.getComputedStyle(firstEl, null).getPropertyValue("padding-left")) -
+      parseFloat(window.getComputedStyle(firstEl, null).getPropertyValue("padding-right"));
+    const height = firstEl.clientHeight -
+      parseFloat(window.getComputedStyle(firstEl, null).getPropertyValue("padding-top")) -
+      parseFloat(window.getComputedStyle(firstEl, null).getPropertyValue("padding-bottom"));
+
+    const elWidth = parseFloat(window.data.move.offsetWidth);
+    const elHeight = parseFloat(window.data.move.offsetHeight);
+
+    const posX = +window.data.move.style.left.replace('px', '');
+    const posY = +window.data.move.style.top.replace('px', '');
+
+    if (posX < 0) {
+      window.data.move.style.left = '0px';
+    }
+
+    if (posY < 0) {
+      window.data.move.style.top = '0px';
+    }
+
+    if (posY > (height - elHeight)) {
+      window.data.move.style.top = `${(height - elHeight)}px`;
+    }
+
+    if (posX > (width - elWidth)) {
+      window.data.move.style.left = `${width - elWidth}px`;
+    }
+  }
+
   // Remove CSS classes
   window.data.grab.classList.remove(window.data.class.down);
   window.data.move.classList.remove(window.data.class.move);
