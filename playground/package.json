@@ -10,7 +10,7 @@
   "dependencies": {
     "@carbon/icons-vue": "^10.49.1",
     "@vitejs/plugin-vue": "^2.3.3",
-    "vite": "^2.9.13",
+    "vite": "^2.9.16",
     "vue": "^3.2.25",
     "vuex": "^4.0.2"
   },
